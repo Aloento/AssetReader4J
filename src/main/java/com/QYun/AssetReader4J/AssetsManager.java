@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class AssetsManager {
-
     public void loadFiles(ArrayList<File> files) {
         ImportHelper.mergeSplitAssets(files.get(0));
         files.removeIf(File -> File.getName().contains(".split"));
@@ -14,7 +13,15 @@ public class AssetsManager {
     }
 
     private void load(ArrayList<File> files) {
+        for (var file: files) {
+            loadFile(file);
+        }
+    }
 
+    private void loadFile(File file) {
+        switch () {
+
+        }
     }
 
 }

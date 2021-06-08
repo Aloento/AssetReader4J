@@ -47,4 +47,15 @@ public class ImportHelper {
             }
         }
     }
+
+    public enum FileType {
+        AssetsFile,
+        BundleFile,
+        WebFile,
+        ResourceFile
+    }
+
+    public static FileType CheckFileType(EndianBinaryReader reader) {
+
+    }
 }
