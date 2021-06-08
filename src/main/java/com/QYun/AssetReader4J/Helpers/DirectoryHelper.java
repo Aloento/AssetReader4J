@@ -2,6 +2,7 @@ package com.QYun.AssetReader4J.Helpers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class DirectoryHelper {
@@ -19,6 +20,8 @@ public class DirectoryHelper {
                     list.add(file);
             }
         }
+
+        list.sort(Comparator.comparing(File::getName));
     }
 
     public static boolean wildcardMatch(String pattern, String str) {
