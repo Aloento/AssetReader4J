@@ -1,10 +1,10 @@
-package com.QYun;
+package com.QYun.AssetReader4J;
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
