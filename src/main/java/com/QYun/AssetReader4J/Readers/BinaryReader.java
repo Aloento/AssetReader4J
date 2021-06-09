@@ -3,12 +3,10 @@ package com.QYun.AssetReader4J.Readers;
 import java.io.*;
 
 public class BinaryReader implements Closeable {
-    private static File file;
-    private static InputStream in;
-    private static DataInputStream dStream;
+    private InputStream in;
+    private DataInputStream dStream;
 
     public BinaryReader(File file){
-        BinaryReader.file = file;
         try {
             in = new FileInputStream(file);
             dStream = new DataInputStream(in);
@@ -17,7 +15,7 @@ public class BinaryReader implements Closeable {
         }
     }
 
-    public static int read(){
+    public int read(){
         int b = 0;
         try {
             b = dStream.read();
@@ -27,7 +25,7 @@ public class BinaryReader implements Closeable {
         return b;
     }
 
-    public static byte[] read(int length){
+    public byte[] read(int length){
         byte[] bs = new byte[length];
         byte[] rs = new byte[length];
         try {
@@ -39,7 +37,7 @@ public class BinaryReader implements Closeable {
         return rs;
     }
 
-    public static int readInt16(){
+    public int readInt16(){
         byte[] bs = new byte[2];
         int temp = 0;
         try {
@@ -51,7 +49,7 @@ public class BinaryReader implements Closeable {
         return temp;
     }
 
-    public static int readInt32(){
+    public int readInt32(){
         byte[] bs = new byte[4];
         int temp = 0;
         try {
@@ -63,7 +61,7 @@ public class BinaryReader implements Closeable {
         return temp;
     }
 
-    public static int ToInt16(byte[] b,int start){
+    public int ToInt16(byte[] b,int start){
         byte[] bs = new byte[2];
         int temp = 0;
         System.arraycopy(b, start, bs, 0, 2);
@@ -71,7 +69,7 @@ public class BinaryReader implements Closeable {
         return temp;
     }
 
-    public static int ToInt32(byte[] b,int start){
+    public int ToInt32(byte[] b,int start){
         byte[] bs = new byte[4];
         int temp = 0;
         System.arraycopy(b, start, bs, 0, 4);
@@ -79,7 +77,7 @@ public class BinaryReader implements Closeable {
         return temp;
     }
 
-    public static double readDouble(){
+    public double readDouble(){
         byte[] bs = new byte[8];
         double b = 0;
         try {
@@ -91,13 +89,13 @@ public class BinaryReader implements Closeable {
         return b;
     }
 
-    public static double ToDouble(byte[] b,int start){
+    public double ToDouble(byte[] b,int start){
         byte[] bs = new byte[8];
         System.arraycopy(b, start, bs, 0, 8);
         return HexUtil.byteArrayToDouble(bs, 0);
     }
 
-    public static double[] readDoubles(int length){
+    public double[] readDoubles(int length){
         byte[] bs = new byte[length*8];
         double[] d = new double[length];
         try {
@@ -109,7 +107,7 @@ public class BinaryReader implements Closeable {
         return d;
     }
 
-    public static float readFloat(){
+    public float readFloat(){
         byte[] bs = new byte[4];
         float f = 0;
         try {
@@ -121,14 +119,14 @@ public class BinaryReader implements Closeable {
         return f;
     }
 
-    public static float ToFloat(byte[] b,int start){
+    public float ToFloat(byte[] b,int start){
         byte[] bs = new byte[4];
         System.arraycopy(b, start, bs, 0, 4);
         float f = HexUtil.byteArrayToFloat(bs, 0, 0);
         return f;
     }
 
-    public static float[] readFloats(int length){
+    public float[] readFloats(int length){
         byte[] bs = new byte[length*4];
         float[] fs = new float[length];
         try {
@@ -144,7 +142,7 @@ public class BinaryReader implements Closeable {
         return fs;
     }
 
-    public static char readChar(){
+    public char readChar(){
         byte[] bs = new byte[1];
         char ch = 0;
         try {
@@ -156,7 +154,7 @@ public class BinaryReader implements Closeable {
         return ch;
     }
 
-    public static char[] readChars(int length){
+    public char[] readChars(int length){
         byte[] bs = new byte[length];
         char[] ch = new char[length];
         try {
@@ -168,7 +166,7 @@ public class BinaryReader implements Closeable {
         return ch;
     }
 
-    public static String readString(int length){
+    public String readString(int length){
         byte[] bs = new byte[length];
         String string = "";
         try {
@@ -180,7 +178,7 @@ public class BinaryReader implements Closeable {
         return string;
     }
 
-    public static String readDate(String format){
+    public String readDate(String format){
         byte[] bs = new byte[8];
         String time = "";
         double time_d = 0;
@@ -194,7 +192,7 @@ public class BinaryReader implements Closeable {
         return time;
     }
 
-    public static boolean ToBoolean(byte[] b,int start){
+    public boolean ToBoolean(byte[] b,int start){
         byte[] bs = new byte[4];
         System.arraycopy(b, start, bs, 0, 4);
         return HexUtil.byteArrayToBoolean(bs, 0);
