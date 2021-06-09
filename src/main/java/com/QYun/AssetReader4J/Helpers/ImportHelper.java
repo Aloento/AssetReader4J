@@ -13,7 +13,7 @@ public class ImportHelper {
 
     public static void mergeSplitAssets(File file, boolean subDirectories) {
         var splitFiles = new ArrayList<File>();
-        DirectoryHelper.findFiles(file.getParentFile(), "*.split0", splitFiles, subDirectories);
+        DirectoryHelper.findFiles(file.getAbsoluteFile().getParentFile(), "*.split0", splitFiles, subDirectories);
 
         for (var splitFile : splitFiles) {
             var destFile = splitFile.getName().replaceFirst("[.][^.]+$", "");
@@ -46,6 +46,16 @@ public class ImportHelper {
                 e.printStackTrace();
             }
         }
+    }
+
+    public enum FileType {
+        AssetsFile,
+        BundleFile,
+        WebFile,
+        ResourceFile
+    }
+
+    public static FileType CheckFileType(EndianBinaryReader reader) {
 
     }
 }
