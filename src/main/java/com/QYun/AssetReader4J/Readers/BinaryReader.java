@@ -3,13 +3,11 @@ package com.QYun.AssetReader4J.Readers;
 import java.io.*;
 
 public class BinaryReader implements Closeable {
-    private InputStream in;
     private DataInputStream dStream;
 
     public BinaryReader(File file){
         try {
-            in = new FileInputStream(file);
-            dStream = new DataInputStream(in);
+            dStream = new DataInputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -201,7 +199,6 @@ public class BinaryReader implements Closeable {
     public void close(){
         try {
             dStream.close();
-            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
