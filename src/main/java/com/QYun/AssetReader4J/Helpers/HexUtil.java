@@ -1,4 +1,4 @@
-package com.QYun.AssetReader4J.Readers;
+package com.QYun.AssetReader4J.Helpers;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

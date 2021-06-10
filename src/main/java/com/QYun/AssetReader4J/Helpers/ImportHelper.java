@@ -1,7 +1,5 @@
 package com.QYun.AssetReader4J.Helpers;
 
-import com.QYun.AssetReader4J.Readers.EndianBinaryReader;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,16 +46,5 @@ public class ImportHelper {
                 e.printStackTrace();
             }
         }
-    }
-
-    public enum FileType {
-        AssetsFile,
-        BundleFile,
-        WebFile,
-        ResourceFile
-    }
-
-    public static FileType CheckFileType(EndianBinaryReader reader) {
-        return null;
     }
 }
