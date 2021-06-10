@@ -1,9 +1,9 @@
 package com.QYun.AssetReader4J;
 
-import java.io.BufferedInputStream;
-import java.io.DataInput;
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.commons.io.EndianUtils;
+
+import java.io.*;
+import java.util.Objects;
 
 public class BufferedBinaryReader extends BufferedInputStream implements DataInput {
     private boolean isLittleEndian = false;
@@ -23,67 +23,113 @@ public class BufferedBinaryReader extends BufferedInputStream implements DataInp
 
     @Override
     public void readFully(byte[] b) throws IOException {
-
+        readFully(b, 0, b.length);
     }
 
     @Override
     public void readFully(byte[] b, int off, int len) throws IOException {
-
+        Objects.checkFromIndexSize(off, len, b.length);
+        int n = 0;
+        while (n < len) {
+            int count = read(b, off + n, len - n);
+            if (count < 0)
+                throw new EOFException();
+            n += count;
+        }
     }
 
     @Override
     public int skipBytes(int n) throws IOException {
-        return 0;
+        return (int) skip(n);
     }
 
     @Override
     public boolean readBoolean() throws IOException {
-        return false;
+        return 0 != readByte();
     }
 
     @Override
     public byte readByte() throws IOException {
-        return 0;
+        if (pos >= count)
+            throw new EOFException();
+        return (byte) read();
     }
 
     @Override
     public int readUnsignedByte() throws IOException {
-        return 0;
+        if (pos >= count)
+            throw new EOFException();
+        return read();
     }
 
     @Override
     public short readShort() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedShort(this);
+        }
+        int ch1 = readByte();
+        int ch2 = readByte();
+        return (short)((ch1 << 8) + ch2);
     }
 
     @Override
     public int readUnsignedShort() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedUnsignedShort(this);
+        }
+        int ch1 = readByte();
+        int ch2 = readByte();
+        return (ch1 << 8) + ch2;
     }
 
     @Override
     public char readChar() throws IOException {
-        return 0;
+        return (char) readShort();
     }
 
     @Override
     public int readInt() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedInteger(this);
+        }
+        int ch1 = in.read();
+        int ch2 = in.read();
+        int ch3 = in.read();
+        int ch4 = in.read();
+        return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + ch4);
     }
 
     @Override
     public long readLong() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedLong(this);
+        }
+        byte[] readBuffer = new byte[8];
+        readFully(readBuffer, 0, 8);
+        return (((long)readBuffer[0] << 56) +
+                ((long)(readBuffer[1] & 255) << 48) +
+                ((long)(readBuffer[2] & 255) << 40) +
+                ((long)(readBuffer[3] & 255) << 32) +
+                ((long)(readBuffer[4] & 255) << 24) +
+                ((readBuffer[5] & 255) << 16) +
+                ((readBuffer[6] & 255) <<  8) +
+                (readBuffer[7] & 255));
     }
 
     @Override
     public float readFloat() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedFloat(this);
+        }
+        return Float.intBitsToFloat(readInt());
     }
 
     @Override
     public double readDouble() throws IOException {
-        return 0;
+        if (isLittleEndian) {
+            return EndianUtils.readSwappedDouble(this);
+        }
+        return Double.longBitsToDouble(readLong());
     }
 
     @Override
@@ -93,6 +139,6 @@ public class BufferedBinaryReader extends BufferedInputStream implements DataInp
 
     @Override
     public String readUTF() throws IOException {
-        return null;
+        return "null";
     }
 }
