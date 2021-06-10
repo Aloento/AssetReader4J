@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Objects;
 
 public class BufferedBinaryReader extends BufferedInputStream implements DataInput {
-    private boolean isLittleEndian = false;
+    private boolean isLittleEndian;
 
     public BufferedBinaryReader(InputStream in, boolean isLittleEndian) {
         super(in);
@@ -50,15 +50,11 @@ public class BufferedBinaryReader extends BufferedInputStream implements DataInp
 
     @Override
     public byte readByte() throws IOException {
-        if (pos >= count)
-            throw new EOFException();
         return (byte) read();
     }
 
     @Override
     public int readUnsignedByte() throws IOException {
-        if (pos >= count)
-            throw new EOFException();
         return read();
     }
 
@@ -92,10 +88,10 @@ public class BufferedBinaryReader extends BufferedInputStream implements DataInp
         if (isLittleEndian) {
             return EndianUtils.readSwappedInteger(this);
         }
-        int ch1 = in.read();
-        int ch2 = in.read();
-        int ch3 = in.read();
-        int ch4 = in.read();
+        int ch1 = readByte();
+        int ch2 = readByte();
+        int ch3 = readByte();
+        int ch4 = readByte();
         return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + ch4);
     }
 
