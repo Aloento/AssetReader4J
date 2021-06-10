@@ -5,10 +5,10 @@ import org.apache.commons.io.EndianUtils;
 import java.io.*;
 import java.util.Objects;
 
-public class BufferedBinaryReader extends BufferedInputStream implements DataInput {
-    private boolean isLittleEndian;
+public class EndianBinaryReader extends BufferedInputStream implements DataInput {
+    private final boolean isLittleEndian;
 
-    public BufferedBinaryReader(InputStream in, boolean isLittleEndian) {
+    public EndianBinaryReader(InputStream in, boolean isLittleEndian) {
         super(in);
         this.isLittleEndian = isLittleEndian;
     }
