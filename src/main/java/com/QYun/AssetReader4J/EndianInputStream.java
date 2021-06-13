@@ -5,11 +5,13 @@ import org.apache.commons.io.EndianUtils;
 import java.io.*;
 import java.util.Objects;
 
-public class EndianBinaryReader extends BufferedInputStream implements DataInput {
+public abstract class EndianInputStream extends BufferedInputStream implements DataInput {
+    protected final long fileLen;
     private final boolean isLittleEndian;
 
-    public EndianBinaryReader(InputStream in, boolean isLittleEndian) {
-        super(in);
+    public EndianInputStream(File file, boolean isLittleEndian) throws FileNotFoundException {
+        super(new FileInputStream(file));
+        this.fileLen = file.length();
         this.isLittleEndian = isLittleEndian;
     }
 
@@ -53,6 +55,14 @@ public class EndianBinaryReader extends BufferedInputStream implements DataInput
         return (byte) read();
     }
 
+    public byte[] readBytes(int n) throws IOException {
+        var array = new byte[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = readByte();
+        }
+        return array;
+    }
+
     @Override
     public int readUnsignedByte() throws IOException {
         return read();
@@ -65,7 +75,7 @@ public class EndianBinaryReader extends BufferedInputStream implements DataInput
         }
         int ch1 = readByte();
         int ch2 = readByte();
-        return (short)((ch1 << 8) + ch2);
+        return (short) ((ch1 << 8) + ch2);
     }
 
     @Override
@@ -102,13 +112,13 @@ public class EndianBinaryReader extends BufferedInputStream implements DataInput
         }
         byte[] readBuffer = new byte[8];
         readFully(readBuffer, 0, 8);
-        return (((long)readBuffer[0] << 56) +
-                ((long)(readBuffer[1] & 255) << 48) +
-                ((long)(readBuffer[2] & 255) << 40) +
-                ((long)(readBuffer[3] & 255) << 32) +
-                ((long)(readBuffer[4] & 255) << 24) +
+        return (((long) readBuffer[0] << 56) +
+                ((long) (readBuffer[1] & 255) << 48) +
+                ((long) (readBuffer[2] & 255) << 40) +
+                ((long) (readBuffer[3] & 255) << 32) +
+                ((long) (readBuffer[4] & 255) << 24) +
                 ((readBuffer[5] & 255) << 16) +
-                ((readBuffer[6] & 255) <<  8) +
+                ((readBuffer[6] & 255) << 8) +
                 (readBuffer[7] & 255));
     }
 
