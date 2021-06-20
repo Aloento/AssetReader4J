@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class App {
-    public static AssetsManager manager = new AssetsManager();
     private static final ArrayList<File> files = new ArrayList<>();
+    public static AssetsManager manager = new AssetsManager();
 
     public static void main(String[] args) {
         System.out.println("Hello QYun.AssetReader4J!");

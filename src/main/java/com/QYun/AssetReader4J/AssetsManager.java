@@ -1,7 +1,6 @@
 package com.QYun.AssetReader4J;
 
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
-import com.QYun.AssetReader4J.Helpers.ImportHelper.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class AssetsManager {
     }
 
     private void load(ArrayList<File> files) {
-        for (var file: files) {
+        for (var file : files) {
             loadFile(file);
         }
     }

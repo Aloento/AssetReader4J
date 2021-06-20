@@ -2,9 +2,15 @@ package com.QYun.AssetReader4J.Helpers;
 
 import com.QYun.AssetReader4J.BinaryReader;
 import com.QYun.AssetReader4J.Entities.Enums.FileType;
+import com.QYun.AssetReader4J.SerializedFile;
+import com.QYun.AssetReader4J.WebFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ImportHelper {
     public static void mergeSplitAssets(File file) {
@@ -72,7 +78,19 @@ public class ImportHelper {
             default: {
                 var magic = reader.readBytes(2);
                 reader.setPos(0);
+                if (Arrays.equals(WebFile.gzipMagic, magic))
+                    return FileType.WebFile;
 
+                reader.setPos(0x20);
+                magic = reader.readBytes(6);
+                reader.setPos(0);
+                if (Arrays.equals(WebFile.brotliMagic, magic))
+                    return FileType.WebFile;
+
+                if (SerializedFile.isSerializedFile(reader))
+                    return FileType.AssetsFile;
+
+                return FileType.ResourceFile;
             }
         }
     }
