@@ -1,9 +1,8 @@
 package com.QYun.AssetReader4J;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector2f;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
+import com.QYun.AssetReader4J.Helpers.SupplierHelper;
+
+import javax.vecmath.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,4 +67,27 @@ public class BinaryReader extends EndianInputStream {
         return new Vector4f(readFloat(), readFloat(), readFloat(), readFloat());
     }
 
+    public Color4f readColor4() throws IOException {
+        return new Color4f(readFloat(), readFloat(), readFloat(), readFloat());
+    }
+
+    public Matrix4f readMatrix() throws IOException {
+        return new Matrix4f(readSingleArray(16));
+    }
+
+    public float[] readSingleArray(int length) throws IOException {
+        SupplierHelper<float> readFloat = this::readFloat;
+        var a = new ArrayHelper<float>();
+        return a.readArray(readFloat, new float[length]);
+    }
 }
+
+class ArrayHelper<T> {
+    T[] readArray(SupplierHelper<T> del, T[] array) throws IOException {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = del.get();
+        }
+        return array;
+    }
+}
+
