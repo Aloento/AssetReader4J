@@ -1,5 +1,9 @@
 package com.QYun.AssetReader4J;
 
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector2f;
+import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,5 +52,20 @@ public class BinaryReader extends EndianInputStream {
         return bytes.toString(StandardCharsets.UTF_8);
     }
 
+    public Quat4f readQuaternion() throws IOException {
+        return new Quat4f(readFloat(), readFloat(), readFloat(), readFloat());
+    }
+
+    public Vector2f readVector2() throws IOException {
+        return new Vector2f(readFloat(), readFloat());
+    }
+
+    public Vector3f readVector3() throws IOException {
+        return new Vector3f(readFloat(), readFloat(), readFloat());
+    }
+
+    public Vector4f readVector4() throws IOException {
+        return new Vector4f(readFloat(), readFloat(), readFloat(), readFloat());
+    }
 
 }
