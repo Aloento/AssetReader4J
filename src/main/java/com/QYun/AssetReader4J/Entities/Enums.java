@@ -5,7 +5,8 @@ public class Enums {
         AssetsFile,
         BundleFile,
         WebFile,
-        ResourceFile
+        ResourceFile,
+        Null
     }
 
     public static FileType CheckFileType() {

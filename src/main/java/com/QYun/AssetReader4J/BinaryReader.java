@@ -70,6 +70,6 @@ public class BinaryReader extends EndianInputStream {
     }
 
     public Matrix4f readMatrix() throws IOException {
-        return new Matrix4f(readFloatArray(16));
+        return new Matrix4f(readFloats(16));
     }
 }

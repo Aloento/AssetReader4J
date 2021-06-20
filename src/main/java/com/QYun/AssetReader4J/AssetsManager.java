@@ -1,6 +1,7 @@
 package com.QYun.AssetReader4J;
 
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
+import com.QYun.AssetReader4J.Helpers.ImportHelper.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,9 +20,10 @@ public class AssetsManager {
     }
 
     private void loadFile(File file) {
-        // switch () {
-        //
-        // }
+        BinaryReader reader = null;
+        switch (ImportHelper.checkFileType(file, reader)) {
+
+        }
     }
 
 }

@@ -1,9 +1,9 @@
 package com.QYun.AssetReader4J.Helpers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.QYun.AssetReader4J.BinaryReader;
+import com.QYun.AssetReader4J.Entities.Enums.FileType;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class ImportHelper {
@@ -44,6 +44,35 @@ public class ImportHelper {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public static FileType checkFileType(File file, BinaryReader reader) {
+        try {
+            reader = new BinaryReader(file, false);
+            return checkFileType(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return FileType.Null;
+        }
+    }
+
+    private static FileType checkFileType(BinaryReader reader) throws IOException {
+        var signature = reader.readStringToNull(20);
+        reader.setPos(0);
+        switch (signature) {
+            case "UnityWeb":
+            case "UnityRaw":
+            case "UnityArchive":
+            case "UnityFS":
+                return FileType.BundleFile;
+            case "UnityWebData1.0":
+                return FileType.WebFile;
+            default: {
+                var magic = reader.readBytes(2);
+                reader.setPos(0);
+
             }
         }
     }
