@@ -15,14 +15,6 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
         this.isLittleEndian = isLittleEndian;
     }
 
-    public int getPos() {
-        return pos;
-    }
-
-    public void setPos(int pos) {
-        this.pos = pos;
-    }
-
     @Override
     public void readFully(byte[] b) throws IOException {
         readFully(b, 0, b.length);
@@ -130,6 +122,14 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
         return Float.intBitsToFloat(readInt());
     }
 
+    public float[] readFloatArray(int length) throws IOException {
+        float[] array = new float[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = readFloat();
+        }
+        return array;
+    }
+
     @Override
     public double readDouble() throws IOException {
         if (isLittleEndian) {
@@ -139,12 +139,12 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
     }
 
     @Override
-    public String readLine() throws IOException {
+    public String readLine() {
         return null;
     }
 
     @Override
-    public String readUTF() throws IOException {
+    public String readUTF() {
         return "null";
     }
 }

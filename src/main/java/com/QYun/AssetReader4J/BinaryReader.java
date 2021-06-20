@@ -69,11 +69,7 @@ public class BinaryReader extends EndianInputStream {
         return new Color4f(readFloat(), readFloat(), readFloat(), readFloat());
     }
 
-    public Matrix4f readMatrix() {
-        return new Matrix4f(readSingleArray(16));
-    }
-
-    public float[] readSingleArray(int length) {
-
+    public Matrix4f readMatrix() throws IOException {
+        return new Matrix4f(readFloatArray(16));
     }
 }
