@@ -11,12 +11,10 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Hello QYun.AssetReader4J!");
         files.add(new File("src/main/resources/char_1012_skadi2.ab"));
-        Thread.startVirtualThread(() -> {
-            try {
-                manager.loadFiles(files);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            manager.loadFiles(files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
