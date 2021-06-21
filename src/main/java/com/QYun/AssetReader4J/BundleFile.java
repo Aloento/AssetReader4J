@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public class BundleFile {
     public Header m_Header = new Header();
+    private StorageBlock[] m_BlocksInfo;
+    private Node[] m_DirectoryInfo;
 
     public BundleFile(BinaryReader reader, File file) throws IOException {
         m_Header.signature = reader.readStringToNull();
@@ -78,8 +80,29 @@ public class BundleFile {
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
 
-        BinaryReader blocksInfoReader = new BinaryReader(blocksInfoUncompressedStream, false);
+        var blocksInfoReader = new BinaryReader(blocksInfoUncompressedStream, false);
+        byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
 
+        int blocksInfoCount = blocksInfoReader.readInt();
+        m_BlocksInfo = new StorageBlock[blocksInfoCount];
+        for (int i = 0; i < blocksInfoCount; i++) {
+            var tmp = new StorageBlock();
+            tmp.uncompressedSize = blocksInfoReader.readInt();
+            tmp.compressedSize = blocksInfoReader.readInt();
+            tmp.flags = blocksInfoReader.readShort();
+            m_BlocksInfo[i] = tmp;
+        }
+
+        var nodesCount = blocksInfoReader.readInt();
+        m_DirectoryInfo = new Node[nodesCount];
+        for (int i = 0; i < nodesCount; i++) {
+            var tmp = new Node();
+            tmp.offset = blocksInfoReader.readLong();
+            tmp.size = blocksInfoReader.readLong();
+            tmp.flags = blocksInfoReader.readInt();
+            tmp.path = blocksInfoReader.readStringToNull();
+            m_DirectoryInfo[i] = tmp;
+        }
     }
 
     public class Header {
