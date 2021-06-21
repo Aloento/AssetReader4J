@@ -23,6 +23,7 @@ public class Decoder {
     int m_DictionarySize = -1;
     int m_DictionarySizeCheck = -1;
     int m_PosStateMask;
+
     public Decoder() {
         for (int i = 0; i < Base.kNumLenToPosStates; i++)
             m_PosSlotDecoder[i] = new BitTreeDecoder(Base.kNumPosSlotBits);

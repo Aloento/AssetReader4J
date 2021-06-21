@@ -6,13 +6,11 @@ import java.io.*;
 import java.util.Objects;
 
 public abstract class EndianInputStream extends BufferedInputStream implements DataInput {
-    protected final long fileLen;
     private final boolean isLittleEndian;
 
-    public EndianInputStream(File file, boolean isLittleEndian) throws FileNotFoundException {
-        super(new FileInputStream(file));
+    public EndianInputStream(InputStream inputStream, boolean isLittleEndian) {
+        super(inputStream);
         mark(Integer.MAX_VALUE);
-        this.fileLen = file.length();
         this.isLittleEndian = isLittleEndian;
     }
 

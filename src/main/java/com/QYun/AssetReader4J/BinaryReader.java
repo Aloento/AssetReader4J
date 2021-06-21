@@ -1,15 +1,19 @@
 package com.QYun.AssetReader4J;
 
 import javax.vecmath.*;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class BinaryReader extends EndianInputStream {
-    public BinaryReader(File file, boolean isLittleEndian) throws FileNotFoundException {
-        super(file, isLittleEndian);
+    final long fileLen;
+
+    public BinaryReader(File file, boolean isLittleEndian) throws IOException {
+        this(new FileInputStream(file), isLittleEndian);
+    }
+
+    public BinaryReader(InputStream inputStream, boolean isLittleEndian) throws IOException {
+        super(inputStream, isLittleEndian);
+        fileLen = inputStream.available();
     }
 
     public void alignStream() {

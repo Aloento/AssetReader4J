@@ -2,13 +2,11 @@ package com.QYun.AssetReader4J;
 
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
 import net.jpountz.lz4.LZ4Factory;
-import net.jpountz.lz4.LZ4FastDecompressor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 
 public class BundleFile {
     public Header m_Header = new Header();
@@ -79,6 +77,8 @@ public class BundleFile {
             }
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
+
+        BinaryReader blocksInfoReader = new BinaryReader(blocksInfoUncompressedStream, false);
 
     }
 
