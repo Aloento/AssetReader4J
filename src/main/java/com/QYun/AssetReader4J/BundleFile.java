@@ -23,7 +23,7 @@ public class BundleFile {
         }
     }
 
-    private void handleFS(BinaryReader reader, File file) {
+    private void handleFS(BinaryReader reader, File file) throws IOException {
         readHeader(reader);
         readBlocksInfoAndDirectory(reader);
         blocksStream = createBlocksStream(file);
@@ -31,13 +31,27 @@ public class BundleFile {
         readFiles(blocksStream, file);
     }
 
-    private void readHeader(BinaryReader reader) {
+    private void readHeader(BinaryReader reader) throws IOException {
+        m_Header.size = reader.readLong();
+        m_Header.compressedBlocksInfoSize = reader.readInt();
+        m_Header.uncompressedBlocksInfoSize = reader.readInt();
+        m_Header.flags = reader.readInt();
+        if (!m_Header.signature.equals("UnityFS"))
+            reader.readByte();
     }
 
     private void readBlocksInfoAndDirectory(BinaryReader reader) {
+        byte[] blocksInfoBytes;
+        if (m_Header.version >= 7)
+            reader.alignStream(16);
+
+        if ((m_Header.flags & 0x80) != 0) {
+            reader.setPos((int) (reader.fileLen - m_Header.compressedBlocksInfoSize));
+
+        }
     }
 
-    private Object createBlocksStream(File file) {
+    private createBlocksStream(File file) {
     }
 
     public class Header {

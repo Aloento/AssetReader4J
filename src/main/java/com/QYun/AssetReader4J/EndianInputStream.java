@@ -11,6 +11,7 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
 
     public EndianInputStream(File file, boolean isLittleEndian) throws FileNotFoundException {
         super(new FileInputStream(file));
+        markpos = pos;
         this.fileLen = file.length();
         this.isLittleEndian = isLittleEndian;
     }

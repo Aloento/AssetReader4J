@@ -56,7 +56,7 @@ public class ImportHelper {
 
     public static FileType checkFileType(BinaryReader reader) throws IOException {
         var signature = reader.readStringToNull(20);
-        reader.setPos(0);
+        reader.reset();
         switch (signature) {
             case "UnityWeb":
             case "UnityRaw":
@@ -67,13 +67,13 @@ public class ImportHelper {
                 return FileType.WebFile;
             default: {
                 var magic = reader.readBytes(2);
-                reader.setPos(0);
+                reader.reset();
                 if (Arrays.equals(WebFile.gzipMagic, magic))
                     return FileType.WebFile;
 
                 reader.setPos(0x20);
                 magic = reader.readBytes(6);
-                reader.setPos(0);
+                reader.reset();
                 if (Arrays.equals(WebFile.brotliMagic, magic))
                     return FileType.WebFile;
 

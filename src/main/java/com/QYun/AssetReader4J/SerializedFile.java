@@ -24,11 +24,11 @@ public class SerializedFile {
                 m_DataOffset = reader.readLong();
             }
             if (m_FileSize != reader.fileLen || m_DataOffset > reader.fileLen) {
-                reader.setPos(0);
+                reader.reset();
                 return false;
             }
 
-            reader.setPos(0);
+            reader.reset();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
