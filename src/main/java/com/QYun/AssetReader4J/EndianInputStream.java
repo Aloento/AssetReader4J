@@ -52,7 +52,10 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
 
     @Override
     public byte readByte() throws IOException {
-        return (byte) read();
+        byte b = (byte) read();
+        if (b == -1)
+            throw new EOFException();
+        return b;
     }
 
     public byte[] readBytes(int n) throws IOException {
@@ -130,9 +133,9 @@ public abstract class EndianInputStream extends BufferedInputStream implements D
         return Float.intBitsToFloat(readInt());
     }
 
-    public float[] readFloats(int length) throws IOException {
-        float[] array = new float[length];
-        for (int i = 0; i < length; i++) {
+    public float[] readFloats(int n) throws IOException {
+        float[] array = new float[n];
+        for (int i = 0; i < n; i++) {
             array[i] = readFloat();
         }
         return array;

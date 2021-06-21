@@ -10,7 +10,6 @@ public class Enums {
         BundleFile,
         WebFile,
         ResourceFile,
-        Null
     }
 
 }
