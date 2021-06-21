@@ -3,10 +3,7 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
 import net.jpountz.lz4.LZ4Factory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class BundleFile {
     public Header m_Header = new Header();
@@ -30,15 +27,31 @@ public class BundleFile {
         }
     }
 
-    private createBlocksStream(File file) {
-    }
-
     private void handleFS(BinaryReader reader, File file) throws IOException {
         readHeader(reader);
         readBlocksInfoAndDirectory(reader);
-        blocksStream = createBlocksStream(file);
+        OutputStream blocksStream = createBlocksStream();
         readBlocks(reader, blocksStream);
         readFiles(blocksStream, file);
+    }
+
+    private void readBlocks(BinaryReader reader, OutputStream blocksStream) throws IOException {
+        for (var blockInfo: m_BlocksInfo) {
+            switch (blockInfo.flags & 0x3F) {
+                case 1 -> SevenZipHelper.streamDecompress(reader, blocksStream, blockInfo.uncompressedSize);
+
+            }
+        }
+    }
+
+    private void readFiles(OutputStream blocksStream, File file) {
+    }
+
+    private ByteArrayOutputStream createBlocksStream() {
+        int uncompressedSizeSum = 0;
+        for (var blocksInfo : m_BlocksInfo)
+            uncompressedSizeSum += blocksInfo.uncompressedSize;
+        return new ByteArrayOutputStream(uncompressedSizeSum);
     }
 
     private void readHeader(BinaryReader reader) throws IOException {
