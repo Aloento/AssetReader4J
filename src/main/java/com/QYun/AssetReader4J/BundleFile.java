@@ -2,6 +2,7 @@ package com.QYun.AssetReader4J;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class BundleFile {
     public Header m_Header = new Header();
@@ -23,6 +24,9 @@ public class BundleFile {
         }
     }
 
+    private createBlocksStream(File file) {
+    }
+
     private void handleFS(BinaryReader reader, File file) throws IOException {
         readHeader(reader);
         readBlocksInfoAndDirectory(reader);
@@ -40,18 +44,29 @@ public class BundleFile {
             reader.readByte();
     }
 
-    private void readBlocksInfoAndDirectory(BinaryReader reader) {
+    private void readBlocksInfoAndDirectory(BinaryReader reader) throws IOException {
         byte[] blocksInfoBytes;
         if (m_Header.version >= 7)
             reader.alignStream(16);
 
         if ((m_Header.flags & 0x80) != 0) {
+            int position = reader.getPos();
             reader.setPos((int) (reader.fileLen - m_Header.compressedBlocksInfoSize));
+            blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
+            reader.setPos(position);
+        } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
 
+        ByteBuffer blocksInfoCompressedStream = ByteBuffer.wrap(blocksInfoBytes);
+        ByteBuffer blocksInfoUncompressedStream;
+
+        switch (m_Header.flags & 0x3F) {
+            case 1 -> {
+                blocksInfoUncompressedStream = ByteBuffer.allocate(m_Header.uncompressedBlocksInfoSize);
+
+            }
+            default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
-    }
 
-    private createBlocksStream(File file) {
     }
 
     public class Header {
