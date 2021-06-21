@@ -3,7 +3,7 @@ package com.QYun.AssetReader4J;
 import java.io.IOException;
 
 public class SerializedFile {
-    public static boolean isSerializedFile(BinaryReader reader) {
+    public static boolean isSerializedFile(BinaryStream reader) {
         try {
             if (reader.fileLen < 20)
                 return false;

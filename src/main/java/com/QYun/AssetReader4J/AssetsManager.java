@@ -23,7 +23,7 @@ public class AssetsManager {
     }
 
     private void loadFile(File file) throws IOException {
-        BinaryReader reader = new BinaryReader(file, false);
+        BinaryStream reader = new BinaryStream(file, false);
         switch (ImportHelper.checkFileType(reader)) {
             case AssetsFile -> LoadAssetsFile(file, reader);
             case BundleFile -> LoadBundleFile(file, reader);
@@ -31,17 +31,17 @@ public class AssetsManager {
         }
     }
 
-    private void LoadAssetsFile(File file, BinaryReader reader) {
+    private void LoadAssetsFile(File file, BinaryStream reader) {
         if (!assetsFileListHash.contains(file)) {
 
         }
     }
 
-    private void LoadBundleFile(File file, BinaryReader reader) {
+    private void LoadBundleFile(File file, BinaryStream reader) {
 
     }
 
-    private void LoadWebFile(File file, BinaryReader reader) {
+    private void LoadWebFile(File file, BinaryStream reader) {
     }
 
 }

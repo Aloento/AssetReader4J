@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Helpers;
 
-import com.QYun.AssetReader4J.BinaryReader;
+import com.QYun.AssetReader4J.BinaryStream;
 import com.QYun.AssetReader4J.Entities.Enums.FileType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.AssetReader4J.WebFile;
@@ -54,7 +54,7 @@ public class ImportHelper {
         }
     }
 
-    public static FileType checkFileType(BinaryReader reader) throws IOException {
+    public static FileType checkFileType(BinaryStream reader) throws IOException {
         var signature = reader.readStringToNull(20);
         reader.reset();
         switch (signature) {

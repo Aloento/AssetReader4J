@@ -4,14 +4,14 @@ import javax.vecmath.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class BinaryReader extends EndianInputStream {
+public class BinaryStream extends EndianInputStream {
     final long fileLen;
 
-    public BinaryReader(File file, boolean isLittleEndian) throws IOException {
+    public BinaryStream(File file, boolean isLittleEndian) throws IOException {
         this(new FileInputStream(file), isLittleEndian);
     }
 
-    public BinaryReader(InputStream inputStream, boolean isLittleEndian) throws IOException {
+    public BinaryStream(InputStream inputStream, boolean isLittleEndian) throws IOException {
         super(inputStream, isLittleEndian);
         fileLen = inputStream.available();
     }
