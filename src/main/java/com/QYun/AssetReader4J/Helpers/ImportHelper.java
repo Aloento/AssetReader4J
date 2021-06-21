@@ -5,7 +5,10 @@ import com.QYun.AssetReader4J.Entities.Enums.FileType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.AssetReader4J.WebFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
