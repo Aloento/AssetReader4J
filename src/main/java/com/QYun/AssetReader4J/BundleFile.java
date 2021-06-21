@@ -39,7 +39,13 @@ public class BundleFile {
         for (var blockInfo: m_BlocksInfo) {
             switch (blockInfo.flags & 0x3F) {
                 case 1 -> SevenZipHelper.streamDecompress(reader, blocksStream, blockInfo.uncompressedSize);
-
+                case 2, 3 -> {
+                    byte[] uncompressedBytes = new byte[blockInfo.uncompressedSize];
+                    LZ4Factory.fastestInstance().fastDecompressor().decompress(
+                            reader.readBytes(blockInfo.compressedSize), 0,
+                            uncompressedBytes, 0, blockInfo.uncompressedSize);
+                    blocksStream.write(uncompressedBytes);
+                }
             }
         }
     }
