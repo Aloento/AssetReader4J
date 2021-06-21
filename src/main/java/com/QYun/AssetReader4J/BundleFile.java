@@ -1,5 +1,11 @@
 package com.QYun.AssetReader4J;
 
+import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
+import net.jpountz.lz4.LZ4Factory;
+import net.jpountz.lz4.LZ4FastDecompressor;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -56,13 +62,20 @@ public class BundleFile {
             reader.setPos(position);
         } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
 
-        ByteBuffer blocksInfoCompressedStream = ByteBuffer.wrap(blocksInfoBytes);
-        ByteBuffer blocksInfoUncompressedStream;
+        ByteArrayInputStream blocksInfoCompressedStream = new ByteArrayInputStream(blocksInfoBytes);
+        ByteArrayInputStream blocksInfoUncompressedStream;
 
         switch (m_Header.flags & 0x3F) {
             case 1 -> {
-                blocksInfoUncompressedStream = ByteBuffer.allocate(m_Header.uncompressedBlocksInfoSize);
-
+                var outputStream = new ByteArrayOutputStream(m_Header.uncompressedBlocksInfoSize);
+                SevenZipHelper.streamDecompress(blocksInfoCompressedStream, outputStream, m_Header.uncompressedBlocksInfoSize);
+                blocksInfoUncompressedStream = new ByteArrayInputStream(outputStream.toByteArray());
+            }
+            case 2, 3 -> {
+                byte[] uncompressedBytes = new byte[m_Header.uncompressedBlocksInfoSize];
+                LZ4Factory.fastestInstance().fastDecompressor().decompress(
+                        blocksInfoBytes, 0, uncompressedBytes, 0, m_Header.uncompressedBlocksInfoSize);
+                blocksInfoUncompressedStream = new ByteArrayInputStream(uncompressedBytes);
             }
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
