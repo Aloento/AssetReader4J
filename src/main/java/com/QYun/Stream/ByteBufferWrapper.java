@@ -46,6 +46,10 @@ public abstract class ByteBufferWrapper {
         this(new FileInputStream(file));
     }
 
+    public void setToReadOnly() {
+        byteBuffer = byteBuffer.asReadOnlyBuffer();
+    }
+
     public void setByteOrder(ByteOrder byteOrder) {
         byteBuffer.order(byteOrder);
     }

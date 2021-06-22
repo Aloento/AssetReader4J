@@ -1,9 +1,6 @@
 package com.QYun.Stream;
 
-import java.io.Closeable;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteOrder;
 
 public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput, Closeable {
@@ -31,154 +28,179 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
         super(array, offset, length, byteOrder);
     }
 
+    public ByteStream(InputStream inputStream) throws IOException {
+        super(inputStream);
+    }
+
+    public ByteStream(ByteArrayOutputStream outputStream) {
+        super(outputStream);
+    }
+
+    public ByteStream(File file) throws IOException {
+        super(file);
+    }
+
     @Override
-    public void close() throws IOException {
+    public void close() {
         byteBuffer.clear();
         byteBuffer = null;
     }
 
     @Override
-    public void readFully(byte[] b) throws IOException {
-
+    public void readFully(byte[] b) {
+        readFully(b, 0, b.length);
     }
 
     @Override
-    public void readFully(byte[] b, int off, int len) throws IOException {
-
+    public void readFully(byte[] b, int off, int len) {
+        byteBuffer.get(b, off, len);
     }
 
     @Override
-    public int skipBytes(int n) throws IOException {
-        return 0;
+    public int skipBytes(int n) {
+        if (n <= 0)
+            return 0;
+
+        int avail = byteBuffer.capacity() - byteBuffer.position();
+        if (avail <= 0)
+            return 0;
+
+        int skipped = Math.min(avail, n);
+        byteBuffer.position(byteBuffer.position() + skipped);
+        return skipped;
     }
 
     @Override
-    public boolean readBoolean() throws IOException {
-        return false;
+    public boolean readBoolean() {
+        return 0 != byteBuffer.get();
     }
 
     @Override
-    public byte readByte() throws IOException {
-        return 0;
+    public byte readByte() {
+        return byteBuffer.get();
     }
 
     @Override
-    public int readUnsignedByte() throws IOException {
-        return 0;
+    public int readUnsignedByte() {
+        return byteBuffer.get();
     }
 
     @Override
-    public short readShort() throws IOException {
-        return 0;
+    public short readShort() {
+        return byteBuffer.getShort();
     }
 
     @Override
-    public int readUnsignedShort() throws IOException {
-        return 0;
+    public int readUnsignedShort() {
+        return byteBuffer.getShort();
     }
 
     @Override
-    public char readChar() throws IOException {
-        return 0;
+    public char readChar() {
+        return byteBuffer.getChar();
     }
 
     @Override
-    public int readInt() throws IOException {
-        return 0;
+    public int readInt() {
+        return byteBuffer.getInt();
     }
 
     @Override
-    public long readLong() throws IOException {
-        return 0;
+    public long readLong() {
+        return byteBuffer.getLong();
     }
 
     @Override
-    public float readFloat() throws IOException {
-        return 0;
+    public float readFloat() {
+        return byteBuffer.getFloat();
     }
 
     @Override
-    public double readDouble() throws IOException {
-        return 0;
+    public double readDouble() {
+        return byteBuffer.getDouble();
     }
 
     @Override
-    public String readLine() throws IOException {
-        return null;
+    public String readLine() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public String readUTF() throws IOException {
-        return null;
+    public String readUTF() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void write(int b) throws IOException {
-
+    public void write(int b) {
+        byteBuffer.put((byte) b);
     }
 
     @Override
-    public void write(byte[] b) throws IOException {
-
+    public void write(byte[] b) {
+        byteBuffer.put(b);
     }
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException {
-
+    public void write(byte[] b, int off, int len) {
+        byteBuffer.put(b, off, len);
     }
 
     @Override
-    public void writeBoolean(boolean v) throws IOException {
-
+    public void writeBoolean(boolean v) {
+        byteBuffer.put((byte) (v ? 1 : 0));
     }
 
     @Override
-    public void writeByte(int v) throws IOException {
-
+    public void writeByte(int v) {
+        byteBuffer.put((byte) v);
     }
 
     @Override
-    public void writeShort(int v) throws IOException {
-
+    public void writeShort(int v) {
+        byteBuffer.putShort((short) v);
     }
 
     @Override
-    public void writeChar(int v) throws IOException {
-
+    public void writeChar(int v) {
+        byteBuffer.putChar((char) v);
     }
 
     @Override
-    public void writeInt(int v) throws IOException {
-
+    public void writeInt(int v) {
+        byteBuffer.putInt(v);
     }
 
     @Override
-    public void writeLong(long v) throws IOException {
-
+    public void writeLong(long v) {
+        byteBuffer.putLong(v);
     }
 
     @Override
-    public void writeFloat(float v) throws IOException {
-
+    public void writeFloat(float v) {
+        byteBuffer.putFloat(v);
     }
 
     @Override
-    public void writeDouble(double v) throws IOException {
-
+    public void writeDouble(double v) {
+        byteBuffer.putDouble(v);
     }
 
     @Override
-    public void writeBytes(String s) throws IOException {
-
+    public void writeBytes(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            byteBuffer.put((byte) s.charAt(i));
+        }
     }
 
     @Override
-    public void writeChars(String s) throws IOException {
-
+    public void writeChars(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            byteBuffer.putChar(s.charAt(i));
+        }
     }
 
     @Override
-    public void writeUTF(String s) throws IOException {
-
+    public void writeUTF(String s) {
+        throw new UnsupportedOperationException();
     }
 }
