@@ -6,6 +6,7 @@ import com.QYun.AssetReader4J.Entities.Struct.StorageBlock;
 import com.QYun.AssetReader4J.Entities.Struct.StreamFile;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
 import com.QYun.AssetReader4J.Helpers.StreamCopyHelper;
+import com.QYun.Stream.UnityStream;
 import net.jpountz.lz4.LZ4Factory;
 
 import java.io.ByteArrayInputStream;
@@ -19,7 +20,7 @@ public class BundleFile {
     private Node[] m_DirectoryInfo;
     private StreamFile[] fileList;
 
-    public BundleFile(BinaryStream reader, File file) throws IOException {
+    public BundleFile(UnityStream reader, File file) throws IOException {
         m_Header.signature = reader.readStringToNull();
         m_Header.version = reader.readInt();
         m_Header.unityVersion = reader.readStringToNull();
@@ -36,7 +37,7 @@ public class BundleFile {
         }
     }
 
-    private void handleFS(BinaryStream reader, File file) throws IOException {
+    private void handleFS(UnityStream reader, File file) throws IOException {
         readHeader(reader);
         readBlocksInfoAndDirectory(reader);
         var blocksStream = createBlocksStream();
@@ -44,26 +45,26 @@ public class BundleFile {
         readFiles(blocksStream, file);
     }
 
-    private void readBlocks(BinaryStream reader, BinaryStream blocksStream) throws IOException {
+    private void readBlocks(UnityStream reader, UnityStream blocksStream) throws IOException {
         for (var blockInfo : m_BlocksInfo) {
             switch (blockInfo.flags & 0x3F) {
                 case 1 -> {
                     var tmp = new ByteArrayOutputStream();
-                    SevenZipHelper.streamDecompress(reader, tmp, blockInfo.uncompressedSize);
+                    SevenZipHelper.streamDecompress(reader.toInputStream(), tmp, blockInfo.uncompressedSize);
                 }
                 case 2, 3 -> {
                     byte[] uncompressedBytes = new byte[blockInfo.uncompressedSize];
                     LZ4Factory.fastestInstance().fastDecompressor().decompress(
                             reader.readBytes(blockInfo.compressedSize), 0,
                             uncompressedBytes, 0, blockInfo.uncompressedSize);
-                    blocksStream = new BinaryStream(new ByteArrayInputStream(uncompressedBytes), false);
+                    blocksStream = new UnityStream(new ByteArrayInputStream(uncompressedBytes));
                 }
-                default -> blocksStream = new BinaryStream(new ByteArrayInputStream(reader.readBytes(blockInfo.compressedSize)), false);
+                default -> blocksStream = new UnityStream(new ByteArrayInputStream(reader.readBytes(blockInfo.compressedSize)));
             }
         }
     }
 
-    private void readFiles(BinaryStream blocksStream, File file) throws IOException {
+    private void readFiles(UnityStream blocksStream, File file) throws IOException {
         fileList = new StreamFile[m_DirectoryInfo.length];
         for (int i = 0; i < fileList.length; i++) {
             var node = m_DirectoryInfo[i];
@@ -74,18 +75,18 @@ public class BundleFile {
             fileList[i] = streamFile;
 
             blocksStream.setPos(Math.toIntExact(node.offset));
-            StreamCopyHelper.copyTo(blocksStream, streamFile.stream, node.size);
+            StreamCopyHelper.copyTo(blocksStream.toInputStream(), streamFile.stream, node.size);
         }
     }
 
-    private BinaryStream createBlocksStream() throws IOException {
+    private UnityStream createBlocksStream() throws IOException {
         int uncompressedSizeSum = 0;
         for (var blocksInfo : m_BlocksInfo)
             uncompressedSizeSum += blocksInfo.uncompressedSize;
-        return new BinaryStream(new ByteArrayInputStream(new byte[uncompressedSizeSum]), false);
+        return new UnityStream(new ByteArrayInputStream(new byte[uncompressedSizeSum]));
     }
 
-    private void readHeader(BinaryStream reader) throws IOException {
+    private void readHeader(UnityStream reader) {
         m_Header.size = reader.readLong();
         m_Header.compressedBlocksInfoSize = reader.readInt();
         m_Header.uncompressedBlocksInfoSize = reader.readInt();
@@ -94,14 +95,14 @@ public class BundleFile {
             reader.readByte();
     }
 
-    private void readBlocksInfoAndDirectory(BinaryStream reader) throws IOException {
+    private void readBlocksInfoAndDirectory(UnityStream reader) throws IOException {
         byte[] blocksInfoBytes;
         if (m_Header.version >= 7)
             reader.alignStream(16);
 
         if ((m_Header.flags & 0x80) != 0) {
             int position = reader.getPos();
-            reader.setPos((int) (reader.fileLen - m_Header.compressedBlocksInfoSize));
+            reader.setPos((int) (reader.length - m_Header.compressedBlocksInfoSize));
             blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
             reader.setPos(position);
         } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
@@ -124,7 +125,7 @@ public class BundleFile {
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
 
-        var blocksInfoReader = new BinaryStream(blocksInfoUncompressedStream, false);
+        var blocksInfoReader = new UnityStream(blocksInfoUncompressedStream);
         byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
 
         int blocksInfoCount = blocksInfoReader.readInt();

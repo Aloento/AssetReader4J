@@ -1,6 +1,7 @@
 package com.QYun.AssetReader4J;
 
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
+import com.QYun.Stream.UnityStream;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class AssetsManager {
     }
 
     private void loadFile(File file) throws IOException {
-        BinaryStream reader = new BinaryStream(file, false);
+        UnityStream reader = new UnityStream(file);
         switch (ImportHelper.checkFileType(reader)) {
             case AssetsFile -> LoadAssetsFile(file, reader);
             case BundleFile -> LoadBundleFile(file, reader);
@@ -31,17 +32,17 @@ public class AssetsManager {
         }
     }
 
-    private void LoadAssetsFile(File file, BinaryStream reader) {
+    private void LoadAssetsFile(File file, UnityStream reader) {
         if (!assetsFileListHash.contains(file)) {
 
         }
     }
 
-    private void LoadBundleFile(File file, BinaryStream reader) {
+    private void LoadBundleFile(File file, UnityStream reader) {
 
     }
 
-    private void LoadWebFile(File file, BinaryStream reader) {
+    private void LoadWebFile(File file, UnityStream reader) {
     }
 
 }

@@ -1,9 +1,9 @@
 package com.QYun.AssetReader4J.Helpers;
 
-import com.QYun.AssetReader4J.BinaryStream;
 import com.QYun.AssetReader4J.Entities.Enums.FileType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.AssetReader4J.WebFile;
+import com.QYun.Stream.UnityStream;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,9 +54,9 @@ public class ImportHelper {
         }
     }
 
-    public static FileType checkFileType(BinaryStream reader) throws IOException {
+    public static FileType checkFileType(UnityStream reader) {
         var signature = reader.readStringToNull(20);
-        reader.reset();
+        reader.rewind();
         switch (signature) {
             case "UnityWeb":
             case "UnityRaw":
@@ -67,13 +67,13 @@ public class ImportHelper {
                 return FileType.WebFile;
             default: {
                 var magic = reader.readBytes(2);
-                reader.reset();
+                reader.rewind();
                 if (Arrays.equals(WebFile.gzipMagic, magic))
                     return FileType.WebFile;
 
                 reader.setPos(0x20);
                 magic = reader.readBytes(6);
-                reader.reset();
+                reader.rewind();
                 if (Arrays.equals(WebFile.brotliMagic, magic))
                     return FileType.WebFile;
 
