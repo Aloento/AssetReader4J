@@ -1,25 +1,16 @@
 package com.QYun.AssetReader4J.Helpers;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import com.QYun.Stream.UnityStream;
+
 import java.io.IOException;
-import java.io.InputStream;
 
 public class StreamCopyHelper {
-    private static int bufferSize = 81920;
+    private static final int bufferSize = 81920;
 
-    public static void copyTo(InputStream src, InputStream dest, long size) throws IOException {
-        var buffer = new byte[bufferSize];
-        var tmp = new ByteArrayOutputStream(Math.toIntExact(size));
-
+    public static void copyTo(UnityStream src, UnityStream dest, long size) throws IOException {
         for (var left = size; left > 0; left -= bufferSize) {
             int toRead = bufferSize < left ? bufferSize : (int) left;
-            int read = src.read(buffer, 0, toRead);
-            tmp.write(buffer, 0, read);
-            if (read != toRead)
-                break;
+            dest.write(src.readBytes(toRead));
         }
-
-        dest = new ByteArrayInputStream(tmp.toByteArray());
     }
 }

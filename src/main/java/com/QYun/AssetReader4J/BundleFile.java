@@ -9,8 +9,6 @@ import com.QYun.AssetReader4J.Helpers.StreamCopyHelper;
 import com.QYun.Stream.UnityStream;
 import net.jpountz.lz4.LZ4Factory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -72,7 +70,7 @@ public class BundleFile {
             fileList[i] = streamFile;
 
             blocksStream.setPos(Math.toIntExact(node.offset));
-            StreamCopyHelper.copyTo(blocksStream.toInputStreamWithPos(), streamFile.stream, node.size);
+            StreamCopyHelper.copyTo(blocksStream, streamFile.stream, node.size);
         }
     }
 
