@@ -79,11 +79,11 @@ public class BundleFile {
         }
     }
 
-    private UnityStream createBlocksStream() throws IOException {
+    private UnityStream createBlocksStream() {
         int uncompressedSizeSum = 0;
         for (var blocksInfo : m_BlocksInfo)
             uncompressedSizeSum += blocksInfo.uncompressedSize;
-        return new UnityStream(new ByteArrayInputStream(new byte[uncompressedSizeSum]));
+        return new UnityStream(uncompressedSizeSum);
     }
 
     private void readHeader(UnityStream reader) {

@@ -11,6 +11,11 @@ import java.nio.charset.StandardCharsets;
 public class UnityStream extends ByteStream {
     public final long length;
 
+    public UnityStream(int capacity) {
+        super(capacity);
+        length = capacity;
+    }
+
     public UnityStream(byte[] array) {
         super(array);
         length = array.length;
