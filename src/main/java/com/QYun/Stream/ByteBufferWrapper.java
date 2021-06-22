@@ -34,15 +34,15 @@ public abstract class ByteBufferWrapper {
         setByteOrder(byteOrder);
     }
 
-    public ByteBufferWrapper(InputStream inputStream) {
-
+    public ByteBufferWrapper(InputStream inputStream) throws IOException {
+        this(inputStream.readAllBytes());
     }
 
-    public ByteBufferWrapper(OutputStream outputStream) {
-
+    public ByteBufferWrapper(ByteArrayOutputStream outputStream) {
+        this(outputStream.toByteArray());
     }
 
-    public ByteBufferWrapper(File file) throws FileNotFoundException {
+    public ByteBufferWrapper(File file) throws IOException {
         this(new FileInputStream(file));
     }
 
@@ -55,6 +55,8 @@ public abstract class ByteBufferWrapper {
     }
 
     public ByteArrayOutputStream toOutputStream() {
-
+        var tmp = new ByteArrayOutputStream(byteBuffer.capacity());
+        tmp.writeBytes(byteBuffer.array());
+        return tmp;
     }
 }

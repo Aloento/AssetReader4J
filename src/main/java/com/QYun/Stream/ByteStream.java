@@ -1,6 +1,9 @@
 package com.QYun.Stream;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 import java.nio.ByteOrder;
 
 public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput, Closeable {

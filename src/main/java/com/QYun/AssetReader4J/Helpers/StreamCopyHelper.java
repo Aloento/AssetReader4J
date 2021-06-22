@@ -13,7 +13,7 @@ public class StreamCopyHelper {
         var tmp = new ByteArrayOutputStream(Math.toIntExact(size));
 
         for (var left = size; left > 0; left -= bufferSize) {
-            int toRead = bufferSize < left ? bufferSize : (int)left;
+            int toRead = bufferSize < left ? bufferSize : (int) left;
             int read = src.read(buffer, 0, toRead);
             tmp.write(buffer, 0, read);
             if (read != toRead)

@@ -1,11 +1,17 @@
 package com.QYun.AssetReader4J;
 
-import com.QYun.AssetReader4J.Entities.Struct.*;
+import com.QYun.AssetReader4J.Entities.Struct.Header;
+import com.QYun.AssetReader4J.Entities.Struct.Node;
+import com.QYun.AssetReader4J.Entities.Struct.StorageBlock;
+import com.QYun.AssetReader4J.Entities.Struct.StreamFile;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
 import com.QYun.AssetReader4J.Helpers.StreamCopyHelper;
 import net.jpountz.lz4.LZ4Factory;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 public class BundleFile {
     private Header m_Header = new Header();
@@ -39,7 +45,7 @@ public class BundleFile {
     }
 
     private void readBlocks(BinaryStream reader, BinaryStream blocksStream) throws IOException {
-        for (var blockInfo: m_BlocksInfo) {
+        for (var blockInfo : m_BlocksInfo) {
             switch (blockInfo.flags & 0x3F) {
                 case 1 -> {
                     var tmp = new ByteArrayOutputStream();
