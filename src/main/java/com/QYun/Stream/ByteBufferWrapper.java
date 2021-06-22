@@ -61,8 +61,8 @@ public abstract class ByteBufferWrapper {
         return this;
     }
 
-    public ByteArrayInputStream toInputStream() {
-        return new ByteArrayInputStream(byteBuffer.array());
+    public ByteArrayInputStream toInputStreamWithPos() {
+        return new ByteArrayInputStream(byteBuffer.array(), getPos(), byteBuffer.capacity());
     }
 
     public ByteArrayOutputStream toOutputStream() {

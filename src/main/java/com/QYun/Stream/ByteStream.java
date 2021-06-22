@@ -3,7 +3,7 @@ package com.QYun.Stream;
 import java.io.*;
 import java.nio.ByteOrder;
 
-public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput, Closeable {
+public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput {
     public ByteStream(int capacity) {
         super(capacity);
     }
@@ -26,12 +26,6 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
 
     public ByteStream(File file) throws IOException {
         super(file);
-    }
-
-    @Override
-    public void close() {
-        byteBuffer.clear();
-        byteBuffer = null;
     }
 
     @Override

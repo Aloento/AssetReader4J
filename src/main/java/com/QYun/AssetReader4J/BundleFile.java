@@ -48,10 +48,7 @@ public class BundleFile {
     private void readBlocks(UnityStream reader, UnityStream blocksStream) throws IOException {
         for (var blockInfo : m_BlocksInfo) {
             switch (blockInfo.flags & 0x3F) {
-                case 1 -> {
-                    var tmp = new ByteArrayOutputStream();
-                    SevenZipHelper.streamDecompress(reader.toInputStream(), tmp, blockInfo.uncompressedSize);
-                }
+                case 1 -> SevenZipHelper.streamDecompress(reader, blocksStream, blockInfo.uncompressedSize);
                 case 2, 3 -> {
                     byte[] uncompressedBytes = new byte[blockInfo.uncompressedSize];
                     LZ4Factory.fastestInstance().fastDecompressor().decompress(
@@ -75,7 +72,7 @@ public class BundleFile {
             fileList[i] = streamFile;
 
             blocksStream.setPos(Math.toIntExact(node.offset));
-            StreamCopyHelper.copyTo(blocksStream.toInputStream(), streamFile.stream, node.size);
+            StreamCopyHelper.copyTo(blocksStream.toInputStreamWithPos(), streamFile.stream, node.size);
         }
     }
 
@@ -107,25 +104,24 @@ public class BundleFile {
             reader.reset();
         } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
 
-        ByteArrayInputStream blocksInfoCompressedStream = new ByteArrayInputStream(blocksInfoBytes);
-        ByteArrayInputStream blocksInfoUncompressedStream;
+        UnityStream blocksInfoCompressedStream = new UnityStream(blocksInfoBytes);
+        UnityStream blocksInfoUncompressedStream;
 
         switch (m_Header.flags & 0x3F) {
             case 1 -> {
-                var outputStream = new ByteArrayOutputStream(m_Header.uncompressedBlocksInfoSize);
-                SevenZipHelper.streamDecompress(blocksInfoCompressedStream, outputStream, m_Header.uncompressedBlocksInfoSize);
-                blocksInfoUncompressedStream = new ByteArrayInputStream(outputStream.toByteArray());
+                blocksInfoUncompressedStream = new UnityStream(m_Header.uncompressedBlocksInfoSize);
+                SevenZipHelper.streamDecompress(blocksInfoCompressedStream, blocksInfoUncompressedStream, m_Header.uncompressedBlocksInfoSize);
             }
             case 2, 3 -> {
                 byte[] uncompressedBytes = new byte[m_Header.uncompressedBlocksInfoSize];
                 LZ4Factory.fastestInstance().fastDecompressor().decompress(
                         blocksInfoBytes, 0, uncompressedBytes, 0, m_Header.uncompressedBlocksInfoSize);
-                blocksInfoUncompressedStream = new ByteArrayInputStream(uncompressedBytes);
+                blocksInfoUncompressedStream = new UnityStream(uncompressedBytes);
             }
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
 
-        var blocksInfoReader = new UnityStream(blocksInfoUncompressedStream);
+        var blocksInfoReader = blocksInfoUncompressedStream;
         byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
 
         int blocksInfoCount = blocksInfoReader.readInt();

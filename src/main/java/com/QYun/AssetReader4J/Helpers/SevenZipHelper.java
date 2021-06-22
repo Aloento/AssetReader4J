@@ -1,21 +1,18 @@
 package com.QYun.AssetReader4J.Helpers;
 
 import com.QYun.AssetReader4J.SevenZip.LZMA.Decoder;
+import com.QYun.Stream.UnityStream;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class SevenZipHelper {
-    public static void streamDecompress(InputStream compressedStream,
-                                        OutputStream decompressedStream,
+    public static void streamDecompress(UnityStream compressedStream,
+                                        UnityStream decompressedStream,
                                         int decompressedSize) throws IOException {
         Decoder decoder = new Decoder();
-        byte[] properties = new byte[5];
-        if (compressedStream.read(properties, 0, 5) != 5)
-            throw new EOFException();
-        decoder.SetDecoderProperties(properties);
-        decoder.Code(compressedStream, decompressedStream, decompressedSize);
+        decoder.SetDecoderProperties(compressedStream.readBytes(5));
+        var tmp = new ByteArrayOutputStream(decompressedSize);
+        decoder.Code(compressedStream.toInputStreamWithPos(), tmp, decompressedSize);
+        decompressedStream.write(tmp.toByteArray());
     }
 }
