@@ -4,21 +4,10 @@ import java.io.Closeable;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.nio.ByteOrder;
 
 public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput, Closeable {
-    private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
-
     public ByteStream(int capacity) {
         super(capacity);
-    }
-
-    public ByteStream(byte[] array) {
-        super(array);
-    }
-
-    public ByteStream(byte[] array, int offset, int length) {
-        super(array, offset, length);
     }
 
     @Override
