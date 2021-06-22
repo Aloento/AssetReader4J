@@ -1,9 +1,6 @@
 package com.QYun.Stream;
 
-import java.io.Closeable;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteOrder;
 
 public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutput, Closeable {
@@ -30,8 +27,6 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
     public ByteStream(byte[] array, int offset, int length, ByteOrder byteOrder) {
         super(array, offset, length, byteOrder);
     }
-
-
 
     @Override
     public void close() throws IOException {

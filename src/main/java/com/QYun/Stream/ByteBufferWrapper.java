@@ -1,5 +1,6 @@
 package com.QYun.Stream;
 
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -33,7 +34,27 @@ public abstract class ByteBufferWrapper {
         setByteOrder(byteOrder);
     }
 
+    public ByteBufferWrapper(InputStream inputStream) {
+
+    }
+
+    public ByteBufferWrapper(OutputStream outputStream) {
+
+    }
+
+    public ByteBufferWrapper(File file) throws FileNotFoundException {
+        this(new FileInputStream(file));
+    }
+
     public void setByteOrder(ByteOrder byteOrder) {
         byteBuffer.order(byteOrder);
+    }
+
+    public ByteArrayInputStream toInputStream() {
+        return new ByteArrayInputStream(byteBuffer.array());
+    }
+
+    public ByteArrayOutputStream toOutputStream() {
+
     }
 }
