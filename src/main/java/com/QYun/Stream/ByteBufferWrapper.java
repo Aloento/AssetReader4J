@@ -2,19 +2,18 @@ package com.QYun.Stream;
 
 import java.nio.ByteBuffer;
 
-public class ByteBufferWrapper {
-    private ByteBufferWrapper() {
+public abstract class ByteBufferWrapper {
+    public ByteBuffer byteBuffer;
+
+    public ByteBufferWrapper(int capacity) {
+        byteBuffer = ByteBuffer.allocate(capacity);
     }
 
-    public static ByteBuffer allocate(int capacity) {
-        return ByteBuffer.allocate(capacity);
+    public ByteBufferWrapper(byte[] array) {
+        byteBuffer = ByteBuffer.wrap(array);
     }
 
-    public static ByteBuffer wrap(byte[] array) {
-        return ByteBuffer.wrap(array);
-    }
-
-    public static ByteBuffer wrap(byte[] array, int offset, int length) {
-        return ByteBuffer.wrap(array, offset, length);
+    public ByteBufferWrapper(byte[] array, int offset, int length) {
+        byteBuffer = ByteBuffer.wrap(array, offset, length);
     }
 }
