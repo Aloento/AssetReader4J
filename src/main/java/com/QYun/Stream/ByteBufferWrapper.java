@@ -31,6 +31,10 @@ public abstract class ByteBufferWrapper {
         this(new FileInputStream(file));
     }
 
+    public void rewind() {
+        byteBuffer.rewind();
+    }
+
     public int getPos() {
         return byteBuffer.position();
     }

@@ -68,6 +68,14 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
         return byteBuffer.get();
     }
 
+    public byte[] readBytes(int n) {
+        var array = new byte[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = readByte();
+        }
+        return array;
+    }
+
     @Override
     public int readUnsignedByte() {
         return byteBuffer.get();
@@ -101,6 +109,14 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
     @Override
     public float readFloat() {
         return byteBuffer.getFloat();
+    }
+
+    public float[] readFloats(int n) {
+        float[] array = new float[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = readFloat();
+        }
+        return array;
     }
 
     @Override
@@ -194,11 +210,13 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
 
     @Override
     public ByteStream setToReadOnly() {
-        return (ByteStream) super.setToReadOnly();
+        super.setToReadOnly();
+        return this;
     }
 
     @Override
     public ByteStream setByteOrder(ByteOrder byteOrder) {
-        return (ByteStream) super.setByteOrder(byteOrder);
+        super.setByteOrder(byteOrder);
+        return this;
     }
 }
