@@ -54,9 +54,9 @@ public class BundleFile {
                     LZ4Factory.fastestInstance().fastDecompressor().decompress(
                             reader.readBytes(blockInfo.compressedSize), 0,
                             uncompressedBytes, 0, blockInfo.uncompressedSize);
-                    blocksStream = new UnityStream(new ByteArrayInputStream(uncompressedBytes));
+                    blocksStream.write(uncompressedBytes);
                 }
-                default -> blocksStream = new UnityStream(new ByteArrayInputStream(reader.readBytes(blockInfo.compressedSize)));
+                default -> blocksStream.write(reader.readBytes(blockInfo.compressedSize));
             }
         }
     }
