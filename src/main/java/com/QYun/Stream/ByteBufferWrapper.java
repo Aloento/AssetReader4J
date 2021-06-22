@@ -35,6 +35,14 @@ public abstract class ByteBufferWrapper {
         byteBuffer.rewind();
     }
 
+    public void mark() {
+        byteBuffer.mark();
+    }
+
+    public void reset() {
+        byteBuffer.reset();
+    }
+
     public int getPos() {
         return byteBuffer.position();
     }

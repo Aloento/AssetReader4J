@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class BundleFile {
-    private Header m_Header = new Header();
+    private final Header m_Header = new Header();
     private StorageBlock[] m_BlocksInfo;
     private Node[] m_DirectoryInfo;
     private StreamFile[] fileList;
@@ -101,10 +101,10 @@ public class BundleFile {
             reader.alignStream(16);
 
         if ((m_Header.flags & 0x80) != 0) {
-            int position = reader.getPos();
-            reader.setPos((int) (reader.length - m_Header.compressedBlocksInfoSize));
+            reader.mark();
+            reader.setPos(Math.toIntExact((reader.length - m_Header.compressedBlocksInfoSize)));
             blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
-            reader.setPos(position);
+            reader.reset();
         } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
 
         ByteArrayInputStream blocksInfoCompressedStream = new ByteArrayInputStream(blocksInfoBytes);

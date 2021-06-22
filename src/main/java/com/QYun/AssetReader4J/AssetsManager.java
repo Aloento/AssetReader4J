@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class AssetsManager {
-    private HashSet<File> assetsFileListHash = new HashSet<>();
+    private final HashSet<File> assetsFileListHash = new HashSet<>();
 
     public void loadFiles(ArrayList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
