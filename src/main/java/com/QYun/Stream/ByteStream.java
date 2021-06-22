@@ -8,24 +8,12 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
         super(capacity);
     }
 
-    public ByteStream(int capacity, ByteOrder byteOrder) {
-        super(capacity, byteOrder);
-    }
-
     public ByteStream(byte[] array) {
         super(array);
     }
 
-    public ByteStream(byte[] array, ByteOrder byteOrder) {
-        super(array, byteOrder);
-    }
-
     public ByteStream(byte[] array, int offset, int length) {
         super(array, offset, length);
-    }
-
-    public ByteStream(byte[] array, int offset, int length, ByteOrder byteOrder) {
-        super(array, offset, length, byteOrder);
     }
 
     public ByteStream(InputStream inputStream) throws IOException {
@@ -202,5 +190,15 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
     @Override
     public void writeUTF(String s) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ByteStream setToReadOnly() {
+        return (ByteStream) super.setToReadOnly();
+    }
+
+    @Override
+    public ByteStream setByteOrder(ByteOrder byteOrder) {
+        return (ByteStream) super.setByteOrder(byteOrder);
     }
 }
