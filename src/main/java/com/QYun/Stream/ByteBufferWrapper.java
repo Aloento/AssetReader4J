@@ -5,7 +5,6 @@ import java.nio.ByteOrder;
 
 public abstract class ByteBufferWrapper {
     ByteBuffer byteBuffer;
-    ByteOrder byteOrder;
 
     public ByteBufferWrapper(int capacity) {
         this(capacity, ByteOrder.BIG_ENDIAN);
@@ -34,8 +33,7 @@ public abstract class ByteBufferWrapper {
         setByteOrder(byteOrder);
     }
 
-    void setByteOrder(ByteOrder byteOrder) {
+    public void setByteOrder(ByteOrder byteOrder) {
         byteBuffer.order(byteOrder);
-        this.byteOrder = byteOrder;
     }
 }
