@@ -5,7 +5,7 @@ import com.QYun.AssetReader4J.Entities.Struct.Node;
 import com.QYun.AssetReader4J.Entities.Struct.StorageBlock;
 import com.QYun.AssetReader4J.Entities.Struct.StreamFile;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
-import com.QYun.Stream.UnityStream;
+import com.QYun.util.Stream.UnityStream;
 import net.jpountz.lz4.LZ4Factory;
 
 import java.io.File;

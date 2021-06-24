@@ -1,7 +1,7 @@
 package com.QYun.AssetReader4J.Helpers;
 
 import com.QYun.AssetReader4J.SevenZip.LZMA.Decoder;
-import com.QYun.Stream.UnityStream;
+import com.QYun.util.Stream.UnityStream;
 
 import java.io.*;
 

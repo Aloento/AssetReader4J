@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J;
 
-import com.QYun.Stream.UnityStream;
+import com.QYun.util.Stream.UnityStream;
 
 public class SerializedFile {
     public static boolean isSerializedFile(UnityStream reader) {

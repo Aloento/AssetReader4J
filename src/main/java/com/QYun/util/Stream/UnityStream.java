@@ -1,4 +1,4 @@
-package com.QYun.Stream;
+package com.QYun.util.Stream;
 
 import javax.vecmath.*;
 import java.io.ByteArrayOutputStream;

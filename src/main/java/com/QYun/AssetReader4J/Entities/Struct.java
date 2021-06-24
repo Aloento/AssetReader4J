@@ -1,9 +1,8 @@
 package com.QYun.AssetReader4J.Entities;
 
-import com.QYun.Stream.UnityStream;
+import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
-import java.io.InputStream;
 
 public class Struct {
     public static class StreamFile {

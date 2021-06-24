@@ -3,7 +3,7 @@ package com.QYun.AssetReader4J.Helpers;
 import com.QYun.AssetReader4J.Entities.Enums.FileType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.AssetReader4J.WebFile;
-import com.QYun.Stream.UnityStream;
+import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
 import java.io.FileInputStream;

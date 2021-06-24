@@ -1,4 +1,4 @@
-package com.QYun.Stream;
+package com.QYun.util.Stream;
 
 import java.io.*;
 import java.nio.ByteBuffer;
