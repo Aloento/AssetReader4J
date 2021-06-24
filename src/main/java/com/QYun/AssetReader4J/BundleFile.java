@@ -58,7 +58,7 @@ public class BundleFile {
         }
     }
 
-    private void readFiles(UnityStream blocksStream, File file) throws IOException {
+    private void readFiles(UnityStream blocksStream, File file) {
         fileList = new StreamFile[m_DirectoryInfo.length];
         for (int i = 0; i < fileList.length; i++) {
             var node = m_DirectoryInfo[i];
@@ -70,6 +70,7 @@ public class BundleFile {
 
             blocksStream.setPos(Math.toIntExact(node.offset));
             blocksStream.copyTo(streamFile.stream, node.size);
+            streamFile.stream.rewind();
         }
     }
 
