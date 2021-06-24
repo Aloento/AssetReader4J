@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class BundleFile {
-    private final Header m_Header = new Header();
+    public final Header m_Header = new Header();
+    public StreamFile[] fileList;
     private StorageBlock[] m_BlocksInfo;
     private Node[] m_DirectoryInfo;
-    private StreamFile[] fileList;
 
     public BundleFile(UnityStream reader, File file) throws IOException {
         m_Header.signature = reader.readStringToNull();
@@ -119,7 +119,8 @@ public class BundleFile {
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
         }
 
-        var blocksInfoReader = blocksInfoUncompressedStream;
+        UnityStream blocksInfoReader = blocksInfoUncompressedStream.setToReadOnly();
+        blocksInfoReader.rewind();
         byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
 
         int blocksInfoCount = blocksInfoReader.readInt();
@@ -143,5 +144,4 @@ public class BundleFile {
             m_DirectoryInfo[i] = tmp;
         }
     }
-
 }
