@@ -4,7 +4,7 @@ import com.QYun.util.Stream.UnityStream;
 
 public class SerializedFile {
     public static boolean isSerializedFile(UnityStream reader) {
-        if (reader.length < 20)
+        if (reader.trueLen < 20)
             return false;
 
         int m_MetadataSize = reader.readInt();
@@ -15,14 +15,14 @@ public class SerializedFile {
         byte[] m_Reserved = reader.readBytes(3);
 
         if (m_Version >= 22) {
-            if (reader.length < 48)
+            if (reader.trueLen < 48)
                 return false;
 
             m_MetadataSize = reader.readInt();
             m_FileSize = reader.readLong();
             m_DataOffset = reader.readLong();
         }
-        if (m_FileSize != reader.length || m_DataOffset > reader.length) {
+        if (m_FileSize != reader.trueLen || m_DataOffset > reader.trueLen) {
             reader.rewind();
             return false;
         }

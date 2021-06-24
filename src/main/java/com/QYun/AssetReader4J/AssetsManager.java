@@ -26,23 +26,43 @@ public class AssetsManager {
     private void loadFile(File file) throws IOException {
         UnityStream reader = new UnityStream(file);
         switch (ImportHelper.checkFileType(reader)) {
-            case AssetsFile -> LoadAssetsFile(file, reader);
-            case BundleFile -> LoadBundleFile(file, reader);
-            case WebFile -> LoadWebFile(file, reader);
+            case AssetsFile -> loadAssetsFile(file, reader);
+            case BundleFile -> loadBundleFile(file, reader);
+            case WebFile -> loadWebFile(file, reader);
         }
     }
 
-    private void LoadAssetsFile(File file, UnityStream reader) {
-        if (!assetsFileListHash.contains(file)) {
+    private void loadAssetsFile(File file, UnityStream reader) {
+    }
 
+    private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile) {
+        loadAssetsFromMemory(file, reader, originalFile, null);
+    }
+
+    private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile, String unityVersion) {
+
+    }
+
+    private void loadBundleFile(File file, UnityStream reader) {
+        loadBundleFile(file, reader, null);
+    }
+
+    private void loadBundleFile(File file, UnityStream reader, File parentFile) {
+        try {
+            BundleFile bundleFile = new BundleFile(reader, file);
+            for (var streamFile : bundleFile.fileList) {
+                UnityStream subReader = streamFile.stream;
+                if (SerializedFile.isSerializedFile(subReader)) {
+                    loadAssetsFromMemory(new File(file.getParent() + File.separator + streamFile.fileName),
+                            subReader, parentFile == null ? file : parentFile, bundleFile.m_Header.unityRevision);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void LoadBundleFile(File file, UnityStream reader) {
-
-    }
-
-    private void LoadWebFile(File file, UnityStream reader) {
+    private void loadWebFile(File file, UnityStream reader) {
     }
 
 }
