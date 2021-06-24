@@ -51,6 +51,10 @@ public abstract class ByteBufferWrapper {
         byteBuffer.position(pos);
     }
 
+    public int capacity() {
+        return byteBuffer.capacity();
+    }
+
     public ByteBufferWrapper setToReadOnly() {
         byteBuffer = byteBuffer.asReadOnlyBuffer();
         return this;
