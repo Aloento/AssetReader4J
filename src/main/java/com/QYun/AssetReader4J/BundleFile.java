@@ -5,7 +5,6 @@ import com.QYun.AssetReader4J.Entities.Struct.Node;
 import com.QYun.AssetReader4J.Entities.Struct.StorageBlock;
 import com.QYun.AssetReader4J.Entities.Struct.StreamFile;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
-import com.QYun.AssetReader4J.Helpers.StreamCopyHelper;
 import com.QYun.Stream.UnityStream;
 import net.jpountz.lz4.LZ4Factory;
 
@@ -70,7 +69,7 @@ public class BundleFile {
             fileList[i] = streamFile;
 
             blocksStream.setPos(Math.toIntExact(node.offset));
-            StreamCopyHelper.copyTo(blocksStream, streamFile.stream, node.size);
+            blocksStream.copyTo(streamFile.stream, node.size);
         }
     }
 
@@ -97,7 +96,7 @@ public class BundleFile {
 
         if ((m_Header.flags & 0x80) != 0) {
             reader.mark();
-            reader.setPos(Math.toIntExact((reader.length - m_Header.compressedBlocksInfoSize)));
+            reader.setPos(Math.toIntExact((reader.trueLen - m_Header.compressedBlocksInfoSize)));
             blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);
             reader.reset();
         } else blocksInfoBytes = reader.readBytes(m_Header.compressedBlocksInfoSize);

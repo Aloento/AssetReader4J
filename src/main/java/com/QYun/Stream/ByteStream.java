@@ -228,6 +228,6 @@ public class ByteStream extends ByteBufferWrapper implements DataInput, DataOutp
     }
 
     public void copyTo(ByteStream dest, long size) {
-
+        dest.write(readBytes(Math.min(trueLen, Math.toIntExact(size))));
     }
 }
