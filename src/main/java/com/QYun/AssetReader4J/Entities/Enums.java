@@ -5,11 +5,6 @@ public class Enums {
         AssetsFile,
         BundleFile,
         WebFile,
-        ResourceFile
+        ResourceFile,
     }
-
-    public static FileType CheckFileType() {
-        return null;
-    }
-
 }
