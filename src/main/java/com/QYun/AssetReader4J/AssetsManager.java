@@ -40,7 +40,9 @@ public class AssetsManager {
     }
 
     private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile, String unityVersion) {
+        if (!assetsFileListHash.contains(file)) {
 
+        }
     }
 
     private void loadBundleFile(File file, UnityStream reader) {
