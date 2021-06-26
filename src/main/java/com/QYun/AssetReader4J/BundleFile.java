@@ -66,6 +66,7 @@ public class BundleFile {
 
             streamFile.file = file;
             streamFile.fileName = node.path;
+            streamFile.stream = new UnityStream(Math.toIntExact(node.size));
             fileList[i] = streamFile;
 
             blocksStream.setPos(Math.toIntExact(node.offset));

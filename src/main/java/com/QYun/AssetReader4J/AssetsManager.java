@@ -1,22 +1,20 @@
 package com.QYun.AssetReader4J;
 
-import com.QYun.AssetReader4J.Entities.Struct;
+import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
+import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
 import com.QYun.util.Stream.UnityStream;
-import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 public class AssetsManager {
     private final HashSet<File> assetsFileListHash = new HashSet<>();
+    private final HashSet<String> importFilesHash = new HashSet<>();
+    private final ArrayList<File> importFiles = new ArrayList<>();
     public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
-    private HashSet<String> importFilesHash = new HashSet<String>(StringComparer.OrdinalIgnoreCase);
 
     public void loadFiles(ArrayList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
@@ -26,8 +24,17 @@ public class AssetsManager {
 
     private void load(ArrayList<File> files) throws IOException {
         for (var file : files) {
-            loadFile(file);
+            importFiles.add(file);
+            importFilesHash.add(file.getName());
         }
+
+        for (File importFile : importFiles) {
+            loadFile(importFile);
+        }
+
+        importFiles.clear();
+        importFilesHash.clear();
+        assetsFileListHash.clear();
     }
 
     private void loadFile(File file) throws IOException {
@@ -40,19 +47,27 @@ public class AssetsManager {
     }
 
     private void loadAssetsFile(File file, UnityStream reader) {
-        var fileName = file.getName();
-        if (!assetsFileListHash.contains(fileName)){
-            //Logger...?
-            try{
-                var assetsFile = new SerializedFile(this, file, reader);
-                assetsFileList.add(assetsFile);
-                assetsFileListHash.add(new File(assetsFile.fileName));
+        if (!assetsFileListHash.contains(file)) {
+            var assetsFile = new SerializedFile(this, file, reader);
+            assetsFileList.add(assetsFile);
+            assetsFileListHash.add(file);
 
-                for (var sharedFile: assetsFile.m_Externals) {
-                    var sharedFilePath = new File(file.getParent() + sharedFile.fileName);
-                    var sharedFileName = sharedFile.fileName;
+            for (var sharedFile : assetsFile.m_Externals) {
+                var sharedFilePath = new File(file.getPath() + File.separator + sharedFile.fileName);
+                var sharedFileName = sharedFile.fileName;
 
-                    if (!)
+                if (!importFilesHash.contains(sharedFileName)) {
+                    if (!sharedFilePath.exists()) {
+                        var findFiles = new ArrayList<File>();
+                        DirectoryHelper.findFiles(file.getParentFile(), sharedFileName, findFiles, true);
+                        if (findFiles.size() > 0)
+                            sharedFilePath = findFiles.get(0);
+                    }
+
+                    if (sharedFilePath.exists()) {
+                        importFiles.add(sharedFilePath);
+                        importFilesHash.add(sharedFileName);
+                    }
                 }
             }
         }
@@ -64,7 +79,13 @@ public class AssetsManager {
 
     private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile, String unityVersion) {
         if (!assetsFileListHash.contains(file)) {
-
+            var assetsFile = new SerializedFile(this, file, reader);
+            assetsFile.originalPath = String.valueOf(originalFile);
+            if (assetsFile.header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_7.ordinal()) {
+                assetsFile.setVersion(unityVersion);
+            }
+            assetsFileList.add(assetsFile);
+            assetsFileListHash.add(file);
         }
     }
 
@@ -88,6 +109,7 @@ public class AssetsManager {
     }
 
     private void loadWebFile(File file, UnityStream reader) {
+        throw new UnsupportedOperationException();
     }
 
 }
