@@ -5,6 +5,7 @@ import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Struct {
     public static class StreamFile {
@@ -98,4 +99,20 @@ public class Struct {
         public long m_PathID;
         public SerializedType serializedType;
     }
+
+    public static class LocalSerializedObjectIdentifier
+    {
+        public int localSerializedFileIndex;
+        public long localIdentifierInFile;
+    }
+
+    public static class FileIdentifier
+    {
+        public UUID guid;
+        public int type; //enum { kNonAssetType = 0, kDeprecatedCachedAssetType = 1, kSerializedAssetType = 2, kMetaAssetType = 3 };
+        public String pathName;
+        //custom
+        public String fileName;
+    }
+
 }
