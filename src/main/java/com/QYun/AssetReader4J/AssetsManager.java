@@ -1,15 +1,22 @@
 package com.QYun.AssetReader4J;
 
+import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
 import com.QYun.util.Stream.UnityStream;
+import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 public class AssetsManager {
     private final HashSet<File> assetsFileListHash = new HashSet<>();
+    public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
+    private HashSet<String> importFilesHash = new HashSet<String>(StringComparer.OrdinalIgnoreCase);
 
     public void loadFiles(ArrayList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
@@ -33,6 +40,22 @@ public class AssetsManager {
     }
 
     private void loadAssetsFile(File file, UnityStream reader) {
+        var fileName = file.getName();
+        if (!assetsFileListHash.contains(fileName)){
+            //Logger...?
+            try{
+                var assetsFile = new SerializedFile(this, file, reader);
+                assetsFileList.add(assetsFile);
+                assetsFileListHash.add(new File(assetsFile.fileName));
+
+                for (var sharedFile: assetsFile.m_Externals) {
+                    var sharedFilePath = new File(file.getParent() + sharedFile.fileName);
+                    var sharedFileName = sharedFile.fileName;
+
+                    if (!)
+                }
+            }
+        }
     }
 
     private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile) {

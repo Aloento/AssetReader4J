@@ -36,6 +36,9 @@ public class SerializedFile {
     public ArrayList<SerializedType> m_RefTypes;
     private boolean m_EnableTypeTree = true;
     public String userInformation;
+    public String fullName;
+    public String originalPath;
+    public String fileName;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
         this.assetsManager = assetsManager;
