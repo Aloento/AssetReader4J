@@ -1,5 +1,6 @@
 package com.QYun.AssetReader4J;
 
+import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
 import com.QYun.util.Stream.UnityStream;
@@ -11,9 +12,9 @@ import java.util.HashSet;
 
 public class AssetsManager {
     private final HashSet<File> assetsFileListHash = new HashSet<>();
-    public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
     private final HashSet<String> importFilesHash = new HashSet<>();
     private final ArrayList<File> importFiles = new ArrayList<>();
+    public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
 
     public void loadFiles(ArrayList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
@@ -78,7 +79,13 @@ public class AssetsManager {
 
     private void loadAssetsFromMemory(File file, UnityStream reader, File originalFile, String unityVersion) {
         if (!assetsFileListHash.contains(file)) {
-            var assetsFile = new SerializedFile()
+            var assetsFile = new SerializedFile(this, file, reader);
+            assetsFile.originalPath = String.valueOf(originalFile);
+            if (assetsFile.header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_7.ordinal()) {
+                assetsFile.setVersion(unityVersion);
+            }
+            assetsFileList.add(assetsFile);
+            assetsFileListHash.add(file);
         }
     }
 

@@ -3,13 +3,7 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
-import com.QYun.AssetReader4J.Entities.Struct;
-import com.QYun.AssetReader4J.Entities.Struct.ObjectInfo;
-import com.QYun.AssetReader4J.Entities.Struct.SerializedFileHeader;
-import com.QYun.AssetReader4J.Entities.Struct.SerializedType;
-import com.QYun.AssetReader4J.Entities.Struct.TypeTree;
-import com.QYun.AssetReader4J.Entities.Struct.LocalSerializedObjectIdentifier;
-import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
+import com.QYun.AssetReader4J.Entities.Struct.*;
 import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
@@ -36,7 +30,6 @@ public class SerializedFile {
     public ArrayList<SerializedType> m_RefTypes;
     private boolean m_EnableTypeTree = true;
     public String userInformation;
-    public String fullName;
     public String originalPath;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
@@ -123,8 +116,7 @@ public class SerializedFile {
                         break;
                     }
                 }
-            }
-            else {
+            } else {
                 SerializedType type;
                 type = m_Types.get(objectInfo.typeID);
                 objectInfo.serializedType = type;
@@ -137,28 +129,27 @@ public class SerializedFile {
 
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kHasScriptTypeIndex.ordinal() && header.m_Version.ordinal() < SerializedFileFormatVersion.kRefactorTypeData.ordinal()) {
                 short m_ScriptTypeIndex = reader.readShort();
-                if (objectInfo.serializedType != null){
+                if (objectInfo.serializedType != null) {
                     objectInfo.serializedType.m_ScriptTypeIndex = m_ScriptTypeIndex;
                 }
             }
 
 
-            if (header.m_Version.ordinal() == SerializedFileFormatVersion.kSupportsStrippedObject.ordinal() || header.m_Version.ordinal() == SerializedFileFormatVersion.kRefactoredClassId.ordinal()){
+            if (header.m_Version.ordinal() == SerializedFileFormatVersion.kSupportsStrippedObject.ordinal() || header.m_Version.ordinal() == SerializedFileFormatVersion.kRefactoredClassId.ordinal()) {
                 objectInfo.stripped = reader.readByte();
             }
             m_Objects.add(objectInfo);
         }
 
-        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kHasScriptTypeIndex.ordinal()){
+        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kHasScriptTypeIndex.ordinal()) {
             int scriptCount = reader.readInt();
             m_ScriptTypes = new ArrayList<>(scriptCount);
-            for (int i = 0; i < scriptCount; i++){
+            for (int i = 0; i < scriptCount; i++) {
                 LocalSerializedObjectIdentifier m_ScriptType = new LocalSerializedObjectIdentifier();
                 m_ScriptType.localSerializedFileIndex = reader.readInt();
-                if (header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_14.ordinal()){
+                if (header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_14.ordinal()) {
                     m_ScriptType.localIdentifierInFile = reader.readInt();
-                }
-                else {
+                } else {
                     reader.alignStream();
                     m_ScriptType.localIdentifierInFile = reader.readLong();
                 }
@@ -168,29 +159,29 @@ public class SerializedFile {
 
         int externalsCount = reader.readInt();
         m_Externals = new ArrayList<>(externalsCount);
-        for (int i = 0; i < externalsCount; i++){
+        for (int i = 0; i < externalsCount; i++) {
             FileIdentifier m_External = new FileIdentifier();
-            if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_6.ordinal()){
+            if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_6.ordinal()) {
                 String tempEmpty = reader.readStringToNull();
             }
-            if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()){
+            if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()) {
                 m_External.guid = UUID.nameUUIDFromBytes(reader.readBytes(16));
                 m_External.type = reader.readInt();
             }
             m_External.pathName = reader.readStringToNull();
-            m_External.fileName = m_External.pathName;//<-- m_External.fileName = Path.GetFileName(m_External.pathName);
+            m_External.fileName = new File(m_External.pathName).getName();
             m_Externals.add(m_External);
         }
 
-        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kSupportsRefObject.ordinal()){
+        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kSupportsRefObject.ordinal()) {
             int refTypesCount = reader.readInt();
             m_RefTypes = new ArrayList<>(refTypesCount);
-            for (int i = 0; i < refTypesCount; i++){
+            for (int i = 0; i < refTypesCount; i++) {
                 m_RefTypes.add(readSerializedType(true));
             }
         }
 
-        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()){
+        if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()) {
             userInformation = reader.readStringToNull();
         }
 

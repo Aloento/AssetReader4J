@@ -100,14 +100,12 @@ public class Struct {
         public SerializedType serializedType;
     }
 
-    public static class LocalSerializedObjectIdentifier
-    {
+    public static class LocalSerializedObjectIdentifier {
         public int localSerializedFileIndex;
         public long localIdentifierInFile;
     }
 
-    public static class FileIdentifier
-    {
+    public static class FileIdentifier {
         public UUID guid;
         public int type; //enum { kNonAssetType = 0, kDeprecatedCachedAssetType = 1, kSerializedAssetType = 2, kMetaAssetType = 3 };
         public String pathName;
