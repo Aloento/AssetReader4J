@@ -30,7 +30,7 @@ public class SerializedFile {
     public int bigIDEnabled = 0;
     public ArrayList<ObjectInfo> m_Objects;
     public ArrayList<Object> Objects;
-    public Hashtable<Long, Object> ObjectsDic;
+    public Hashtable<long, Object> ObjectsDic;
     private ArrayList<LocalSerializedObjectIdentifier> m_ScriptTypes;
     public ArrayList<FileIdentifier> m_Externals;
     public ArrayList<SerializedType> m_RefTypes;
@@ -38,7 +38,6 @@ public class SerializedFile {
     public String userInformation;
     public String fullName;
     public String originalPath;
-    public String fileName;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
         this.assetsManager = assetsManager;
@@ -95,7 +94,7 @@ public class SerializedFile {
         int objectCount = reader.readInt();
         m_Objects = new ArrayList<>(objectCount);
         Objects = new ArrayList<>(objectCount);
-        ObjectsDic = new Hashtable<>(objectCount);
+        ObjectsDic = new Hashtable<long, Object>(objectCount);
         for (int i = 0; i < objectCount; i++) {
             ObjectInfo objectInfo = new ObjectInfo();
             if (bigIDEnabled != 0) {
