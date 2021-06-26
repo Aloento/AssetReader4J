@@ -25,12 +25,13 @@ public class SerializedFile {
     public ArrayList<ObjectInfo> m_Objects;
     public ArrayList<Object> Objects;
     public Hashtable<long, Object> ObjectsDic;
-    private ArrayList<LocalSerializedObjectIdentifier> m_ScriptTypes;
     public ArrayList<FileIdentifier> m_Externals;
     public ArrayList<SerializedType> m_RefTypes;
-    private boolean m_EnableTypeTree = true;
     public String userInformation;
     public String originalPath;
+    private ArrayList<LocalSerializedObjectIdentifier> m_ScriptTypes;
+
+    private boolean m_EnableTypeTree = true;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
         this.assetsManager = assetsManager;
@@ -87,11 +88,11 @@ public class SerializedFile {
         int objectCount = reader.readInt();
         m_Objects = new ArrayList<>(objectCount);
         Objects = new ArrayList<>(objectCount);
-        ObjectsDic = new Hashtable<long, Object>(objectCount);
+        ObjectsDic = new Hashtable<>(objectCount);
         for (int i = 0; i < objectCount; i++) {
-            ObjectInfo objectInfo = new ObjectInfo();
+            var objectInfo = new ObjectInfo();
             if (bigIDEnabled != 0) {
-                objectInfo.m_PathID = reader.readInt();
+                objectInfo.m_PathID = reader.readLong();
             } else if (header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_14.ordinal()) {
                 objectInfo.m_PathID = reader.readInt();
             } else {
@@ -117,8 +118,7 @@ public class SerializedFile {
                     }
                 }
             } else {
-                SerializedType type;
-                type = m_Types.get(objectInfo.typeID);
+                var type = m_Types.get(objectInfo.typeID);
                 objectInfo.serializedType = type;
                 objectInfo.classID = type.classID;
             }
@@ -240,9 +240,9 @@ public class SerializedFile {
             type.m_Type.m_Nodes = new ArrayList<>();
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_12.ordinal()
                     || header.m_Version.ordinal() == SerializedFileFormatVersion.kUnknown_10.ordinal()) {
-
+                typeTreeBlobRead(type.m_Type);
             } else {
-
+                readTypeTree(type.m_Type);
             }
 
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kStoresTypeDependencies.ordinal()) {
@@ -257,6 +257,79 @@ public class SerializedFile {
         }
 
         return type;
+    }
+
+    private void readTypeTree(TypeTree m_Type) {
+        readTypeTree(m_Type, 0);
+    }
+
+    private void readTypeTree(TypeTree m_Type, int level) {
+        var typeTreeNode = new TypeTreeNode();
+        m_Type.m_Nodes.add(typeTreeNode);
+        typeTreeNode.m_Level = level;
+        typeTreeNode.m_Type = reader.readStringToNull();
+        typeTreeNode.m_Name = reader.readStringToNull();
+        typeTreeNode.m_ByteSize = reader.readInt();
+        if (header.m_Version.ordinal() == SerializedFileFormatVersion.kUnknown_2.ordinal()) {
+            var variableCount = reader.readInt();
+        }
+        if (header.m_Version.ordinal() != SerializedFileFormatVersion.kUnknown_3.ordinal()) {
+            typeTreeNode.m_Index = reader.readInt();
+        }
+        typeTreeNode.m_TypeFlags = reader.readInt();
+        typeTreeNode.m_Version = reader.readInt();
+        if (header.m_Version.ordinal() != SerializedFileFormatVersion.kUnknown_3.ordinal()) {
+            typeTreeNode.m_MetaFlag = reader.readInt();
+        }
+
+        int childrenCount = reader.readInt();
+        for (int i = 0; i < childrenCount; i++) {
+            readTypeTree(m_Type, level + 1);
+        }
+    }
+
+    private void typeTreeBlobRead(TypeTree m_Type) {
+        int numberOfNodes = reader.readInt();
+        int stringBufferSize = reader.readInt();
+
+        for (int i = 0; i < numberOfNodes; i++) {
+            var typeTreeNode = new TypeTreeNode();
+            m_Type.m_Nodes.add(typeTreeNode);
+            typeTreeNode.m_Version = reader.readShort();
+            typeTreeNode.m_Level = reader.readByte();
+            typeTreeNode.m_TypeFlags = reader.readByte();
+            typeTreeNode.m_TypeStrOffset = reader.readInt();
+            typeTreeNode.m_NameStrOffset = reader.readInt();
+            typeTreeNode.m_ByteSize = reader.readInt();
+            typeTreeNode.m_Index = reader.readInt();
+            typeTreeNode.m_MetaFlag = reader.readInt();
+            if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kTypeTreeNodeWithTypeFlags.ordinal())
+                typeTreeNode.m_RefTypeHash = reader.readShort();
+        }
+        m_Type.m_StringBuffer = reader.readBytes(stringBufferSize);
+
+        var stringBufferReader = new UnityStream(m_Type.m_StringBuffer);
+        for (int i = 0; i < numberOfNodes; i++) {
+            var m_Node = m_Type.m_Nodes.get(i);
+            m_Node.m_Type = readString(stringBufferReader, m_Node.m_TypeStrOffset);
+            m_Node.m_Name = readString(stringBufferReader, m_Node.m_NameStrOffset);
+        }
+    }
+
+    private String readString(UnityStream reader, int value) {
+        var isOffset = (value & 0x80000000) == 0;
+        if (isOffset) {
+            reader.setPos(value);
+            return reader.readStringToNull();
+        }
+
+        var offset = value & 0x7FFFFFFF;
+
+    }
+
+    public void addObject(Object obj) {
+        Objects.add(obj);
+        //ObjectsDic.Add(obj.m_PathID, obj);
     }
 
     public void setVersion(String version) {

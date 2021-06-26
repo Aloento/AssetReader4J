@@ -109,6 +109,7 @@ public class AssetsManager {
     }
 
     private void loadWebFile(File file, UnityStream reader) {
+        throw new UnsupportedOperationException();
     }
 
 }
