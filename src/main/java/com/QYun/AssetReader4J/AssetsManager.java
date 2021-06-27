@@ -35,6 +35,17 @@ public class AssetsManager {
         importFiles.clear();
         importFilesHash.clear();
         assetsFileListHash.clear();
+
+        readAssets();
+        processAssets();
+    }
+
+    private void readAssets() {
+
+    }
+
+    private void processAssets() {
+
     }
 
     private void loadFile(File file) throws IOException {

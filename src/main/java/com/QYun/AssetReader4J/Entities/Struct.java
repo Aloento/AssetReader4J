@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 public class Struct {
-    public final static Hashtable<Integer, String> StringBuffer = new Hashtable<>() {{
+    public final static Hashtable<Integer, String> stringBuffer = new Hashtable<>() {{
         put(0, "AABB");
         put(5, "AnimationClip");
         put(19, "AnimationCurve");
@@ -224,6 +224,22 @@ public class Struct {
         public String pathName;
         //custom
         public String fileName;
+    }
+
+    public static class BuildType {
+        private final String buildType;
+
+        public BuildType(String type) {
+            buildType = type;
+        }
+
+        public boolean isAlpha() {
+            return buildType.equals("a");
+        }
+
+        public boolean isPatch() {
+            return buildType.equals("p");
+        }
     }
 
 }
