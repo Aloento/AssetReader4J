@@ -3,6 +3,7 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
+import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Entities.Struct.*;
 import com.QYun.util.Stream.UnityStream;
 
@@ -323,8 +324,12 @@ public class SerializedFile {
             return reader.readStringToNull();
         }
 
-        var offset = value & 0x7FFFFFFF;
+        int offset = value & 0x7FFFFFFF;
+        String str = Struct.stringBuffer.get(offset);
+        if (str != null)
+            return str;
 
+        return String.valueOf(offset);
     }
 
     public void addObject(Object obj) {
