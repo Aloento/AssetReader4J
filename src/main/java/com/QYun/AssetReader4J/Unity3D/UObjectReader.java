@@ -1,4 +1,4 @@
-package com.QYun.AssetReader4J.Extensions;
+package com.QYun.AssetReader4J.Unity3D;
 
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;

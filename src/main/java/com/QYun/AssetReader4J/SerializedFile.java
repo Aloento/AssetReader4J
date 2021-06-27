@@ -5,7 +5,7 @@ import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Entities.Struct.*;
-import com.QYun.AssetReader4J.Extensions.UObject;
+import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
