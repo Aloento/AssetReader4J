@@ -56,9 +56,29 @@ public class TypeTreeHelper {
                 append = false;
                 sb.append(String.format("%s%s %s\r\n", "\t".repeat(level), varTypeStr, varNameStr));
                 sb.append(String.format("%s%s %s\r\n", "\t".repeat(level + 1), "Array", "Array"));
+                var size = reader.readInt();
+                sb.append(String.format("%s%s %s = %s\r\n", "\t".repeat(level + 1), "int", "size", size));
+                var map = getNodes(m_Nodes, i);
 
+                // TODO
             }
         }
+    }
+
+    private static ArrayList<TypeTreeNode> getNodes(ArrayList<TypeTreeNode> m_Nodes, int index) {
+        var nodes = new ArrayList<TypeTreeNode>();
+        nodes.add(m_Nodes.get(index));
+        var level = m_Nodes.get(index).m_Level;
+
+        for (int i = index + 1; i < m_Nodes.size(); i++) {
+            var member = m_Nodes.get(i);
+            var level2 = member.m_Level;
+            if (level2 <= level)
+                return nodes;
+            nodes.add(member);
+        }
+
+        return nodes;
     }
 
     public static LinkedHashMap<String, Object> readType(TypeTree m_Types, UObjectReader reader) {
@@ -80,10 +100,27 @@ public class TypeTreeHelper {
     private static Object readValue(ArrayList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
         var m_Node = m_Nodes.get(i);
         var varTypeStr = m_Node.m_Type;
-        Object value;
-        var align = (m_Node.)
+        Object value = null;
+        var align = (m_Node.m_MetaFlag & 0x4000) != 0;
+        switch (varTypeStr) {
+            case "SInt8" -> value = reader.readByte();
+            case "UInt8", "char" -> value = reader.readUnsignedByte();
+            case "short", "SInt16" -> value = reader.readShort();
+            case "UInt16", "unsigned short" -> value = reader.readUnsignedShort();
+            case "int", "SInt32", "UInt32", "unsigned int", "Type*" -> value = reader.readInt();
+            case "long long", "SInt64", "UInt64", "unsigned long long", "FileSize" -> value = reader.readLong();
+            case "float" -> value = reader.readFloat();
+            case "double" -> value = reader.readDouble();
+            case "bool" -> value = reader.readBoolean();
+            case "string" -> {
+                value = reader.readAlignedString();
+                i += 3;
+            }
 
+            // TODO
+        }
+
+        return value;
     }
-
 
 }

@@ -52,14 +52,14 @@ public class UObject {
         return null;
     }
 
-    public LinkedHashMap<> toType() {
+    public LinkedHashMap<String, Object> toType() {
         if (serializedType.m_Type != null) {
             return TypeTreeHelper.readType(serializedType.m_Type, reader);
         }
         return null;
     }
 
-    public LinkedHashMap<> toType(TypeTree m_Type) {
+    public LinkedHashMap<String, Object> toType(TypeTree m_Type) {
         if (m_Type != null) {
             return TypeTreeHelper.readType(m_Type, reader);
         }
@@ -70,5 +70,4 @@ public class UObject {
         reader.reset();
         return reader.readBytes(byteSize);
     }
-
 }
