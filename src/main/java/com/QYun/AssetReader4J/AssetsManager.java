@@ -3,18 +3,21 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
+import com.QYun.AssetReader4J.Unity3D.GameObject;
 import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 
 public class AssetsManager {
     private final HashSet<File> assetsFileListHash = new HashSet<>();
     private final HashSet<String> importFilesHash = new HashSet<>();
     private final ArrayList<File> importFiles = new ArrayList<>();
     public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
+    public Hashtable<String, int> assetsFileIndexCache = new Hashtable<String, int>();
 
     public void loadFiles(ArrayList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
@@ -41,10 +44,31 @@ public class AssetsManager {
     }
 
     private void readAssets() {
+        int progressCount = assetsFileList.stream().mapToInt(SerializedFile -> SerializedFile.m_Objects.size()).sum();
+        int i = 0;
 
+        for (var assetsFile : assetsFileList) {
+            for (var objectInfo : assetsFile.m_Objects) {
+
+            }
+        }
     }
 
     private void processAssets() {
+
+        for (var assetsFile : assetsFileList) {
+            for (var obj : assetsFile.Objects) {
+                if (obj instanceof GameObject m_GameObject) {
+                    for (var pptr : m_GameObject.m_Components) {
+                        if (pptr.) {
+                            switch (m_Component) {
+                                case
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 

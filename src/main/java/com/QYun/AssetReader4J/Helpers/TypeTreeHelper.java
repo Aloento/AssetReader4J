@@ -2,7 +2,7 @@ package com.QYun.AssetReader4J.Helpers;
 
 import com.QYun.AssetReader4J.Entities.Struct.TypeTree;
 import com.QYun.AssetReader4J.Entities.Struct.TypeTreeNode;
-import com.QYun.AssetReader4J.Extensions.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
