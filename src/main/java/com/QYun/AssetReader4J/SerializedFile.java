@@ -5,6 +5,7 @@ import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Entities.Struct.*;
+import com.QYun.AssetReader4J.Extensions.UObject;
 import com.QYun.util.Stream.UnityStream;
 
 import java.io.File;
@@ -24,14 +25,15 @@ public class SerializedFile {
     public ArrayList<SerializedType> m_Types;
     public int bigIDEnabled = 0;
     public ArrayList<ObjectInfo> m_Objects;
-    public ArrayList<Object> Objects;
-    public Hashtable<long, Object> ObjectsDic;
+    public ArrayList<UObject> Objects;
+    public Hashtable<Long, UObject> ObjectsDic;
     public ArrayList<FileIdentifier> m_Externals;
     public ArrayList<SerializedType> m_RefTypes;
     public String userInformation;
     public String originalPath;
+    public int[] version = {0, 0, 0, 0};
+    public BuildType buildType;
     private ArrayList<LocalSerializedObjectIdentifier> m_ScriptTypes;
-
     private boolean m_EnableTypeTree = true;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
@@ -332,9 +334,9 @@ public class SerializedFile {
         return String.valueOf(offset);
     }
 
-    public void addObject(Object obj) {
+    public void addObject(UObject obj) {
         Objects.add(obj);
-        //ObjectsDic.Add(obj.m_PathID, obj);
+        ObjectsDic.put(obj.m_PathID, obj);
     }
 
     public void setVersion(String version) {

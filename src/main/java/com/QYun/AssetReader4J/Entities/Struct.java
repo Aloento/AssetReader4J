@@ -226,4 +226,20 @@ public class Struct {
         public String fileName;
     }
 
+    public static class BuildType {
+        private final String buildType;
+
+        public BuildType(String type) {
+            buildType = type;
+        }
+
+        public boolean isAlpha() {
+            return buildType.equals("a");
+        }
+
+        public boolean isPatch() {
+            return buildType.equals("p");
+        }
+    }
+
 }
