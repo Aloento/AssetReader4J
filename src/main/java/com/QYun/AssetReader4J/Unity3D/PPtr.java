@@ -30,14 +30,37 @@ public class PPtr<T extends UObject> {
             if (index == -2) {
                 var m_External = assetsFile.m_Externals.get(m_FileID - 1);
                 var name = m_External.fileName;
-                if (!assetsFileIndexCache.get(name)) {
-
+                var index = assetsFileIndexCache.get(name);
+                if (index == null) {
+                    index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
+                    assetsFileIndexCache.put(name, index);
                 }
+            }
+
+            if (index >= 0) {
+                result = assetsFileList.get(index);
+                return true;
             }
 
         }
 
         return false;
     }
+
+    public Boolean TryGet(T result) {
+        var sourceFile = new SerializedFile();
+        if (TryGetAssetsFile(sourceFile)) {
+            var obj = new UObject(result.reader);
+            if (sourceFile.ObjectsDic.get(m_PathID) != null) {
+                if (obj instanceof T variable) {
+                    result = variable;
+                    return true;
+                }
+            }
+        }
+        result = null;
+        return false;
+    }
+
 
 }

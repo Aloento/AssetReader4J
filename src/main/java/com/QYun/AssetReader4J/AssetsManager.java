@@ -5,27 +5,30 @@ import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
 import com.QYun.AssetReader4J.Unity3D.GameObject;
 import com.QYun.util.Stream.UnityStream;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.factory.Maps;
+import org.eclipse.collections.api.factory.Sets;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.map.MutableMap;
+import org.eclipse.collections.api.set.MutableSet;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Hashtable;
 
 public class AssetsManager {
-    private final HashSet<File> assetsFileListHash = new HashSet<>();
-    private final HashSet<String> importFilesHash = new HashSet<>();
-    private final ArrayList<File> importFiles = new ArrayList<>();
-    public ArrayList<SerializedFile> assetsFileList = new ArrayList<>();
-    public Hashtable<String, int> assetsFileIndexCache = new Hashtable<String, int>();
+    private final MutableSet<File> assetsFileListHash = Sets.mutable.empty();
+    private final MutableSet<String> importFilesHash = Sets.mutable.empty();
+    private final MutableList<File> importFiles = Lists.mutable.empty();
+    public MutableList<SerializedFile> assetsFileList = Lists.mutable.empty();
+    public MutableMap<String, Integer> assetsFileIndexCache = Maps.mutable.empty();
 
-    public void loadFiles(ArrayList<File> files) throws IOException {
+    public void loadFiles(MutableList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
         files.removeIf(File -> File.getName().contains(".split"));
         load(files);
     }
 
-    private void load(ArrayList<File> files) throws IOException {
+    private void load(MutableList<File> files) throws IOException {
         for (var file : files) {
             importFiles.add(file);
             importFilesHash.add(file.getName());
@@ -60,7 +63,7 @@ public class AssetsManager {
             for (var obj : assetsFile.Objects) {
                 if (obj instanceof GameObject m_GameObject) {
                     for (var pptr : m_GameObject.m_Components) {
-                        if (pptr.) {
+                        if (pptr.TryGet()) {
                             switch (m_Component) {
                                 case
                             }
@@ -93,7 +96,7 @@ public class AssetsManager {
 
                 if (!importFilesHash.contains(sharedFileName)) {
                     if (!sharedFilePath.exists()) {
-                        var findFiles = new ArrayList<File>();
+                        var findFiles = new MutableList<File>();
                         DirectoryHelper.findFiles(file.getParentFile(), sharedFileName, findFiles, true);
                         if (findFiles.size() > 0)
                             sharedFilePath = findFiles.get(0);
