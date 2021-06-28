@@ -12,7 +12,6 @@ import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.api.set.MutableSet;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,6 +21,7 @@ public class AssetsManager {
     private final MutableList<File> importFiles = Lists.mutable.empty();
     public MutableList<SerializedFile> assetsFileList = Lists.mutable.empty();
     public MutableMap<String, Integer> assetsFileIndexCache = Maps.mutable.empty();
+    public MutableMap<String, UnityStream> resourceFileReaders = Maps.mutable.empty();
 
     public void loadFiles(MutableList<File> files) throws IOException {
         ImportHelper.mergeSplitAssets(files.get(0));
@@ -48,9 +48,6 @@ public class AssetsManager {
     }
 
     private void readAssets() {
-        int progressCount = assetsFileList.stream().mapToInt(SerializedFile -> SerializedFile.m_Objects.size()).sum();
-        int i = 0;
-
         for (var assetsFile : assetsFileList) {
             for (var objectInfo : assetsFile.m_Objects) {
                 var objectReader = new UObjectReader(assetsFile.reader, assetsFile, objectInfo);
@@ -86,6 +83,7 @@ public class AssetsManager {
                     case ResourceManager -> obj = new ResourceManager(objectReader);
                     default -> obj = new UObject(objectReader);
                 }
+                assetsFile.addObject(obj);
             }
         }
     }
@@ -142,7 +140,7 @@ public class AssetsManager {
 
                 if (!importFilesHash.contains(sharedFileName)) {
                     if (!sharedFilePath.exists()) {
-                        var findFiles = new MutableList<File>();
+                        MutableList<File> findFiles = Lists.mutable.empty();
                         DirectoryHelper.findFiles(file.getParentFile(), sharedFileName, findFiles, true);
                         if (findFiles.size() > 0)
                             sharedFilePath = findFiles.get(0);

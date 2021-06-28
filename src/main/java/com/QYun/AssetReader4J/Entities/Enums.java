@@ -11,7 +11,7 @@ public class Enums {
 
     public static BuildTarget buildTarget(int index) {
         for (var type : BuildTarget.values()) {
-            if (type.ordinal() == index)
+            if (type.index() == index)
                 return type;
         }
         return BuildTarget.UnknownPlatform;
@@ -19,7 +19,7 @@ public class Enums {
 
     public static ClassIDType classIDType(int index) {
         for (var type : ClassIDType.values()) {
-            if (type.ordinal() == index)
+            if (type.index() == index)
                 return type;
         }
         return ClassIDType.UnknownType;

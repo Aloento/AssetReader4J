@@ -1,7 +1,7 @@
 package com.QYun.AssetReader4J.Unity3D;
 
-public class Mesh extends NamedObject {
-    public Mesh(UObjectReader reader) {
+public class Material extends NamedObject {
+    public Material(UObjectReader reader) {
         super(reader);
         // TODO
     }

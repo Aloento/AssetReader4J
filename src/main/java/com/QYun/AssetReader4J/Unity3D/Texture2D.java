@@ -13,7 +13,7 @@ public class Texture2D extends Texture {
     public ResourceReader image_data;
     public StreamingInfo m_StreamData;
 
-    protected Texture2D(UObjectReader reader) {
+    public Texture2D(UObjectReader reader) {
         super(reader);
         // TODO
     }
