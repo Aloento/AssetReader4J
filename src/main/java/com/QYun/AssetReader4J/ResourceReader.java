@@ -10,11 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ResourceReader {
+    private final long offset;
+    private final int size;
     private Boolean needSearch;
     private String path;
     private SerializedFile assetsFile;
-    private final long offset;
-    private final int size;
     private UnityStream reader;
 
     public ResourceReader(String path, SerializedFile assetsFile, long offset, int size) {
