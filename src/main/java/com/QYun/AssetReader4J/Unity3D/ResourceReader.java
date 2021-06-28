@@ -28,7 +28,13 @@ public class ResourceReader {
 
     public byte[] GetData() {
         if (needSearch) {
-            if (assetsFile.assetsManager.resourceFileReaders.t) {
+            if (assetsFile.assetsManager.resourceFileReaders.get(reader) != null) {
+                needSearch = false;
+                reader.setPos(Math.toIntExact(offset));
+                return reader.readBytes(size);
+            }
+
+            if (assetsFile.assetsManager.resourceFileReaders.get(reader) != null) {
 
             }
         }

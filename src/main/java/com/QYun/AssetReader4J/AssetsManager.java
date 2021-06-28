@@ -3,7 +3,9 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
-import com.QYun.AssetReader4J.Unity3D.*;
+import com.QYun.AssetReader4J.Unity3D.Objects.*;
+import com.QYun.AssetReader4J.Unity3D.UObject;
+import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.factory.Maps;
@@ -72,6 +74,7 @@ public class AssetsManager {
                     case MovieTexture -> obj = new MovieTexture(objectReader);
                     case PlayerSettings -> obj = new PlayerSettings(objectReader);
                     case RectTransform -> obj = new RectTransform(objectReader);
+                    case ResourceManager -> obj = new ResourceManager(objectReader);
                     case Shader -> obj = new Shader(objectReader);
                     case SkinnedMeshRenderer -> obj = new SkinnedMeshRenderer(objectReader);
                     case Sprite -> obj = new Sprite(objectReader);
@@ -80,7 +83,6 @@ public class AssetsManager {
                     case Texture2D -> obj = new Texture2D(objectReader);
                     case Transform -> obj = new Transform(objectReader);
                     case VideoClip -> obj = new VideoClip(objectReader);
-                    case ResourceManager -> obj = new ResourceManager(objectReader);
                     default -> obj = new UObject(objectReader);
                 }
                 assetsFile.addObject(obj);
