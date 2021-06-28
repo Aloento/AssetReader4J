@@ -25,6 +25,15 @@ public class Enums {
         return ClassIDType.UnknownType;
     }
 
+    //  ↓  Not Sure  ↓
+    public static TextureFormat textureFormat(int index) {
+        for (var type : TextureFormat.values()) {
+            if (type.index() == index)
+                return type;
+        }
+        return TextureFormat.Alpha8;
+    }
+
     public enum FileType {
         AssetsFile,
         BundleFile,
