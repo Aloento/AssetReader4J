@@ -1,5 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D;
 
+import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
 public class GameObject extends EditorExtension {
@@ -16,7 +17,7 @@ public class GameObject extends EditorExtension {
     public GameObject(UObjectReader reader) {
         super(reader);
         int m_Component_size = reader.readInt();
-        m_Components = new MutableList<>(m_Component_size);
+        m_Components = Lists.mutable.withInitialCapacity(m_Component_size);
 
         for (int i = 0; i < m_Component_size; i++) {
             int first;

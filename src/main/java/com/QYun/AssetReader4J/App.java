@@ -1,11 +1,13 @@
 package com.QYun.AssetReader4J;
 
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.MutableList;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class App {
-    private static final ArrayList<File> files = new ArrayList<>();
+    private static final MutableList<File> files = Lists.mutable.empty();
     public static AssetsManager manager = new AssetsManager();
 
     public static void main(String[] args) {

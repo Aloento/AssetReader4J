@@ -2,9 +2,9 @@ package com.QYun.AssetReader4J.Entities;
 
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.util.Stream.UnityStream;
+import org.eclipse.collections.api.list.MutableList;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.UUID;
 
@@ -174,7 +174,7 @@ public class Struct {
     }
 
     public static class TypeTree {
-        public ArrayList<TypeTreeNode> m_Nodes;
+        public MutableList<TypeTreeNode> m_Nodes;
         public byte[] m_StringBuffer;
     }
 

@@ -3,9 +3,12 @@ package com.QYun.AssetReader4J.Helpers;
 import com.QYun.AssetReader4J.Entities.Struct.TypeTree;
 import com.QYun.AssetReader4J.Entities.Struct.TypeTreeNode;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.map.MutableOrderedMap;
+import org.eclipse.collections.impl.factory.OrderedMaps;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class TypeTreeHelper {
@@ -24,7 +27,7 @@ public class TypeTreeHelper {
         return sb.toString();
     }
 
-    private static void readStringValue(StringBuilder sb, ArrayList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
+    private static void readStringValue(StringBuilder sb, MutableList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
         var m_Node = m_Nodes.get(i);
         var level = m_Node.m_Level;
         var varTypeStr = m_Node.m_Type;
@@ -65,8 +68,8 @@ public class TypeTreeHelper {
         }
     }
 
-    private static ArrayList<TypeTreeNode> getNodes(ArrayList<TypeTreeNode> m_Nodes, int index) {
-        var nodes = new ArrayList<TypeTreeNode>();
+    private static MutableList<TypeTreeNode> getNodes(MutableList<TypeTreeNode> m_Nodes, int index) {
+        MutableList<TypeTreeNode> nodes = Lists.mutable.empty();
         nodes.add(m_Nodes.get(index));
         var level = m_Nodes.get(index).m_Level;
 
@@ -81,9 +84,9 @@ public class TypeTreeHelper {
         return nodes;
     }
 
-    public static LinkedHashMap<String, Object> readType(TypeTree m_Types, UObjectReader reader) {
+    public static MutableOrderedMap<String, Object> readType(TypeTree m_Types, UObjectReader reader) {
         reader.reset();
-        var obj = new LinkedHashMap<String, Object>();
+        MutableOrderedMap<String, Object> obj = OrderedMaps.adapt(new LinkedHashMap<>());
         var m_Nodes = m_Types.m_Nodes;
         for (int i = 1; i < m_Nodes.size(); i++) {
             var m_Node = m_Nodes.get(i);
@@ -97,7 +100,7 @@ public class TypeTreeHelper {
         return obj;
     }
 
-    private static Object readValue(ArrayList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
+    private static Object readValue(MutableList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
         var m_Node = m_Nodes.get(i);
         var varTypeStr = m_Node.m_Type;
         Object value = null;
