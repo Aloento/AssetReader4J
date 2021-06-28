@@ -3,7 +3,7 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
-import com.QYun.AssetReader4J.Unity3D.GameObject;
+import com.QYun.AssetReader4J.Unity3D.*;
 import com.QYun.util.Stream.UnityStream;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.factory.Maps;
@@ -12,6 +12,7 @@ import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.api.set.MutableSet;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -52,22 +53,67 @@ public class AssetsManager {
 
         for (var assetsFile : assetsFileList) {
             for (var objectInfo : assetsFile.m_Objects) {
-
+                var objectReader = new UObjectReader(assetsFile.reader, assetsFile, objectInfo);
+                UObject obj;
+                switch (objectReader.type) {
+                    case Animation -> obj = new Animation(objectReader);
+                    case AnimationClip -> obj = new AnimationClip(objectReader);
+                    case Animator -> obj = new Animator(objectReader);
+                    case AnimatorController -> obj = new AnimatorController(objectReader);
+                    case AnimatorOverrideController -> obj = new AnimatorOverrideController(objectReader);
+                    case AssetBundle -> obj = new AssetBundle(objectReader);
+                    case AudioClip -> obj = new AudioClip(objectReader);
+                    case Avatar -> obj = new Avatar(objectReader);
+                    case Font -> obj = new Font(objectReader);
+                    case GameObject -> obj = new GameObject(objectReader);
+                    case Material -> obj = new Material(objectReader);
+                    case Mesh -> obj = new Mesh(objectReader);
+                    case MeshFilter -> obj = new MeshFilter(objectReader);
+                    case MeshRenderer -> obj = new MeshRenderer(objectReader);
+                    case MonoBehaviour -> obj = new MonoBehaviour(objectReader);
+                    case MonoScript -> obj = new MonoScript(objectReader);
+                    case MovieTexture -> obj = new MovieTexture(objectReader);
+                    case PlayerSettings -> obj = new PlayerSettings(objectReader);
+                    case RectTransform -> obj = new RectTransform(objectReader);
+                    case Shader -> obj = new Shader(objectReader);
+                    case SkinnedMeshRenderer -> obj = new SkinnedMeshRenderer(objectReader);
+                    case Sprite -> obj = new Sprite(objectReader);
+                    case SpriteAtlas -> obj = new SpriteAtlas(objectReader);
+                    case TextAsset -> obj = new TextAsset(objectReader);
+                    case Texture2D -> obj = new Texture2D(objectReader);
+                    case Transform -> obj = new Transform(objectReader);
+                    case VideoClip -> obj = new VideoClip(objectReader);
+                    case ResourceManager -> obj = new ResourceManager(objectReader);
+                    default -> obj = new UObject(objectReader);
+                }
             }
         }
     }
 
     private void processAssets() {
-
         for (var assetsFile : assetsFileList) {
             for (var obj : assetsFile.Objects) {
                 if (obj instanceof GameObject m_GameObject) {
                     for (var pptr : m_GameObject.m_Components) {
-                        if (pptr.TryGet()) {
-                            switch (m_Component) {
-                                case
-                            }
+                        var m_Component = pptr.tryGet();
+                        if (m_Component != null) {
+                            if (m_Component instanceof Transform m_Transform)
+                                m_GameObject.m_Transform = m_Transform;
+                            else if (m_Component instanceof MeshRenderer m_MeshRenderer)
+                                m_GameObject.m_MeshRenderer = m_MeshRenderer;
+                            else if (m_Component instanceof MeshFilter m_MeshFilter)
+                                m_GameObject.m_MeshFilter = m_MeshFilter;
+                            else if (m_Component instanceof SkinnedMeshRenderer m_SkinnedMeshRenderer)
+                                m_GameObject.m_SkinnedMeshRenderer = m_SkinnedMeshRenderer;
+                            else if (m_Component instanceof Animator m_Animator)
+                                m_GameObject.m_Animator = m_Animator;
+                            else if (m_Component instanceof Animation m_Animation)
+                                m_GameObject.m_Animation = m_Animation;
                         }
+                    }
+                } else if (obj instanceof SpriteAtlas m_SpriteAtlas) {
+                    for (var m_PackedSprite : m_SpriteAtlas.m_PackedSprites) {
+
                     }
                 }
             }

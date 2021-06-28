@@ -60,52 +60,56 @@ public class Enums {
     public enum BuildTarget {
         NoTarget(-2),
         DashboardWidget(1),
-        StandaloneOSX,
-        StandaloneOSXPPC,
-        StandaloneOSXIntel,
-        StandaloneWindows,
-        WebPlayer,
-        WebPlayerStreamed,
-        Wii,
-        iOS,
-        PS3,
-        XBOX360,
+        StandaloneOSX(2),
+        StandaloneOSXPPC(3),
+        StandaloneOSXIntel(4),
+        StandaloneWindows(5),
+        WebPlayer(6),
+        WebPlayerStreamed(7),
+        Wii(8),
+        iOS(9),
+        PS3(10),
+        XBOX360(11),
         Android(13),
-        StandaloneGLESEmu,
+        StandaloneGLESEmu(14),
         NaCl(16),
-        StandaloneLinux,
-        FlashPlayer,
-        StandaloneWindows64,
-        WebGL,
-        WSAPlayer,
+        StandaloneLinux(17),
+        FlashPlayer(18),
+        StandaloneWindows64(19),
+        WebGL(20),
+        WSAPlayer(21),
         StandaloneLinux64(24),
-        StandaloneLinuxUniversal,
-        WP8Player,
-        StandaloneOSXIntel64,
-        BlackBerry,
-        Tizen,
-        PSP2,
-        PS4,
-        PSM,
-        XboxOne,
-        SamsungTV,
-        N3DS,
-        WiiU,
-        tvOS,
-        Switch,
-        Lumin,
-        Stadia,
-        CloudRendering,
-        GameCoreXboxSeries,
-        GameCoreXboxOne,
-        PS5,
+        StandaloneLinuxUniversal(25),
+        WP8Player(26),
+        StandaloneOSXIntel64(27),
+        BlackBerry(28),
+        Tizen(29),
+        PSP2(30),
+        PS4(31),
+        PSM(32),
+        XboxOne(33),
+        SamsungTV(34),
+        N3DS(35),
+        WiiU(36),
+        tvOS(37),
+        Switch(38),
+        Lumin(39),
+        Stadia(40),
+        CloudRendering(41),
+        GameCoreXboxSeries(42),
+        GameCoreXboxOne(43),
+        PS5(44),
         UnknownPlatform(9999),
         ;
 
-        BuildTarget() {
-        }
+        private final int index;
 
         BuildTarget(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
         }
     }
 
@@ -484,8 +488,94 @@ public class Enums {
         ScriptedImporter(2089858483),
         ;
 
+        private final int index;
+
         ClassIDType(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
         }
     }
 
+    public enum TextureFormat {
+        Alpha8(1),
+        ARGB4444(2),
+        RGB24(3),
+        RGBA32(4),
+        ARGB32(5),
+        RGB565(7),
+        R16(9),
+        DXT1(10),
+        DXT5(12),
+        RGBA4444(13),
+        BGRA32(14),
+        RHalf(15),
+        RGHalf(16),
+        RGBAHalf(17),
+        RFloat(18),
+        RGFloat(19),
+        RGBAFloat(20),
+        YUY2(21),
+        RGB9e5Float(22),
+        BC4(26),
+        BC5(27),
+        BC6H(24),
+        BC7(25),
+        DXT1Crunched(28),
+        DXT5Crunched(29),
+        PVRTC_RGB2(30),
+        PVRTC_RGBA2(31),
+        PVRTC_RGB4(32),
+        PVRTC_RGBA4(33),
+        ETC_RGB4(34),
+        ATC_RGB4(35),
+        ATC_RGBA8(36),
+        EAC_R(41),
+        EAC_R_SIGNED(42),
+        EAC_RG(43),
+        EAC_RG_SIGNED(44),
+        ETC2_RGB(45),
+        ETC2_RGBA1(46),
+        ETC2_RGBA8(47),
+        ASTC_RGB_4x4(48),
+        ASTC_RGB_5x5(49),
+        ASTC_RGB_6x6(50),
+        ASTC_RGB_8x8(51),
+        ASTC_RGB_10x10(52),
+        ASTC_RGB_12x12(53),
+        ASTC_RGBA_4x4(54),
+        ASTC_RGBA_5x5(55),
+        ASTC_RGBA_6x6(56),
+        ASTC_RGBA_8x8(57),
+        ASTC_RGBA_10x10(58),
+        ASTC_RGBA_12x12(59),
+        ETC_RGB4_3DS(60),
+        ETC_RGBA8_3DS(61),
+        RG16(62),
+        R8(63),
+        ETC_RGB4Crunched(64),
+        ETC2_RGBA8Crunched(65),
+        ASTC_HDR_4x4(66),
+        ASTC_HDR_5x5(67),
+        ASTC_HDR_6x6(68),
+        ASTC_HDR_8x8(69),
+        ASTC_HDR_10x10(70),
+        ASTC_HDR_12x12(71),
+        RG32(72),
+        RGB48(73),
+        RGBA64(74),
+        ;
+
+        private final int index;
+
+        TextureFormat(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
+        }
+    }
 }
