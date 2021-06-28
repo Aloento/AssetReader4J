@@ -15,12 +15,9 @@ public class PPtr<T extends UObject> {
         assetsFile = reader.assetsFile;
     }
 
-    private Boolean TryGetAssetsFile(SerializedFile result) {
-        result = null;
-        if (m_FileID == 0) {
-            result = assetsFile;
-            return true;
-        }
+    private SerializedFile TryGetAssetsFile() {
+        if (m_FileID == 0)
+            return assetsFile;
 
         if (m_FileID > 0 && m_FileID - 1 < assetsFile.m_Externals.size()) {
             var assetsManager = assetsFile.assetsManager;
@@ -30,14 +27,49 @@ public class PPtr<T extends UObject> {
             if (index == -2) {
                 var m_External = assetsFile.m_Externals.get(m_FileID - 1);
                 var name = m_External.fileName;
-                if (!assetsFileIndexCache.get(name)) {
-
+                var index = assetsFileIndexCache.get(name);
+                if (index == null) {
+                    index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
+                    assetsFileIndexCache.put(name, index);
                 }
             }
 
+            if (index >= 0)
+                return assetsFileList.get(index);
         }
-
-        return false;
+        return null;
     }
 
+    public T tryGet() {
+        var sourceFile = TryGetAssetsFile();
+        T result = null;
+
+        if (sourceFile != null) {
+            UObject obj = sourceFile.ObjectsDic.get(m_PathID);
+            if (sourceFile.ObjectsDic.get(m_PathID) != null) {
+                try {
+                    result = (T) obj;
+                } catch (ClassCastException ignored) {
+                }
+            }
+        }
+        return result;
+    }
+
+    public <T2 extends UObject> T2 tryGet(Class<T2> type) {
+        var sourceFile = TryGetAssetsFile();
+        T2 result = null;
+
+        if (sourceFile != null) {
+            UObject obj = sourceFile.ObjectsDic.get(m_PathID);
+            if (sourceFile.ObjectsDic.get(m_PathID) != null) {
+                try {
+                    result = type.cast(obj);
+                } catch (ClassCastException ignored) {
+                }
+            }
+        }
+
+        return result;
+    }
 }

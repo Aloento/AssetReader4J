@@ -7,10 +7,11 @@ import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Entities.Struct.*;
 import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.util.Stream.UnityStream;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.MutableList;
 
 import java.io.File;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.UUID;
 
@@ -22,18 +23,18 @@ public class SerializedFile {
     public SerializedFileHeader header;
     public BuildTarget m_TargetPlatform = BuildTarget.UnknownPlatform;
     public String unityVersion = "2.5.0f5";
-    public ArrayList<SerializedType> m_Types;
+    public MutableList<SerializedType> m_Types;
     public int bigIDEnabled = 0;
-    public ArrayList<ObjectInfo> m_Objects;
-    public ArrayList<UObject> Objects;
+    public MutableList<ObjectInfo> m_Objects;
+    public MutableList<UObject> Objects;
     public Hashtable<Long, UObject> ObjectsDic;
-    public ArrayList<FileIdentifier> m_Externals;
-    public ArrayList<SerializedType> m_RefTypes;
+    public MutableList<FileIdentifier> m_Externals;
+    public MutableList<SerializedType> m_RefTypes;
     public String userInformation;
     public String originalPath;
     public int[] version = {0, 0, 0, 0};
     public BuildType buildType;
-    private ArrayList<LocalSerializedObjectIdentifier> m_ScriptTypes;
+    private MutableList<LocalSerializedObjectIdentifier> m_ScriptTypes;
     private boolean m_EnableTypeTree = true;
 
     public SerializedFile(AssetsManager assetsManager, File file, UnityStream reader) {
@@ -79,7 +80,7 @@ public class SerializedFile {
         }
 
         int typeCount = reader.readInt();
-        m_Types = new ArrayList<>(typeCount);
+        m_Types = Lists.mutable.withInitialCapacity(typeCount);
         for (int i = 0; i < typeCount; i++) {
             m_Types.add(readSerializedType(false));
         }
@@ -89,8 +90,8 @@ public class SerializedFile {
         }
 
         int objectCount = reader.readInt();
-        m_Objects = new ArrayList<>(objectCount);
-        Objects = new ArrayList<>(objectCount);
+        m_Objects = Lists.mutable.withInitialCapacity(objectCount);
+        Objects = Lists.mutable.withInitialCapacity(objectCount);
         ObjectsDic = new Hashtable<>(objectCount);
         for (int i = 0; i < objectCount; i++) {
             var objectInfo = new ObjectInfo();
@@ -146,7 +147,7 @@ public class SerializedFile {
 
         if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kHasScriptTypeIndex.ordinal()) {
             int scriptCount = reader.readInt();
-            m_ScriptTypes = new ArrayList<>(scriptCount);
+            m_ScriptTypes = Lists.mutable.withInitialCapacity(scriptCount);
             for (int i = 0; i < scriptCount; i++) {
                 LocalSerializedObjectIdentifier m_ScriptType = new LocalSerializedObjectIdentifier();
                 m_ScriptType.localSerializedFileIndex = reader.readInt();
@@ -161,7 +162,7 @@ public class SerializedFile {
         }
 
         int externalsCount = reader.readInt();
-        m_Externals = new ArrayList<>(externalsCount);
+        m_Externals = Lists.mutable.withInitialCapacity(externalsCount);
         for (int i = 0; i < externalsCount; i++) {
             FileIdentifier m_External = new FileIdentifier();
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_6.ordinal()) {
@@ -178,7 +179,7 @@ public class SerializedFile {
 
         if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kSupportsRefObject.ordinal()) {
             int refTypesCount = reader.readInt();
-            m_RefTypes = new ArrayList<>(refTypesCount);
+            m_RefTypes = Lists.mutable.withInitialCapacity(refTypesCount);
             for (int i = 0; i < refTypesCount; i++) {
                 m_RefTypes.add(readSerializedType(true));
             }
@@ -240,7 +241,7 @@ public class SerializedFile {
 
         if (m_EnableTypeTree) {
             type.m_Type = new TypeTree();
-            type.m_Type.m_Nodes = new ArrayList<>();
+            type.m_Type.m_Nodes = Lists.mutable.empty();
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_12.ordinal()
                     || header.m_Version.ordinal() == SerializedFileFormatVersion.kUnknown_10.ordinal()) {
                 typeTreeBlobRead(type.m_Type);

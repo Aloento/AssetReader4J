@@ -1,4 +1,8 @@
-package com.QYun.AssetReader4J.Unity3D;
+package com.QYun.AssetReader4J.Unity3D.Objects;
+
+import com.QYun.AssetReader4J.Unity3D.Contracts.Component;
+import com.QYun.AssetReader4J.Unity3D.PPtr;
+import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;

@@ -1,12 +1,13 @@
 package com.QYun.AssetReader4J.Helpers;
 
+import org.eclipse.collections.api.list.MutableList;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
 public class DirectoryHelper {
-    public static void findFiles(File baseDir, String target, ArrayList<File> list, boolean subDirectories) {
+    public static void findFiles(File baseDir, String target, MutableList<File> list, boolean subDirectories) {
         if (!baseDir.exists() || !baseDir.isDirectory()) {
             System.err.println(baseDir.getAbsolutePath() + " Not exists or Not directory");
             return;

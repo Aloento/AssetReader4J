@@ -7,8 +7,7 @@ import com.QYun.AssetReader4J.Entities.Struct.SerializedType;
 import com.QYun.AssetReader4J.Entities.Struct.TypeTree;
 import com.QYun.AssetReader4J.Helpers.TypeTreeHelper;
 import com.QYun.AssetReader4J.SerializedFile;
-
-import java.util.LinkedHashMap;
+import org.eclipse.collections.api.map.MutableOrderedMap;
 
 public class UObject {
     public SerializedFile assetsFile;
@@ -52,14 +51,14 @@ public class UObject {
         return null;
     }
 
-    public LinkedHashMap<String, Object> toType() {
+    public MutableOrderedMap<String, Object> toType() {
         if (serializedType.m_Type != null) {
             return TypeTreeHelper.readType(serializedType.m_Type, reader);
         }
         return null;
     }
 
-    public LinkedHashMap<String, Object> toType(TypeTree m_Type) {
+    public MutableOrderedMap<String, Object> toType(TypeTree m_Type) {
         if (m_Type != null) {
             return TypeTreeHelper.readType(m_Type, reader);
         }

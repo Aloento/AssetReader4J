@@ -4,12 +4,13 @@ import com.QYun.AssetReader4J.Entities.Enums.FileType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.AssetReader4J.WebFile;
 import com.QYun.util.Stream.UnityStream;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.MutableList;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ImportHelper {
@@ -18,7 +19,7 @@ public class ImportHelper {
     }
 
     public static void mergeSplitAssets(File file, boolean subDirectories) {
-        var splitFiles = new ArrayList<File>();
+        MutableList<File> splitFiles = Lists.mutable.empty();
         DirectoryHelper.findFiles(file.getAbsoluteFile().getParentFile(), "*.split0", splitFiles, subDirectories);
 
         for (var splitFile : splitFiles) {
@@ -30,7 +31,7 @@ public class ImportHelper {
             if (fullFile.exists())
                 return;
 
-            var splitParts = new ArrayList<File>();
+            MutableList<File> splitParts = Lists.mutable.empty();
             DirectoryHelper.findFiles(
                     splitFile.getParentFile(),
                     destFile + ".split*",

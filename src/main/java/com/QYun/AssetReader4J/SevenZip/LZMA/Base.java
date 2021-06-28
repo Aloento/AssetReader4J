@@ -66,6 +66,6 @@ public class Base {
         len -= kMatchMinLen;
         if (len < kNumLenToPosStates)
             return len;
-        return (int) (kNumLenToPosStates - 1);
+        return kNumLenToPosStates - 1;
     }
 }

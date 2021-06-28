@@ -1,4 +1,6 @@
-package com.QYun.AssetReader4J.Unity3D;
+package com.QYun.AssetReader4J.Unity3D.Contracts;
+
+import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class NamedObject extends EditorExtension {
     public String m_Name;
