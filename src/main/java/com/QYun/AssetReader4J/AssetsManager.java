@@ -113,12 +113,15 @@ public class AssetsManager {
                     }
                 } else if (obj instanceof SpriteAtlas m_SpriteAtlas) {
                     for (var m_PackedSprite : m_SpriteAtlas.m_PackedSprites) {
-
+                        var m_Sprite = m_PackedSprite.tryGet();
+                        if (m_Sprite != null) {
+                            if (m_Sprite.m_SpriteAtlas.isNull())
+                                m_Sprite.m_SpriteAtlas.set(m_SpriteAtlas);
+                        }
                     }
                 }
             }
         }
-
     }
 
     private void loadFile(File file) throws IOException {

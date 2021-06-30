@@ -27,7 +27,7 @@ public class GameObject extends EditorExtension {
             int first;
             if ((version[0] == 5 && version[1] < 5) || version[0] < 5)
                 first = reader.readInt();
-            m_Components.set(i, new PPtr<>(reader));
+            m_Components.add(i, new PPtr<>(reader));
         }
 
         var m_Layer = reader.readInt();

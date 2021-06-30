@@ -12,6 +12,7 @@ import org.eclipse.collections.api.list.MutableList;
 
 import java.io.File;
 import java.nio.ByteOrder;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.UUID;
 
@@ -342,5 +343,9 @@ public class SerializedFile {
 
     public void setVersion(String version) {
         unityVersion = version;
+        var buildSplit = version.replaceAll("\\d", "").split("\\.");
+        buildType = new BuildType(buildSplit[0]);
+        var versionSplit = version.replaceAll("\\D", ".").split("\\.");
+        this.version = Arrays.stream(versionSplit).mapToInt(Integer::parseInt).toArray();
     }
 }

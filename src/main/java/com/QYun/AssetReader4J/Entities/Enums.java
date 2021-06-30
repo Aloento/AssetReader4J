@@ -6,7 +6,7 @@ public class Enums {
             if (type.ordinal() == index)
                 return type;
         }
-        return SerializedFileFormatVersion.Zero;
+        return SerializedFileFormatVersion.Null;
     }
 
     public static BuildTarget buildTarget(int index) {
@@ -25,13 +25,20 @@ public class Enums {
         return ClassIDType.UnknownType;
     }
 
-    //  ↓  Not Sure  ↓
     public static TextureFormat textureFormat(int index) {
         for (var type : TextureFormat.values()) {
             if (type.index() == index)
                 return type;
         }
-        return TextureFormat.Alpha8;
+        return TextureFormat.Null;
+    }
+
+    public static GfxPrimitiveType gfxPrimitiveType(int index) {
+        for (var type : GfxPrimitiveType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return GfxPrimitiveType.Null;
     }
 
     public enum FileType {
@@ -42,7 +49,7 @@ public class Enums {
     }
 
     public enum SerializedFileFormatVersion {
-        Zero,
+        Null,
         kUnsupported,
         kUnknown_2,
         kUnknown_3,
@@ -509,6 +516,7 @@ public class Enums {
     }
 
     public enum TextureFormat {
+        Null(0),
         Alpha8(1),
         ARGB4444(2),
         RGB24(3),
@@ -586,5 +594,33 @@ public class Enums {
         public int index() {
             return index;
         }
+    }
+
+    public enum GfxPrimitiveType {
+        kPrimitiveTriangles,
+        kPrimitiveTriangleStrip,
+        kPrimitiveQuads,
+        kPrimitiveLines,
+        kPrimitiveLineStrip,
+        kPrimitivePoints,
+        Null,
+    }
+
+    public enum SpritePackingMode {
+        kSPMTight,
+        kSPMRectangle,
+    }
+
+    public enum SpritePackingRotation {
+        kSPRNone,
+        kSPRFlipHorizontal,
+        kSPRFlipVertical,
+        kSPRRotate180,
+        kSPRRotate90,
+    }
+
+    public enum SpriteMeshType {
+        kSpriteMeshTypeFullRect,
+        kSpriteMeshTypeTight,
     }
 }
