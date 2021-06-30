@@ -343,9 +343,9 @@ public class SerializedFile {
 
     public void setVersion(String version) {
         unityVersion = version;
-        var buildSplit = version.replaceAll("\\d", "").split("\\.");
-        buildType = new BuildType(buildSplit[0]);
-        var versionSplit = version.replaceAll("\\D", ".").split("\\.");
-        this.version = Arrays.stream(versionSplit).mapToInt(Integer::parseInt).toArray();
+        var buildSplit = Arrays.stream(version.replaceAll("\\d", "").split("\\.")).filter(s -> !s.isBlank()).toList();
+        buildType = new BuildType(buildSplit.get(0));
+        var versionSplit = Arrays.stream(version.replaceAll("\\D", ".").split("\\.")).filter(s -> !s.isBlank()).toList();
+        this.version = versionSplit.stream().mapToInt(Integer::parseInt).toArray();
     }
 }
