@@ -6,6 +6,8 @@ import com.QYun.AssetReader4J.ResourceReader;
 import com.QYun.AssetReader4J.Unity3D.Contracts.Texture;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
+import java.util.Objects;
+
 public class Texture2D extends Texture {
     public int m_Width;
     public int m_Height;
@@ -71,12 +73,15 @@ public class Texture2D extends Texture {
             m_StreamData = new StreamingInfo(reader);
         }
 
-        ResourceReader resourceReader;
-        if (!m_StreamData.path.isBlank()) {
-            resourceReader = new ResourceReader(m_StreamData.path, assetsFile, m_StreamData.offset, m_StreamData.size);
-        } else {
-            resourceReader = new ResourceReader(reader, reader.getPos(), image_data_size);
+        ResourceReader resourceReader = null;
+        if (m_StreamData != null) {
+            if (m_StreamData.path != null) {
+                if (!m_StreamData.path.isBlank() && !m_StreamData.path.isEmpty())
+                    resourceReader = new ResourceReader(m_StreamData.path, assetsFile, m_StreamData.offset, m_StreamData.size);
+            } else {
+                resourceReader = new ResourceReader(reader, reader.getPos(), image_data_size);
+            }
         }
-        image_data = resourceReader;
+        image_data = Objects.requireNonNull(resourceReader);
     }
 }
