@@ -2,8 +2,6 @@ package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
-import com.QYun.AssetReader4J.Unity3D.SecondarySpriteTexture;
-import com.QYun.AssetReader4J.Unity3D.SubMesh;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;
 import org.eclipse.collections.api.factory.Maps;

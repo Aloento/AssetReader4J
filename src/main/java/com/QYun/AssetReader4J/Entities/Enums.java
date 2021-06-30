@@ -605,4 +605,22 @@ public class Enums {
         kPrimitivePoints,
         Null,
     }
+
+    public enum SpritePackingMode {
+        kSPMTight,
+        kSPMRectangle,
+    }
+
+    public enum SpritePackingRotation {
+        kSPRNone,
+        kSPRFlipHorizontal,
+        kSPRFlipVertical,
+        kSPRRotate180,
+        kSPRRotate90,
+    }
+
+    public enum SpriteMeshType {
+        kSpriteMeshTypeFullRect,
+        kSpriteMeshTypeTight,
+    }
 }
