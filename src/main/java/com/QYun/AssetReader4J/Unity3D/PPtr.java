@@ -1,6 +1,7 @@
 package com.QYun.AssetReader4J.Unity3D;
 
 import com.QYun.AssetReader4J.Entities.Enums;
+import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
 import com.QYun.AssetReader4J.SerializedFile;
 
 public class PPtr<T extends UObject> {
@@ -13,6 +14,10 @@ public class PPtr<T extends UObject> {
         m_FileID = reader.readInt();
         m_PathID = reader.m_Version.ordinal() < Enums.SerializedFileFormatVersion.kUnknown_14.ordinal() ? reader.readInt() : reader.readLong();
         assetsFile = reader.assetsFile;
+    }
+
+    public boolean isNull() {
+        return m_PathID == 0 || m_FileID < 0;
     }
 
     private SerializedFile TryGetAssetsFile() {
@@ -71,5 +76,32 @@ public class PPtr<T extends UObject> {
         }
 
         return result;
+    }
+
+    public void set(T m_Object) {
+        var name = m_Object.assetsFile.file.getName();
+        if (name.equalsIgnoreCase(assetsFile.file.getName())) {
+            m_FileID = 0;
+        } else {
+            m_FileID = assetsFile.m_Externals.detectIndex(FileIdentifier -> FileIdentifier.fileName.equalsIgnoreCase(name));
+            if (m_FileID == -1) {
+                assetsFile.m_Externals.add(new FileIdentifier() {{
+                    fileName = m_Object.assetsFile.file.getName();
+                }});
+                m_FileID = assetsFile.m_Externals.size();
+            } else m_FileID += 1;
+        }
+
+        var assetsManager = assetsFile.assetsManager;
+        var assetsFileList = assetsManager.assetsFileList;
+        var assetsFileIndexCache = assetsManager.assetsFileIndexCache;
+        var index = assetsFileIndexCache.get(name);
+
+        if (index == null) {
+            index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
+            assetsFileIndexCache.put(name, index);
+        }
+
+        m_PathID = m_Object.m_PathID;
     }
 }
