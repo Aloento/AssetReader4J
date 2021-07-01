@@ -10,7 +10,41 @@ public class VertexData {
     public byte[] m_DataSize;
 
     public VertexData(UObjectReader reader) {
-        //TODO
+        var version = reader.version();
+
+        if (version[0] < 2018) { //2018 down
+            m_CurrentChannels = reader.readInt();
+        }
+        m_VertexCount = reader.readInt();
+
+        if (version[0] >= 4) { //4.0 and up
+            var m_ChannelsSize = reader.readInt();
+            m_Channels = new ChannelInfo[m_ChannelsSize];
+            for (int i = 0; i < m_ChannelsSize; i++) {
+                m_Channels[i] = new ChannelInfo(reader);
+            }
+        }
+
+        if (version[0] < 5) { //5.0 down
+            if (version[0] < 4) {
+                m_Streams = new StreamInfo[4];
+            } else {
+                m_Streams = new StreamInfo[reader.readInt()];
+            }
+
+            for (int i = 0; i < m_Streams.length; i++) {
+                m_Streams[i] = new StreamInfo(reader);
+            }
+
+            if (version[0] < 4) { //4.0 down
+                getChannels(version);
+            }
+        } else { //5.0 and up
+            getStreams(version);
+        }
+
+        m_DataSize = reader.readBytes(reader.readInt());
+        reader.alignStream();
     }
 
     private void getStreams(int[] version) {

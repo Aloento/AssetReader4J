@@ -606,9 +606,42 @@ public class Enums {
         Null,
     }
 
+    public static SpritePackingMode spritePackingMode(int index) {
+        for (var type : SpritePackingMode.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpritePackingMode.Null;
+    }
+
+    public static SpritePackingRotation spritePackingRotation(int index) {
+        for (var type : SpritePackingRotation.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpritePackingRotation.Null;
+    }
+
+    public static SpriteMeshType spriteMeshType(int index) {
+        for (var type : SpriteMeshType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpriteMeshType.Null;
+    }
+
+    public static AnimationType animationType(int index) {
+        for (var type : AnimationType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return AnimationType.Null;
+    }
+
     public enum SpritePackingMode {
         kSPMTight,
         kSPMRectangle,
+        Null,
     }
 
     public enum SpritePackingRotation {
@@ -617,10 +650,19 @@ public class Enums {
         kSPRFlipVertical,
         kSPRRotate180,
         kSPRRotate90,
+        Null,
     }
 
     public enum SpriteMeshType {
         kSpriteMeshTypeFullRect,
         kSpriteMeshTypeTight,
+        Null,
+    }
+
+    public enum AnimationType {
+        kLegacy,
+        kGeneric,
+        kHumanoid,
+        Null,
     }
 }
