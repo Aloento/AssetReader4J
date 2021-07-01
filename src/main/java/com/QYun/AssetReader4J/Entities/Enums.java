@@ -41,6 +41,38 @@ public class Enums {
         return GfxPrimitiveType.Null;
     }
 
+    public static SpritePackingMode spritePackingMode(int index) {
+        for (var type : SpritePackingMode.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpritePackingMode.Null;
+    }
+
+    public static SpritePackingRotation spritePackingRotation(int index) {
+        for (var type : SpritePackingRotation.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpritePackingRotation.Null;
+    }
+
+    public static SpriteMeshType spriteMeshType(int index) {
+        for (var type : SpriteMeshType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SpriteMeshType.Null;
+    }
+
+    public static AnimationType animationType(int index) {
+        for (var type : AnimationType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return AnimationType.Null;
+    }
+
     public enum FileType {
         AssetsFile,
         BundleFile,
@@ -606,38 +638,6 @@ public class Enums {
         Null,
     }
 
-    public static SpritePackingMode spritePackingMode(int index) {
-        for (var type : SpritePackingMode.values()) {
-            if (type.ordinal() == index)
-                return type;
-        }
-        return SpritePackingMode.Null;
-    }
-
-    public static SpritePackingRotation spritePackingRotation(int index) {
-        for (var type : SpritePackingRotation.values()) {
-            if (type.ordinal() == index)
-                return type;
-        }
-        return SpritePackingRotation.Null;
-    }
-
-    public static SpriteMeshType spriteMeshType(int index) {
-        for (var type : SpriteMeshType.values()) {
-            if (type.ordinal() == index)
-                return type;
-        }
-        return SpriteMeshType.Null;
-    }
-
-    public static AnimationType animationType(int index) {
-        for (var type : AnimationType.values()) {
-            if (type.ordinal() == index)
-                return type;
-        }
-        return AnimationType.Null;
-    }
-
     public enum SpritePackingMode {
         kSPMTight,
         kSPMRectangle,
@@ -664,5 +664,38 @@ public class Enums {
         kGeneric,
         kHumanoid,
         Null,
+    }
+
+    public enum AudioType {
+        UNKNOWN(0),
+        ACC(1),
+        AIFF(2),
+        IT(10),
+        MOD(12),
+        MPEG(13),
+        OGGVORBIS(14),
+        S3M(17),
+        WAV(20),
+        XM(21),
+        XMA(22),
+        VAG(23),
+        AUDIOQUEUE(24),
+        ;
+
+        AudioType(int i) {
+        }
+    }
+
+    public enum AudioCompressionFormat {
+        PCM,
+        Vorbis,
+        ADPCM,
+        MP3,
+        VAG,
+        HEVAG,
+        XMA,
+        AAC,
+        GCADPCM,
+        ATRAC9
     }
 }

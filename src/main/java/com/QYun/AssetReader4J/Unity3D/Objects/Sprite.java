@@ -1,6 +1,9 @@
 package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
+import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.BoneWeights4;
+import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.SubMesh;
+import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.VertexData;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;
