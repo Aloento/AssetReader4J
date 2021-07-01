@@ -99,9 +99,9 @@ class Rectf {
     public float height;
 
     public Rectf(UnityStream reader) {
-        x = reader.readShort();
-        y = reader.readShort();
-        width = reader.readShort();
-        height = reader.readShort();
+        x = reader.readFloat();
+        y = reader.readFloat();
+        width = reader.readFloat();
+        height = reader.readFloat();
     }
 }
