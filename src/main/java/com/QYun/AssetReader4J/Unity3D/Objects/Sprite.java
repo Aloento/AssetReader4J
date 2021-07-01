@@ -35,7 +35,7 @@ public class Sprite extends NamedObject {
             m_Border = reader.readVector4();
         }
 
-        m_PixelsToUnits = reader.readShort();
+        m_PixelsToUnits = reader.readFloat();
         if (version[0] > 5
                 || (version[0] == 5 && version[1] > 4)
                 || (version[0] == 5 && version[1] == 4 && version[2] >= 2)
@@ -88,7 +88,68 @@ class SpriteRenderData {
     public float downscaleMultiplier;
 
     public SpriteRenderData(UObjectReader reader) {
-        // TODO
+        var version = reader.version();
+
+        texture = new PPtr<Texture2D>(reader);
+        if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
+            alphaTexture = new PPtr<Texture2D>(reader);
+        }
+
+        if (version[0] >= 2019) { //2019 and up
+            var secondaryTexturesSize = reader.readInt();
+            secondaryTextures = new SecondarySpriteTexture[secondaryTexturesSize];
+            for (int i = 0; i < secondaryTexturesSize; i++) {
+                secondaryTextures[i] = new SecondarySpriteTexture(reader);
+            }
+        }
+
+        if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) { //5.6 and up
+            var m_SubMeshesSize = reader.readInt();
+            m_SubMeshes = new SubMesh[m_SubMeshesSize];
+            for (int i = 0; i < m_SubMeshesSize; i++) {
+                m_SubMeshes[i] = new SubMesh(reader);
+            }
+
+            m_IndexBuffer = reader.readBytes(reader.readInt());
+            reader.alignStream();
+
+            m_VertexData = new VertexData(reader);
+        } else {
+            var verticesSize = reader.readInt();
+            vertices = new SpriteVertex[verticesSize];
+            for (int i = 0; i < verticesSize; i++) {
+                vertices[i] = new SpriteVertex(reader);
+            }
+
+            indices = reader.readShorts(reader.readInt());
+            reader.alignStream();
+        }
+
+        if (version[0] >= 2018) { //2018 and up
+            m_Bindpose = reader.readMatrixs(reader.readInt());
+
+            if (version[0] == 2018 && version[1] < 2) { //2018.2 down
+                var m_SourceSkinSize = reader.readInt();
+                for (int i = 0; i < m_SourceSkinSize; i++) {
+                    m_SourceSkin[i] = new BoneWeights4(reader);
+                }
+            }
+        }
+
+        textureRect = new Rectf(reader);
+        textureRectOffset = reader.readVector2();
+        if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) { //5.6 and up
+            atlasRectOffset = reader.readVector2();
+        }
+
+        settingsRaw = new SpriteSettings(reader);
+        if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
+            uvTransform = reader.readVector4();
+        }
+
+        if (version[0] >= 2017) { //2017 and up
+            downscaleMultiplier = reader.readFloat();
+        }
     }
 }
 
