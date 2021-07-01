@@ -20,7 +20,7 @@ public class PPtr<T extends UObject> {
         return m_PathID == 0 || m_FileID < 0;
     }
 
-    private SerializedFile TryGetAssetsFile() {
+    private SerializedFile tryGetAssetsFile() {
         if (m_FileID == 0)
             return assetsFile;
 
@@ -46,7 +46,7 @@ public class PPtr<T extends UObject> {
     }
 
     public T tryGet() {
-        var sourceFile = TryGetAssetsFile();
+        var sourceFile = tryGetAssetsFile();
         T result = null;
 
         if (sourceFile != null) {
@@ -62,7 +62,7 @@ public class PPtr<T extends UObject> {
     }
 
     public <T2 extends UObject> T2 tryGet(Class<T2> type) {
-        var sourceFile = TryGetAssetsFile();
+        var sourceFile = tryGetAssetsFile();
         T2 result = null;
 
         if (sourceFile != null) {
