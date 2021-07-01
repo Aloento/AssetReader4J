@@ -1,4 +1,4 @@
-package com.QYun.AssetReader4J.Unity3D.Objects;
+package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.factory.Lists;

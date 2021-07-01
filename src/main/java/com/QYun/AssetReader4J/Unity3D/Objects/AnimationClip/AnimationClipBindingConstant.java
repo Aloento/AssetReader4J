@@ -1,4 +1,4 @@
-package com.QYun.AssetReader4J.Unity3D.Objects;
+package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
 import com.QYun.AssetReader4J.Entities.Enums.ClassIDType;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
