@@ -11,6 +11,8 @@ import com.QYun.AssetReader4J.Unity3D.Objects.AssetBundle.AssetBundle;
 import com.QYun.AssetReader4J.Unity3D.Objects.Avatar.Avatar;
 import com.QYun.AssetReader4J.Unity3D.Objects.Material.Material;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.Mesh;
+import com.QYun.AssetReader4J.Unity3D.Objects.Shader.Shader;
+import com.QYun.AssetReader4J.Unity3D.Objects.Sprite.Sprite;
 import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;

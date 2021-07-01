@@ -1,6 +1,7 @@
 package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
+import com.QYun.AssetReader4J.Unity3D.Objects.Sprite.Sprite;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.map.MutableMap;

@@ -1,5 +1,6 @@
-package com.QYun.AssetReader4J.Unity3D.Objects;
+package com.QYun.AssetReader4J.Unity3D.Objects.Sprite;
 
+import com.QYun.AssetReader4J.Unity3D.Objects.Texture2D;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
