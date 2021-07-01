@@ -4,7 +4,6 @@ import com.QYun.AssetReader4J.Unity3D.Objects.GameObject;
 import com.QYun.AssetReader4J.Unity3D.Objects.Material;
 import com.QYun.AssetReader4J.Unity3D.Objects.Transform;
 import com.QYun.AssetReader4J.Unity3D.PPtr;
-import com.QYun.AssetReader4J.Unity3D.StaticBatchInfo;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;

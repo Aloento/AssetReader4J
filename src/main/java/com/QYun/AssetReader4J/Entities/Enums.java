@@ -630,6 +630,14 @@ public class Enums {
         return SpriteMeshType.Null;
     }
 
+    public static AnimationType animationType(int index) {
+        for (var type : AnimationType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return AnimationType.Null;
+    }
+
     public enum SpritePackingMode {
         kSPMTight,
         kSPMRectangle,
