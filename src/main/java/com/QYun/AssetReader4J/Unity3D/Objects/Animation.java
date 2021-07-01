@@ -18,6 +18,5 @@ public class Animation extends Behaviour {
         for (int i = 0; i < numAnimations; i++) {
             m_Animations.add(i, new PPtr<>(reader));
         }
-
     }
 }

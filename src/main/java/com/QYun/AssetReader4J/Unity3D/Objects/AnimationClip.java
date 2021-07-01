@@ -2,7 +2,6 @@ package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Entities.Enums.AnimationType;
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
-import com.QYun.AssetReader4J.Unity3D.QuaternionCurve;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class AnimationClip extends NamedObject {
