@@ -90,9 +90,9 @@ class SpriteRenderData {
     public SpriteRenderData(UObjectReader reader) {
         var version = reader.version();
 
-        texture = new PPtr<Texture2D>(reader);
+        texture = new PPtr<>(reader);
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
-            alphaTexture = new PPtr<Texture2D>(reader);
+            alphaTexture = new PPtr<>(reader);
         }
 
         if (version[0] >= 2019) { //2019 and up
