@@ -5,6 +5,7 @@ import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
 import com.QYun.AssetReader4J.Unity3D.Objects.*;
 import com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip.AnimationClip;
+import com.QYun.AssetReader4J.Unity3D.Objects.AnimatorController.AnimatorController;
 import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;
