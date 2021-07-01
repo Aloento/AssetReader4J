@@ -1,7 +1,7 @@
 package com.QYun.AssetReader4J.Unity3D.Contracts;
 
 import com.QYun.AssetReader4J.Entities.Enums.BuildTarget;
-import com.QYun.AssetReader4J.Unity3D.PPtr;
+import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 

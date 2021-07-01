@@ -3,8 +3,8 @@ package com.QYun.AssetReader4J.Unity3D.Objects.Sprite;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.BoneWeights4;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.SubMesh;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.VertexData;
-import com.QYun.AssetReader4J.Unity3D.Objects.Texture2D;
-import com.QYun.AssetReader4J.Unity3D.PPtr;
+import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
+import com.QYun.AssetReader4J.Unity3D.Objects.Texture2D.Texture2D;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 import javax.vecmath.Matrix4f;

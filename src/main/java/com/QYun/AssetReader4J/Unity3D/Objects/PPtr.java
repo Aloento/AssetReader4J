@@ -1,8 +1,10 @@
-package com.QYun.AssetReader4J.Unity3D;
+package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
 import com.QYun.AssetReader4J.SerializedFile;
+import com.QYun.AssetReader4J.Unity3D.UObject;
+import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class PPtr<T extends UObject> {
     private final SerializedFile assetsFile;

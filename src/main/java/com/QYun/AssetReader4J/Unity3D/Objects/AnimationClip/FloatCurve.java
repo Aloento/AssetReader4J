@@ -3,7 +3,7 @@ package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.ClassIDType;
 import com.QYun.AssetReader4J.Unity3D.Objects.MonoScript;
-import com.QYun.AssetReader4J.Unity3D.PPtr;
+import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class FloatCurve {
