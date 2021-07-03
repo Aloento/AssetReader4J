@@ -12,21 +12,10 @@ public class xform {
 
     public xform(UObjectReader reader) {
         var version = reader.version();
-
-        if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
-            t = reader.readVector3();
-        else {
-            var tmp = reader.readVector4();
-            t = new Vector3f(tmp.x, tmp.y, tmp.z);//5.4 and up
-        }
-
+        //5.4 and up
+        t = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
         q = reader.readQuaternion();
-
-        if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
-            s = reader.readVector3();
-        else {
-            var tmp = reader.readVector4();
-            s = new Vector3f(tmp.x, tmp.y, tmp.z);//5.4 and up
-        }
+        //5.4 and up
+        s = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
     }
 }

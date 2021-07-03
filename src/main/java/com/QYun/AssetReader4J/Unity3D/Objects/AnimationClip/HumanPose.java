@@ -18,12 +18,7 @@ public class HumanPose {
     public HumanPose(UObjectReader reader) {
         var version = reader.version();
         m_RootX = new xform(reader);
-        if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
-            m_LookAtPosition = reader.readVector3();
-        else {
-            var tmp = reader.readVector4();
-            m_LookAtPosition = new Vector3f(tmp.x, tmp.y, tmp.z);
-        }
+        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
         m_LookAtWeight = reader.readVector4();
 
         int numGoals = reader.readInt();
@@ -41,12 +36,7 @@ public class HumanPose {
             int numTDof = reader.readInt();
             m_TDoFArray = new Vector3f[numTDof];
             for (int i = 0; i < numTDof; i++) {
-                if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
-                    m_TDoFArray[i] = reader.readVector3();
-                else {
-                    var tmp = reader.readVector4();
-                    m_TDoFArray[i] = new Vector3f(tmp.x, tmp.y, tmp.z);
-                }
+                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
             }
         }
     }

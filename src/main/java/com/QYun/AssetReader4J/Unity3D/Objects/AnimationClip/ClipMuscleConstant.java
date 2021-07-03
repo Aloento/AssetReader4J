@@ -48,12 +48,8 @@ public class ClipMuscleConstant {
             m_MotionStartX = new xform(reader);
             m_MotionStopX = new xform(reader);
         }
-        if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
-            m_AverageSpeed = reader.readVector3();
-        else {
-            var tmp = reader.readVector4();
-            m_AverageSpeed = new Vector3f(tmp.x, tmp.y, tmp.z); //5.4 and up
-        }
+        //5.4 and up
+        m_AverageSpeed = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
         m_Clip = new Clip(reader);
         m_StartTime = reader.readFloat();
         m_StopTime = reader.readFloat();
