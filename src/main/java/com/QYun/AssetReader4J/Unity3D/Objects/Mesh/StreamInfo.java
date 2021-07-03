@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Mesh;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class StreamInfo {
     public int channelMask;
@@ -13,7 +13,7 @@ public class StreamInfo {
     public StreamInfo() {
     }
 
-    public StreamInfo(UObjectReader reader) {
+    public StreamInfo(ObjectReader reader) {
         var version = reader.version();
 
         channelMask = reader.readInt();

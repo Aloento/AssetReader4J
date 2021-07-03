@@ -10,7 +10,7 @@ import com.QYun.AssetReader4J.Entities.Struct.SerializedType;
 import com.QYun.AssetReader4J.SerializedFile;
 import com.QYun.util.Stream.UnityStream;
 
-public class UObjectReader extends UnityStream {
+public class ObjectReader extends UnityStream {
     public SerializedFile assetsFile;
     public long m_PathID;
     public long byteStart;
@@ -20,7 +20,7 @@ public class UObjectReader extends UnityStream {
     public BuildTarget platform;
     public SerializedFileFormatVersion m_Version;
 
-    public UObjectReader(UnityStream reader, SerializedFile assetsFile, ObjectInfo objectInfo) {
+    public ObjectReader(UnityStream reader, SerializedFile assetsFile, ObjectInfo objectInfo) {
         super(reader);
         this.assetsFile = assetsFile;
         m_PathID = objectInfo.m_PathID;

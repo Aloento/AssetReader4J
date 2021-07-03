@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class PackedFloatVector {
     public int m_NumItems;
@@ -9,20 +9,20 @@ public class PackedFloatVector {
     public byte[] m_Data;
     public byte m_BitSize;
 
-    public PackedFloatVector(UObjectReader reader) {
+    public PackedFloatVector(ObjectReader reader) {
         m_NumItems = reader.readInt();
         m_Range = reader.readFloat();
         m_Start = reader.readFloat();
 
         int numData = reader.readInt();
         m_Data = reader.readBytes(numData);
-        reader.alignStream();
+        reader.AlignStream();
 
         m_BitSize = reader.readByte();
-        reader.alignStream();
+        reader.AlignStream();
     }
 
-    // public float[] UnpackFloats(int itemCountInChunk, int chunkStride, int start = 0, int numChunks = -1){
+    // public float[] unpackFloats(int itemCountInChunk, int chunkStride, int start = 0, int numChunks = -1){
     //
     // }
 }

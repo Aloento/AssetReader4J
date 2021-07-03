@@ -1,9 +1,9 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
 import com.QYun.AssetReader4J.Entities.Enums.ClassIDType;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
@@ -11,7 +11,7 @@ public class AnimationClipBindingConstant {
     public GenericBinding[] genericBindings;
     public MutableList<PPtr<UObject>> pptrCurveMapping;
 
-    public AnimationClipBindingConstant(UObjectReader reader) {
+    public AnimationClipBindingConstant(ObjectReader reader) {
         int numBindings = reader.readInt();
         genericBindings = new GenericBinding[numBindings];
         for (int i = 0; i < numBindings; i++) {

@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
@@ -12,7 +12,7 @@ public class AnimationCurve<T> {
     public int m_PostInfinity;
     public int m_RotationOrder;
 
-    public AnimationCurve(UObjectReader reader, Supplier<T> supplier) {
+    public AnimationCurve(ObjectReader reader, Supplier<T> supplier) {
         var version = reader.version();
         int numCurves = reader.readInt();
         m_Curve = Lists.mutable.withInitialCapacity(numCurves);

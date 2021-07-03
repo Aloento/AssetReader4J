@@ -2,7 +2,7 @@ package com.QYun.AssetReader4J.Unity3D.Objects;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.Component;
 import com.QYun.AssetReader4J.Unity3D.Contracts.EditorExtension;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
@@ -17,7 +17,7 @@ public class GameObject extends EditorExtension {
     public Animator m_Animator;
     public Animation m_Animation;
 
-    public GameObject(UObjectReader reader) {
+    public GameObject(ObjectReader reader) {
         super(reader);
         int m_Component_size = reader.readInt();
         m_Components = Lists.mutable.withInitialCapacity(m_Component_size);
@@ -30,6 +30,6 @@ public class GameObject extends EditorExtension {
         }
 
         var m_Layer = reader.readInt();
-        m_Name = reader.readAlignedString();
+        m_Name = reader.ReadAlignedString();
     }
 }

@@ -1,8 +1,8 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class AnimationEvent {
     public float time;
@@ -13,12 +13,12 @@ public class AnimationEvent {
     public int intParameter;
     public int messageOptions;
 
-    public AnimationEvent(UObjectReader reader) {
+    public AnimationEvent(ObjectReader reader) {
         var version = reader.version();
 
         time = reader.readFloat();
-        functionName = reader.readAlignedString();
-        data = reader.readAlignedString();
+        functionName = reader.ReadAlignedString();
+        data = reader.ReadAlignedString();
         objectReferenceParameter = new PPtr<UObject>(reader);
         floatParameter = reader.readFloat();
         if (version[0] >= 3) { //3 and up

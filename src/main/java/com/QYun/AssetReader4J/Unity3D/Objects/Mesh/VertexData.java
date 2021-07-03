@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Mesh;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class VertexData {
     public int m_CurrentChannels;
@@ -9,7 +9,7 @@ public class VertexData {
     public StreamInfo[] m_Streams;
     public byte[] m_DataSize;
 
-    public VertexData(UObjectReader reader) {
+    public VertexData(ObjectReader reader) {
         var version = reader.version();
 
         if (version[0] < 2018) { //2018 down
@@ -44,7 +44,7 @@ public class VertexData {
         }
 
         m_DataSize = reader.readBytes(reader.readInt());
-        reader.alignStream();
+        reader.AlignStream();
     }
 
     private void getStreams(int[] version) {

@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class Clip {
     public StreamedClip m_StreamedClip;
@@ -8,7 +8,7 @@ public class Clip {
     public ConstantClip m_ConstantClip;
     public ValueArrayConstant m_Binding;
 
-    public Clip(UObjectReader reader) {
+    public Clip(ObjectReader reader) {
         var version = reader.version();
         m_StreamedClip = new StreamedClip(reader);
         m_DenseClip = new DenseClip(reader);

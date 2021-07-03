@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 import javax.vecmath.Vector3f;
 
@@ -35,7 +35,7 @@ public class ClipMuscleConstant {
     public boolean m_KeepOriginalPositionXZ;
     public boolean m_HeightFromFeet;
 
-    public ClipMuscleConstant(UObjectReader reader) {
+    public ClipMuscleConstant(ObjectReader reader) {
         var version = reader.version();
         m_DeltaPose = new HumanPose(reader);
         m_StartX = new xform(reader);
@@ -48,7 +48,8 @@ public class ClipMuscleConstant {
             m_MotionStartX = new xform(reader);
             m_MotionStopX = new xform(reader);
         }
-        m_AverageSpeed = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : (Vector3f) reader.readVector4();//5.4 and up
+        //5.4 and up
+        m_AverageSpeed = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
         m_Clip = new Clip(reader);
         m_StartTime = reader.readFloat();
         m_StopTime = reader.readFloat();
@@ -85,6 +86,6 @@ public class ClipMuscleConstant {
         m_KeepOriginalPositionY = reader.readBoolean();
         m_KeepOriginalPositionXZ = reader.readBoolean();
         m_HeightFromFeet = reader.readBoolean();
-        reader.alignStream();
+        reader.AlignStream();
     }
 }

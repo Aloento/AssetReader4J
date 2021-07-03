@@ -3,7 +3,7 @@ package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.AnimationType;
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class AnimationClip extends NamedObject {
     public AnimationType m_AnimationType;
@@ -25,7 +25,7 @@ public class AnimationClip extends NamedObject {
     public AnimationClipBindingConstant m_ClipBindingConstant;
     public AnimationEvent[] m_Events;
 
-    public AnimationClip(UObjectReader reader) {
+    public AnimationClip(ObjectReader reader) {
         super(reader);
         if (version[0] >= 5) { //5.0 and up
             m_Legacy = reader.readBoolean();
@@ -41,7 +41,7 @@ public class AnimationClip extends NamedObject {
         {
             m_UseHighQualityCurve = reader.readBoolean();
         }
-        reader.alignStream();
+        reader.AlignStream();
         int numRCurves = reader.readInt();
         m_RotationCurves = new QuaternionCurve[numRCurves];
         for (int i = 0; i < numRCurves; i++) {
@@ -103,7 +103,7 @@ public class AnimationClip extends NamedObject {
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 3)) { //2018.3 and up
             var m_HasGenericRootTransform = reader.readBoolean();
             var m_HasMotionFloatCurves = reader.readBoolean();
-            reader.alignStream();
+            reader.AlignStream();
         }
         int numEvents = reader.readInt();
         m_Events = new AnimationEvent[numEvents];
@@ -111,7 +111,7 @@ public class AnimationClip extends NamedObject {
             m_Events[i] = new AnimationEvent(reader);
         }
         if (version[0] >= 2017) { //2017 and up
-            reader.alignStream();
+            reader.AlignStream();
         }
     }
 }

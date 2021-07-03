@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
@@ -15,13 +15,13 @@ public class HumanPose {
     public float[] m_DoFArray;
     public Vector3f[] m_TDoFArray;
 
-    public HumanPose(UObjectReader reader) {
+    public HumanPose(ObjectReader reader) {
         var version = reader.version();
         m_RootX = new xform(reader);
-        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : (Vector3) reader.ReadVector4();//5.4 and up
+        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
         m_LookAtWeight = reader.ReadVector4();
 
-        int numGoals = reader.ReadInt32();
+        int numGoals = reader.readInt();
         m_GoalArray = new HumanGoal[numGoals];
         for (int i = 0; i < numGoals; i++) {
             m_GoalArray[i] = new HumanGoal(reader);
@@ -30,13 +30,13 @@ public class HumanPose {
         m_LeftHandPose = new HandPose(reader);
         m_RightHandPose = new HandPose(reader);
 
-        m_DoFArray = reader.ReadSingleArray();
+        m_DoFArray = reader.readFloats(reader.readInt());
 
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
-            int numTDof = reader.ReadInt32();
-            m_TDoFArray = new Vector3[numTDof];
+            int numTDof = reader.readInt();
+            m_TDoFArray = new Vector3f[numTDof];
             for (int i = 0; i < numTDof; i++) {
-                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : (Vector3) reader.ReadVector4();//5.4 and up
+                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
             }
         }
     }

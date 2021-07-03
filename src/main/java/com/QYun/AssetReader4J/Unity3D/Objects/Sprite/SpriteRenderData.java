@@ -1,11 +1,11 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Sprite;
 
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.BoneWeights4;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.SubMesh;
 import com.QYun.AssetReader4J.Unity3D.Objects.Mesh.VertexData;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.Objects.Texture2D.Texture2D;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector2f;
@@ -29,7 +29,7 @@ public class SpriteRenderData {
     public Vector4f uvTransform;
     public float downscaleMultiplier;
 
-    public SpriteRenderData(UObjectReader reader) {
+    public SpriteRenderData(ObjectReader reader) {
         var version = reader.version();
 
         texture = new PPtr<>(reader);
@@ -53,7 +53,7 @@ public class SpriteRenderData {
             }
 
             m_IndexBuffer = reader.readBytes(reader.readInt());
-            reader.alignStream();
+            reader.AlignStream();
 
             m_VertexData = new VertexData(reader);
         } else {
@@ -64,11 +64,11 @@ public class SpriteRenderData {
             }
 
             indices = reader.readShorts(reader.readInt());
-            reader.alignStream();
+            reader.AlignStream();
         }
 
         if (version[0] >= 2018) { //2018 and up
-            m_Bindpose = reader.readMatrixs(reader.readInt());
+            m_Bindpose = reader.readMatrices(reader.readInt());
 
             if (version[0] == 2018 && version[1] < 2) { //2018.2 down
                 var m_SourceSkinSize = reader.readInt();
@@ -79,14 +79,14 @@ public class SpriteRenderData {
         }
 
         textureRect = new Rectf(reader);
-        textureRectOffset = reader.readVector2();
+        textureRectOffset = reader.ReadVector2();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) { //5.6 and up
-            atlasRectOffset = reader.readVector2();
+            atlasRectOffset = reader.ReadVector2();
         }
 
         settingsRaw = new SpriteSettings(reader);
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
-            uvTransform = reader.readVector4();
+            uvTransform = reader.ReadVector4();
         }
 
         if (version[0] >= 2017) { //2017 and up

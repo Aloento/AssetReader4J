@@ -1,9 +1,9 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Sprite;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.Objects.SpriteAtlas.SpriteAtlas;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.factory.Maps;
 import org.eclipse.collections.api.map.MutableMap;
 
@@ -25,13 +25,13 @@ public class Sprite extends NamedObject {
     public SpriteRenderData m_RD;
     public Vector2f[][] m_PhysicsShape;
 
-    public Sprite(UObjectReader reader) {
+    public Sprite(ObjectReader reader) {
         super(reader);
 
         m_Rect = new Rectf(reader);
-        m_Offset = reader.readVector2();
+        m_Offset = reader.ReadVector2();
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) {
-            m_Border = reader.readVector4();
+            m_Border = reader.ReadVector4();
         }
 
         m_PixelsToUnits = reader.readFloat();
@@ -39,13 +39,13 @@ public class Sprite extends NamedObject {
                 || (version[0] == 5 && version[1] > 4)
                 || (version[0] == 5 && version[1] == 4 && version[2] >= 2)
                 || (version[0] == 5 && version[1] == 4 && version[2] == 1 && buildType.isPatch() && version[3] >= 3)) {
-            m_Pivboolean = reader.readVector2();
+            m_Pivboolean = reader.ReadVector2();
         }
 
         m_Extrude = reader.readInt();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 3)) {
             m_IsPolygon = reader.readBoolean();
-            reader.alignStream();
+            reader.AlignStream();
         }
 
         if (version[0] >= 2017) {

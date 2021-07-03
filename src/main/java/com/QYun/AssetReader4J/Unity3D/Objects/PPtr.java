@@ -3,8 +3,8 @@ package com.QYun.AssetReader4J.Unity3D.Objects;
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Struct.FileIdentifier;
 import com.QYun.AssetReader4J.SerializedFile;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.UObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class PPtr<T extends UObject> {
     private final SerializedFile assetsFile;
@@ -12,7 +12,7 @@ public class PPtr<T extends UObject> {
     public int m_FileID;
     public long m_PathID;
 
-    public PPtr(UObjectReader reader) {
+    public PPtr(ObjectReader reader) {
         m_FileID = reader.readInt();
         m_PathID = reader.m_Version.ordinal() < Enums.SerializedFileFormatVersion.kUnknown_14.ordinal() ? reader.readInt() : reader.readLong();
         assetsFile = reader.assetsFile;
