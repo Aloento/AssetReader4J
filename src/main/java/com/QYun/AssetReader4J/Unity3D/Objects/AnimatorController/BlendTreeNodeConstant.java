@@ -6,8 +6,8 @@ public class BlendTreeNodeConstant {
     public int m_BlendType;
     public int m_BlendEventID;
     public int m_BlendEventYID;
-    public int[] m_ChildIndices;
-    public float[] m_ChildThresholdArray;
+    public Integer[] m_ChildIndices;
+    public Float[] m_ChildThresholdArray;
     public Blend1dDataConstant m_Blend1dData;
     public Blend2dDataConstant m_Blend2dData;
     public BlendDirectDataConstant m_BlendDirectData;

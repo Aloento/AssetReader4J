@@ -31,7 +31,7 @@ public class ResourceReader {
         this.size = size;
     }
 
-    public byte[] getData() throws IOException {
+    public Byte[] getData() throws IOException {
         if (needSearch) {
             var resourceFileName = new File(path).getName();
             var reader = assetsFile.assetsManager.resourceFileReaders.get(resourceFileName);

@@ -65,7 +65,7 @@ public class UObject {
         return null;
     }
 
-    public byte[] getRawData() {
+    public Byte[] getRawData() {
         reader.reset();
         return reader.readBytes(byteSize);
     }

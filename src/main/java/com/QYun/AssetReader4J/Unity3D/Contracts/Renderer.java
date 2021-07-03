@@ -11,7 +11,7 @@ import org.eclipse.collections.api.list.MutableList;
 public abstract class Renderer extends Component {
     public MutableList<PPtr<Material>> m_Materials;
     public StaticBatchInfo m_StaticBatchInfo;
-    public int[] m_SubsetIndices;
+    public Integer[] m_SubsetIndices;
 
     protected Renderer(ObjectReader reader) {
         super(reader);

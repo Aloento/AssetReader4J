@@ -4,7 +4,7 @@ import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class PackedQuatVector {
     public int m_NumItems;
-    public byte[] m_Data;
+    public Byte[] m_Data;
 
     public PackedQuatVector(ObjectReader reader) {
         m_NumItems = reader.readInt();
