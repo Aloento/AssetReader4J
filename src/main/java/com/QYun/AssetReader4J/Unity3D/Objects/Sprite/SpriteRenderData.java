@@ -16,10 +16,10 @@ public class SpriteRenderData {
     public PPtr<Texture2D> alphaTexture;
     public SecondarySpriteTexture[] secondaryTextures;
     public SubMesh[] m_SubMeshes;
-    public byte[] m_IndexBuffer;
+    public Byte[] m_IndexBuffer;
     public VertexData m_VertexData;
     public SpriteVertex[] vertices;
-    public short[] indices;
+    public Short[] indices;
     public Matrix4f[] m_Bindpose;
     public BoneWeights4[] m_SourceSkin;
     public Rectf textureRect;

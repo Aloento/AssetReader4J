@@ -4,6 +4,7 @@ import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
 import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.Objects.SpriteAtlas.SpriteAtlas;
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.collections.api.factory.Maps;
 import org.eclipse.collections.api.map.MutableMap;
 
@@ -49,7 +50,7 @@ public class Sprite extends NamedObject {
         }
 
         if (version[0] >= 2017) {
-            var first = UUID.nameUUIDFromBytes(reader.readBytes(16));
+            var first = UUID.nameUUIDFromBytes(ArrayUtils.toPrimitive(reader.readBytes(16)));
             var second = reader.readLong();
             m_RenderDataKey = Maps.mutable.empty();
             m_AtlasTags = reader.readStrings(reader.readInt());

@@ -4,7 +4,7 @@ import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class HandPose {
     public xform m_GrabX;
-    public float[] m_DoFArray;
+    public Float[] m_DoFArray;
     public float m_Override;
     public float m_CloseOpen;
     public float m_InOut;

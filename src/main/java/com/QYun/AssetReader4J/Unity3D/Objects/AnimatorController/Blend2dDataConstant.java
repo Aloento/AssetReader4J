@@ -6,9 +6,9 @@ import javax.vecmath.Vector2f;
 
 public class Blend2dDataConstant {
     public Vector2f[] m_ChildPositionArray;
-    public float[] m_ChildMagnitudeArray;
+    public Float[] m_ChildMagnitudeArray;
     public Vector2f[] m_ChildPairVectorArray;
-    public float[] m_ChildPairAvgMagInvArray;
+    public Float[] m_ChildPairAvgMagInvArray;
     public MotionNeighborList[] m_ChildNeighborListArray;
 
     public Blend2dDataConstant(ObjectReader reader) {

@@ -10,17 +10,13 @@ public class StreamInfo {
     public byte dividerOp;
     public short frequency;
 
-    public StreamInfo() {
-    }
-
     public StreamInfo(ObjectReader reader) {
         var version = reader.version();
 
         channelMask = reader.readInt();
         offset = reader.readInt();
 
-        if (version[0] < 4) //4.0 down
-        {
+        if (version[0] < 4) { //4.0 down
             stride = reader.readInt();
             align = reader.readInt();
         } else {

@@ -4,7 +4,7 @@ import com.QYun.util.Stream.UnityStream;
 
 public class StreamedCurveKey {
     public int index;
-    public float[] coeff;
+    public Float[] coeff;
 
     public float value;
     public float outSlope;

@@ -7,6 +7,7 @@ import com.QYun.AssetReader4J.Entities.Struct.StreamFile;
 import com.QYun.AssetReader4J.Helpers.SevenZipHelper;
 import com.QYun.util.Stream.UnityStream;
 import net.jpountz.lz4.LZ4Factory;
+import org.apache.commons.lang.ArrayUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class BundleFile {
                 case 2, 3 -> {
                     byte[] uncompressedBytes = new byte[blockInfo.uncompressedSize];
                     LZ4Factory.fastestInstance().fastDecompressor().decompress(
-                            reader.readBytes(blockInfo.compressedSize), 0,
+                            ArrayUtils.toPrimitive(reader.readBytes(blockInfo.compressedSize)), 0,
                             uncompressedBytes, 0, blockInfo.uncompressedSize);
                     blocksStream.write(uncompressedBytes);
                 }
@@ -92,7 +93,7 @@ public class BundleFile {
     }
 
     private void readBlocksInfoAndDirectory(UnityStream reader) throws IOException {
-        byte[] blocksInfoBytes;
+        Byte[] blocksInfoBytes;
         if (m_Header.version >= 7)
             reader.AlignStream(16);
 
@@ -114,7 +115,8 @@ public class BundleFile {
             case 2, 3 -> {
                 byte[] uncompressedBytes = new byte[m_Header.uncompressedBlocksInfoSize];
                 LZ4Factory.fastestInstance().fastDecompressor().decompress(
-                        blocksInfoBytes, 0, uncompressedBytes, 0, m_Header.uncompressedBlocksInfoSize);
+                        ArrayUtils.toPrimitive(blocksInfoBytes), 0,
+                        uncompressedBytes, 0, m_Header.uncompressedBlocksInfoSize);
                 blocksInfoUncompressedStream = new UnityStream(uncompressedBytes);
             }
             default -> blocksInfoUncompressedStream = blocksInfoCompressedStream;
@@ -122,7 +124,7 @@ public class BundleFile {
 
         UnityStream blocksInfoReader = blocksInfoUncompressedStream.setToReadOnly();
         blocksInfoReader.rewind();
-        byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
+        Byte[] uncompressedDataHash = blocksInfoReader.readBytes(16);
 
         int blocksInfoCount = blocksInfoReader.readInt();
         m_BlocksInfo = new StorageBlock[blocksInfoCount];

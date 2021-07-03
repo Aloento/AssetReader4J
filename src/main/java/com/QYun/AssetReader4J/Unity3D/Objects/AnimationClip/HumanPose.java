@@ -12,7 +12,7 @@ public class HumanPose {
     public HumanGoal[] m_GoalArray;
     public HandPose m_LeftHandPose;
     public HandPose m_RightHandPose;
-    public float[] m_DoFArray;
+    public Float[] m_DoFArray;
     public Vector3f[] m_TDoFArray;
 
     public HumanPose(ObjectReader reader) {

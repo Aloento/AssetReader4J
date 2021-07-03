@@ -6,7 +6,7 @@ public class PackedFloatVector {
     public int m_NumItems;
     public float m_Range;
     public float m_Start;
-    public byte[] m_Data;
+    public Byte[] m_Data;
     public byte m_BitSize;
 
     public PackedFloatVector(ObjectReader reader) {

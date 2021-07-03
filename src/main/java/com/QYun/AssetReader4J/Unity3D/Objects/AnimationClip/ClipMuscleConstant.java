@@ -20,9 +20,9 @@ public class ClipMuscleConstant {
     public float m_Level;
     public float m_CycleOffset;
     public float m_AverageAngularSpeed;
-    public int[] m_IndexArray;
+    public Integer[] m_IndexArray;
     public ValueDelta[] m_ValueArrayDelta;
-    public float[] m_ValueArrayReferencePose;
+    public Float[] m_ValueArrayReferencePose;
     public boolean m_Mirror;
     public boolean m_LoopTime;
     public boolean m_LoopBlend;

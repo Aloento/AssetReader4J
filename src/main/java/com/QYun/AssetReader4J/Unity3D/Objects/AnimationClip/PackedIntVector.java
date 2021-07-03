@@ -4,7 +4,7 @@ import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class PackedIntVector {
     public int m_NumItems;
-    public byte[] m_Data;
+    public Byte[] m_Data;
     public byte m_BitSize;
 
     public PackedIntVector(ObjectReader reader) {

@@ -7,7 +7,7 @@ public class DenseClip {
     public int m_CurveCount;
     public float m_SampleRate;
     public float m_BeginTime;
-    public float[] m_SampleArray;
+    public Float[] m_SampleArray;
 
     public DenseClip(ObjectReader reader) {
         m_FrameCount = reader.readInt();

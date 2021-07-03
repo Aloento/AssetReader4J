@@ -157,7 +157,7 @@ public class Struct {
         public SerializedFileFormatVersion m_Version;
         public long m_DataOffset;
         public byte m_Endianess;
-        public byte[] m_Reserved;
+        public Byte[] m_Reserved;
     }
 
     public static class SerializedType {
@@ -165,9 +165,9 @@ public class Struct {
         public boolean m_IsStrippedType;
         public short m_ScriptTypeIndex = -1;
         public TypeTree m_Type;
-        public byte[] m_ScriptID; //Hash128
-        public byte[] m_OldTypeHash; //Hash128
-        public int[] m_TypeDependencies;
+        public Byte[] m_ScriptID; //Hash128
+        public Byte[] m_OldTypeHash; //Hash128
+        public Integer[] m_TypeDependencies;
         public String m_KlassName;
         public String m_NameSpace;
         public String m_AsmName;
@@ -175,7 +175,7 @@ public class Struct {
 
     public static class TypeTree {
         public MutableList<TypeTreeNode> m_Nodes;
-        public byte[] m_StringBuffer;
+        public Byte[] m_StringBuffer;
     }
 
     public static class TypeTreeNode {

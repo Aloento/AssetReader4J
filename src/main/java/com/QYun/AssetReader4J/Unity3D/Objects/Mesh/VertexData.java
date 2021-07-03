@@ -7,7 +7,7 @@ public class VertexData {
     public int m_VertexCount;
     public ChannelInfo[] m_Channels;
     public StreamInfo[] m_Streams;
-    public byte[] m_DataSize;
+    public Byte[] m_DataSize;
 
     public VertexData(ObjectReader reader) {
         var version = reader.version();

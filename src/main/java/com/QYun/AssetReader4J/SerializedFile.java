@@ -7,6 +7,7 @@ import com.QYun.AssetReader4J.Entities.Struct;
 import com.QYun.AssetReader4J.Entities.Struct.*;
 import com.QYun.AssetReader4J.Unity3D.UObject;
 import com.QYun.util.Stream.UnityStream;
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
@@ -170,7 +171,7 @@ public class SerializedFile {
                 String tempEmpty = reader.ReadStringToNull();
             }
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()) {
-                m_External.guid = UUID.nameUUIDFromBytes(reader.readBytes(16));
+                m_External.guid = UUID.nameUUIDFromBytes(ArrayUtils.toPrimitive(reader.readBytes(16)));
                 m_External.type = reader.readInt();
             }
             m_External.pathName = reader.ReadStringToNull();
@@ -201,7 +202,7 @@ public class SerializedFile {
         int m_Version = reader.readInt();
         long m_DataOffset = reader.readInt();
         byte m_Endianess = reader.readByte();
-        byte[] m_Reserved = reader.readBytes(3);
+        Byte[] m_Reserved = reader.readBytes(3);
 
         if (m_Version >= 22) {
             if (reader.trueLen < 48)
