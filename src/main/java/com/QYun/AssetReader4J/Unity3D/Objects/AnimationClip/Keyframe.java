@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 import java.util.function.Supplier;
 
@@ -13,7 +13,7 @@ public class Keyframe<T> {
     public T inWeight;
     public T outWeight;
 
-    public Keyframe(UObjectReader reader, Supplier<T> supplier) {
+    public Keyframe(ObjectReader reader, Supplier<T> supplier) {
         time = reader.readFloat();
         value = supplier.get();
         inSlope = supplier.get();

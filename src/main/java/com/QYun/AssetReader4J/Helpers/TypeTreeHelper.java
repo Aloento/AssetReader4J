@@ -2,7 +2,7 @@ package com.QYun.AssetReader4J.Helpers;
 
 import com.QYun.AssetReader4J.Entities.Struct.TypeTree;
 import com.QYun.AssetReader4J.Entities.Struct.TypeTreeNode;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.MutableOrderedMap;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 public class TypeTreeHelper {
-    public static String readTypeString(TypeTree m_Type, UObjectReader reader) {
+    public static String readTypeString(TypeTree m_Type, ObjectReader reader) {
         reader.reset();
         var sb = new StringBuilder();
         var m_Nodes = m_Type.m_Nodes;
@@ -27,7 +27,7 @@ public class TypeTreeHelper {
         return sb.toString();
     }
 
-    private static void readStringValue(StringBuilder sb, MutableList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
+    private static void readStringValue(StringBuilder sb, MutableList<TypeTreeNode> m_Nodes, ObjectReader reader, int i) {
         var m_Node = m_Nodes.get(i);
         var level = m_Node.m_Level;
         var varTypeStr = m_Node.m_Type;
@@ -48,7 +48,7 @@ public class TypeTreeHelper {
             case "bool" -> value = reader.readBoolean();
             case "string" -> {
                 append = false;
-                var str = reader.readAlignedString();
+                var str = reader.ReadAlignedString();
                 sb.append(String.format("%s%s %s = \"%s\"\r\n", "\t".repeat(level), varTypeStr, varNameStr, str));
                 i += 3;
             }
@@ -84,7 +84,7 @@ public class TypeTreeHelper {
         return nodes;
     }
 
-    public static MutableOrderedMap<String, Object> readType(TypeTree m_Types, UObjectReader reader) {
+    public static MutableOrderedMap<String, Object> readType(TypeTree m_Types, ObjectReader reader) {
         reader.reset();
         MutableOrderedMap<String, Object> obj = OrderedMaps.adapt(new LinkedHashMap<>());
         var m_Nodes = m_Types.m_Nodes;
@@ -100,7 +100,7 @@ public class TypeTreeHelper {
         return obj;
     }
 
-    private static Object readValue(MutableList<TypeTreeNode> m_Nodes, UObjectReader reader, int i) {
+    private static Object readValue(MutableList<TypeTreeNode> m_Nodes, ObjectReader reader, int i) {
         var m_Node = m_Nodes.get(i);
         var varTypeStr = m_Node.m_Type;
         Object value = null;
@@ -116,7 +116,7 @@ public class TypeTreeHelper {
             case "double" -> value = reader.readDouble();
             case "bool" -> value = reader.readBoolean();
             case "string" -> {
-                value = reader.readAlignedString();
+                value = reader.ReadAlignedString();
                 i += 3;
             }
 

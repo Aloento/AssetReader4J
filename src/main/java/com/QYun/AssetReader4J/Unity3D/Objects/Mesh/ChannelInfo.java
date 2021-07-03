@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Mesh;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class ChannelInfo {
     public byte stream;
@@ -11,7 +11,7 @@ public class ChannelInfo {
     public ChannelInfo() {
     }
 
-    public ChannelInfo(UObjectReader reader) {
+    public ChannelInfo(ObjectReader reader) {
         stream = reader.readByte();
         offset = reader.readByte();
         format = reader.readByte();

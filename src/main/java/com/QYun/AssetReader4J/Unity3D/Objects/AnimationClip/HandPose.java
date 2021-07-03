@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class HandPose {
     public xform m_GrabX;
@@ -10,7 +10,7 @@ public class HandPose {
     public float m_InOut;
     public float m_Grab;
 
-    public HandPose(UObjectReader reader) {
+    public HandPose(ObjectReader reader) {
         m_GrabX = new xform(reader);
         m_DoFArray = reader.readFloats(reader.readInt());
         m_Override = reader.readFloat();

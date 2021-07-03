@@ -1,21 +1,21 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class PackedIntVector {
     public int m_NumItems;
     public byte[] m_Data;
     public byte m_BitSize;
 
-    public PackedIntVector(UObjectReader reader) {
+    public PackedIntVector(ObjectReader reader) {
         m_NumItems = reader.readInt();
 
         int numData = reader.readInt();
         m_Data = reader.readBytes(numData);
-        reader.alignStream();
+        reader.AlignStream();
 
         m_BitSize = reader.readByte();
-        reader.alignStream();
+        reader.AlignStream();
     }
 
     public int[] unpackInts() {

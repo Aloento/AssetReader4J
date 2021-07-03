@@ -3,6 +3,7 @@ package com.QYun.AssetReader4J;
 import com.QYun.AssetReader4J.Entities.Enums.SerializedFileFormatVersion;
 import com.QYun.AssetReader4J.Helpers.DirectoryHelper;
 import com.QYun.AssetReader4J.Helpers.ImportHelper;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.*;
 import com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip.AnimationClip;
 import com.QYun.AssetReader4J.Unity3D.Objects.AnimatorController.AnimatorController;
@@ -17,7 +18,6 @@ import com.QYun.AssetReader4J.Unity3D.Objects.SpriteAtlas.SpriteAtlas;
 import com.QYun.AssetReader4J.Unity3D.Objects.Texture2D.Texture2D;
 import com.QYun.AssetReader4J.Unity3D.Objects.VideoClip.VideoClip;
 import com.QYun.AssetReader4J.Unity3D.UObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import com.QYun.util.Stream.UnityStream;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.factory.Maps;
@@ -64,7 +64,7 @@ public class AssetsManager {
     private void readAssets() {
         for (var assetsFile : assetsFileList) {
             for (var objectInfo : assetsFile.m_Objects) {
-                var objectReader = new UObjectReader(assetsFile.reader, assetsFile, objectInfo);
+                var objectReader = new ObjectReader(assetsFile.reader, assetsFile, objectInfo);
                 UObject obj;
                 switch (objectReader.type) {
                     case Animation -> obj = new Animation(objectReader);

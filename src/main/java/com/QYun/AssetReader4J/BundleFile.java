@@ -18,10 +18,10 @@ public class BundleFile {
     private Node[] m_DirectoryInfo;
 
     public BundleFile(UnityStream reader, File file) throws IOException {
-        m_Header.signature = reader.readStringToNull();
+        m_Header.signature = reader.ReadStringToNull();
         m_Header.version = reader.readInt();
-        m_Header.unityVersion = reader.readStringToNull();
-        m_Header.unityRevision = reader.readStringToNull();
+        m_Header.unityVersion = reader.ReadStringToNull();
+        m_Header.unityRevision = reader.ReadStringToNull();
 
         switch (m_Header.signature) {
             case "UnityArchive" -> {
@@ -94,7 +94,7 @@ public class BundleFile {
     private void readBlocksInfoAndDirectory(UnityStream reader) throws IOException {
         byte[] blocksInfoBytes;
         if (m_Header.version >= 7)
-            reader.alignStream(16);
+            reader.AlignStream(16);
 
         if ((m_Header.flags & 0x80) != 0) {
             reader.mark();
@@ -141,7 +141,7 @@ public class BundleFile {
             tmp.offset = blocksInfoReader.readLong();
             tmp.size = blocksInfoReader.readLong();
             tmp.flags = blocksInfoReader.readInt();
-            tmp.path = blocksInfoReader.readStringToNull();
+            tmp.path = blocksInfoReader.ReadStringToNull();
             m_DirectoryInfo[i] = tmp;
         }
     }

@@ -1,10 +1,10 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Mesh;
 
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class Mesh extends NamedObject {
-    public Mesh(UObjectReader reader) {
+    public Mesh(ObjectReader reader) {
         super(reader);
         // TODO
     }

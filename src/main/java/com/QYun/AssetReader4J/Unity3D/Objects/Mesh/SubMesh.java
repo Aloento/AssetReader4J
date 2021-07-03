@@ -2,8 +2,8 @@ package com.QYun.AssetReader4J.Unity3D.Objects.Mesh;
 
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.GfxPrimitiveType;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip.AABB;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class SubMesh {
     public int firstByte;
@@ -15,7 +15,7 @@ public class SubMesh {
     public int vertexCount;
     public AABB localAABB;
 
-    public SubMesh(UObjectReader reader) {
+    public SubMesh(ObjectReader reader) {
         var version = reader.version();
 
         firstByte = reader.readInt();

@@ -56,7 +56,7 @@ public class ImportHelper {
     }
 
     public static FileType checkFileType(UnityStream reader) {
-        var signature = reader.readStringToNull(20);
+        var signature = reader.ReadStringToNull(20);
         reader.rewind();
         switch (signature) {
             case "UnityWeb":

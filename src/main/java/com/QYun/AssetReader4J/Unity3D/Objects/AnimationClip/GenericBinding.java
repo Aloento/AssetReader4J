@@ -2,9 +2,9 @@ package com.QYun.AssetReader4J.Unity3D.Objects.AnimationClip;
 
 import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.ClassIDType;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.UObject;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 
 public class GenericBinding {
     public int path;
@@ -14,7 +14,7 @@ public class GenericBinding {
     public byte customType;
     public byte isPPtrCurve;
 
-    public GenericBinding(UObjectReader reader) {
+    public GenericBinding(ObjectReader reader) {
         var version = reader.version();
         path = reader.readInt();
         attribute = reader.readInt();
@@ -26,6 +26,6 @@ public class GenericBinding {
         }
         customType = reader.readByte();
         isPPtrCurve = reader.readByte();
-        reader.alignStream();
+        reader.AlignStream();
     }
 }

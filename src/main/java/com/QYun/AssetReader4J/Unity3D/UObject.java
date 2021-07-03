@@ -11,7 +11,7 @@ import org.eclipse.collections.api.map.MutableOrderedMap;
 
 public class UObject {
     public SerializedFile assetsFile;
-    public UObjectReader reader;
+    public ObjectReader reader;
     public long m_PathID;
     public int[] version;
     public BuildTarget platform;
@@ -20,7 +20,7 @@ public class UObject {
     public int byteSize;
     protected BuildType buildType;
 
-    public UObject(UObjectReader reader) {
+    public UObject(ObjectReader reader) {
         this.reader = reader;
         reader.reset();
         assetsFile = reader.assetsFile;

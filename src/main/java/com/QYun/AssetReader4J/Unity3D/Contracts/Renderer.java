@@ -1,10 +1,10 @@
 package com.QYun.AssetReader4J.Unity3D.Contracts;
 
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.GameObject;
 import com.QYun.AssetReader4J.Unity3D.Objects.Material.Material;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
 import com.QYun.AssetReader4J.Unity3D.Objects.Transform;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
@@ -13,7 +13,7 @@ public abstract class Renderer extends Component {
     public StaticBatchInfo m_StaticBatchInfo;
     public int[] m_SubsetIndices;
 
-    protected Renderer(UObjectReader reader) {
+    protected Renderer(ObjectReader reader) {
         super(reader);
         if (version[0] < 5) {
             var m_Enabled = reader.readBoolean();
@@ -41,13 +41,13 @@ public abstract class Renderer extends Component {
                 if (version[0] >= 2020) {//2020.1 and up
                     var m_RayTraceProcedural = reader.readByte();
                 }
-                reader.alignStream();
+                reader.AlignStream();
             } else {
                 var m_Enabled = reader.readBoolean();
-                reader.alignStream();
+                reader.AlignStream();
                 var m_CastShadows = reader.readByte();
                 var m_ReceiveShadows = reader.readBoolean();
-                reader.alignStream();
+                reader.AlignStream();
             }
 
             if (version[0] >= 2018) { //2018 and up
@@ -63,11 +63,11 @@ public abstract class Renderer extends Component {
         }
 
         if (version[0] >= 3) { //3.0 and up
-            var m_LightmapTilingOffset = reader.readVector4();
+            var m_LightmapTilingOffset = reader.ReadVector4();
         }
 
         if (version[0] >= 5) { //5.0 and up
-            var m_LightmapTilingOffsetDynamic = reader.readVector4();
+            var m_LightmapTilingOffsetDynamic = reader.ReadVector4();
         }
 
         var m_MaterialsSize = reader.readInt();
@@ -77,7 +77,7 @@ public abstract class Renderer extends Component {
         }
 
         if (version[0] < 3) { //3.0 down
-            var m_LightmapTilingOffset = reader.readVector4();
+            var m_LightmapTilingOffset = reader.ReadVector4();
         } else { //3.0 and up
             if (version[0] > 5 || (version[0] == 5 && version[1] >= 5)) { //5.5 and up
                 m_StaticBatchInfo = new StaticBatchInfo(reader);
@@ -93,7 +93,7 @@ public abstract class Renderer extends Component {
             var m_LightProbeVolumeOverride = new PPtr<GameObject>(reader);
         } else if (version[0] > 3 || (version[0] == 3 && version[1] >= 5)) { //3.5 - 5.3
             var m_UseLightProbes = reader.readBoolean();
-            reader.alignStream();
+            reader.AlignStream();
 
             if (version[0] >= 5) { //5.0 and up
                 var m_ReflectionProbeUsage = reader.readInt();
@@ -111,7 +111,7 @@ public abstract class Renderer extends Component {
 
             //SInt16 m_SortingLayer 5.6 and up
             var m_SortingOrder = reader.readShort();
-            reader.alignStream();
+            reader.AlignStream();
         }
     }
 }

@@ -4,7 +4,7 @@ import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.TextureFormat;
 import com.QYun.AssetReader4J.ResourceReader;
 import com.QYun.AssetReader4J.Unity3D.Contracts.Texture;
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ public class Texture2D extends Texture {
     public ResourceReader image_data;
     public StreamingInfo m_StreamData;
 
-    public Texture2D(UObjectReader reader) {
+    public Texture2D(ObjectReader reader) {
         super(reader);
 
         m_Width = reader.readInt();
@@ -51,7 +51,7 @@ public class Texture2D extends Texture {
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 2)) {//2018.2 and up
             var m_StreamingMipmaps = reader.readBoolean();
         }
-        reader.alignStream();
+        reader.AlignStream();
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 2)) {//2018.2 and up
             var m_StreamingMipmapsPriority = reader.readInt();
         }
@@ -66,7 +66,7 @@ public class Texture2D extends Texture {
         }
         if (version[0] > 2020 || (version[0] == 2020 && version[1] >= 2)) {//2020.2 and up
             var m_PlatformBlob = reader.readShorts(reader.readInt());
-            reader.alignStream();
+            reader.AlignStream();
         }
         var image_data_size = reader.readInt();
         if (image_data_size == 0 && ((version[0] == 5 && version[1] >= 3) || version[0] > 5)) {//5.3.0 and up

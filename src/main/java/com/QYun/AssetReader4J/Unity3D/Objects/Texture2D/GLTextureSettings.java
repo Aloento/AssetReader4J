@@ -1,6 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Texture2D;
 
-import com.QYun.AssetReader4J.Unity3D.UObjectReader;
+import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
 public class GLTextureSettings {
     public int m_FilterMode;
@@ -8,7 +8,7 @@ public class GLTextureSettings {
     public float m_MipBias;
     public int m_WrapMode;
 
-    public GLTextureSettings(UObjectReader reader) {
+    public GLTextureSettings(ObjectReader reader) {
         var version = reader.version();
         m_FilterMode = reader.readInt();
         m_Aniso = reader.readInt();
