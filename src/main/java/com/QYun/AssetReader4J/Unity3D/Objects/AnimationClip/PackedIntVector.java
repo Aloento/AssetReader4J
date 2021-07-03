@@ -18,7 +18,7 @@ public class PackedIntVector {
         reader.alignStream();
     }
 
-    public int[] UnpackInts() {
+    public int[] unpackInts() {
         var data = new int[m_NumItems];
         int indexPos = 0;
         int bitPos = 0;

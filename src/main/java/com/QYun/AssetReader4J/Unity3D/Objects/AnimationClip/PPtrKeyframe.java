@@ -8,7 +8,6 @@ public class PPtrKeyframe {
     public float time;
     public PPtr<UObject> value;
 
-
     public PPtrKeyframe(UObjectReader reader) {
         time = reader.readFloat();
         value = new PPtr<UObject>(reader);

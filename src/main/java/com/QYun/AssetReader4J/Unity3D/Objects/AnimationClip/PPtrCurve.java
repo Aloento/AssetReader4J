@@ -11,7 +11,6 @@ public class PPtrCurve {
     public int classID;
     public PPtr<MonoScript> script;
 
-
     public PPtrCurve(UObjectReader reader) {
         int numCurves = reader.readInt();
         curve = new PPtrKeyframe[numCurves];

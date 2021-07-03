@@ -22,7 +22,7 @@ public class PackedFloatVector {
         reader.alignStream();
     }
 
-    // public float[] UnpackFloats(int itemCountInChunk, int chunkStride, int start = 0, int numChunks = -1){
+    // public float[] unpackFloats(int itemCountInChunk, int chunkStride, int start = 0, int numChunks = -1){
     //
     // }
 }
