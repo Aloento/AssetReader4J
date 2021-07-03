@@ -8,9 +8,6 @@ public class ChannelInfo {
     public byte format;
     public byte dimension;
 
-    public ChannelInfo() {
-    }
-
     public ChannelInfo(ObjectReader reader) {
         stream = reader.readByte();
         offset = reader.readByte();
