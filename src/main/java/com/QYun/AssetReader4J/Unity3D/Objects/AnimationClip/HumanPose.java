@@ -18,10 +18,15 @@ public class HumanPose {
     public HumanPose(UObjectReader reader) {
         var version = reader.version();
         m_RootX = new xform(reader);
-        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : (Vector3) reader.ReadVector4();//5.4 and up
-        m_LookAtWeight = reader.ReadVector4();
+        if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
+            m_LookAtPosition = reader.readVector3();
+        else {
+            var tmp = reader.readVector4();
+            m_LookAtPosition = new Vector3f(tmp.x, tmp.y, tmp.z);
+        }
+        m_LookAtWeight = reader.readVector4();
 
-        int numGoals = reader.ReadInt32();
+        int numGoals = reader.readInt();
         m_GoalArray = new HumanGoal[numGoals];
         for (int i = 0; i < numGoals; i++) {
             m_GoalArray[i] = new HumanGoal(reader);
@@ -30,13 +35,18 @@ public class HumanPose {
         m_LeftHandPose = new HandPose(reader);
         m_RightHandPose = new HandPose(reader);
 
-        m_DoFArray = reader.ReadSingleArray();
+        m_DoFArray = reader.readFloats(reader.readInt());
 
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
-            int numTDof = reader.ReadInt32();
-            m_TDoFArray = new Vector3[numTDof];
+            int numTDof = reader.readInt();
+            m_TDoFArray = new Vector3f[numTDof];
             for (int i = 0; i < numTDof; i++) {
-                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : (Vector3) reader.ReadVector4();//5.4 and up
+                if (version[0] > 5 || (version[0] == 5 && version[1] >= 4))
+                    m_TDoFArray[i] = reader.readVector3();
+                else {
+                    var tmp = reader.readVector4();
+                    m_TDoFArray[i] = new Vector3f(tmp.x, tmp.y, tmp.z);
+                }
             }
         }
     }

@@ -68,7 +68,7 @@ public class SpriteRenderData {
         }
 
         if (version[0] >= 2018) { //2018 and up
-            m_Bindpose = reader.readMatrixs(reader.readInt());
+            m_Bindpose = reader.readMatrices(reader.readInt());
 
             if (version[0] == 2018 && version[1] < 2) { //2018.2 down
                 var m_SourceSkinSize = reader.readInt();
