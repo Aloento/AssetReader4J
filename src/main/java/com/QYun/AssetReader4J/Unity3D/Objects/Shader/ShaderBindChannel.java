@@ -6,8 +6,7 @@ public class ShaderBindChannel {
     public byte source;
     public byte target;
 
-    public ShaderBindChannel(ObjectReader reader)
-    {
+    public ShaderBindChannel(ObjectReader reader) {
         source = reader.readByte(); //source = reader.ReadSByte();
         target = reader.readByte(); //target = reader.ReadSByte();
     }

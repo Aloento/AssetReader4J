@@ -12,16 +12,14 @@ public class SerializedShader {
     public SerializedCustomEditorForRenderPipeline[] m_CustomEditorForRenderPipelines;
     public boolean m_DisableNoSubshadersMessage;
 
-    public SerializedShader(ObjectReader reader)
-    {
+    public SerializedShader(ObjectReader reader) {
         var version = reader.version();
 
         m_PropInfo = new SerializedProperties(reader);
 
         int numSubShaders = reader.ReadInt32();
         m_SubShaders = new SerializedSubShader[numSubShaders];
-        for (int i = 0; i < numSubShaders; i++)
-        {
+        for (int i = 0; i < numSubShaders; i++) {
             m_SubShaders[i] = new SerializedSubShader(reader);
         }
 
@@ -31,17 +29,14 @@ public class SerializedShader {
 
         int numDependencies = reader.ReadInt32();
         m_Dependencies = new SerializedShaderDependency[numDependencies];
-        for (int i = 0; i < numDependencies; i++)
-        {
+        for (int i = 0; i < numDependencies; i++) {
             m_Dependencies[i] = new SerializedShaderDependency(reader);
         }
 
-        if (version[0] >= 2021) //2021.1 and up
-        {
+        if (version[0] >= 2021) { //2021.1 and up
             int m_CustomEditorForRenderPipelinesSize = reader.ReadInt32();
             m_CustomEditorForRenderPipelines = new SerializedCustomEditorForRenderPipeline[m_CustomEditorForRenderPipelinesSize];
-            for (int i = 0; i < m_CustomEditorForRenderPipelinesSize; i++)
-            {
+            for (int i = 0; i < m_CustomEditorForRenderPipelinesSize; i++) {
                 m_CustomEditorForRenderPipelines[i] = new SerializedCustomEditorForRenderPipeline(reader);
             }
         }

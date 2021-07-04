@@ -6,8 +6,7 @@ public class StructParameter {
     public MatrixParameter[] m_MatrixParams;
     public VectorParameter[] m_VectorParams;
 
-    public StructParameter(ObjectReader reader)
-    {
+    public StructParameter(ObjectReader reader) {
         var m_NameIndex = reader.ReadInt32();
         var m_Index = reader.ReadInt32();
         var m_ArraySize = reader.ReadInt32();
@@ -15,15 +14,13 @@ public class StructParameter {
 
         int numVectorParams = reader.ReadInt32();
         m_VectorParams = new VectorParameter[numVectorParams];
-        for (int i = 0; i < numVectorParams; i++)
-        {
+        for (int i = 0; i < numVectorParams; i++) {
             m_VectorParams[i] = new VectorParameter(reader);
         }
 
         int numMatrixParams = reader.ReadInt32();
         m_MatrixParams = new MatrixParameter[numMatrixParams];
-        for (int i = 0; i < numMatrixParams; i++)
-        {
+        for (int i = 0; i < numMatrixParams; i++) {
             m_MatrixParams[i] = new MatrixParameter(reader);
         }
     }

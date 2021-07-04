@@ -6,14 +6,12 @@ public class SerializedProgram {
     public SerializedSubProgram[] m_SubPrograms;
     public SerializedProgramParameters m_CommonParameters;
 
-    public SerializedProgram(ObjectReader reader)
-    {
+    public SerializedProgram(ObjectReader reader) {
         var version = reader.version();
 
         int numSubPrograms = reader.ReadInt32();
         m_SubPrograms = new SerializedSubProgram[numSubPrograms];
-        for (int i = 0; i < numSubPrograms; i++)
-        {
+        for (int i = 0; i < numSubPrograms; i++) {
             m_SubPrograms[i] = new SerializedSubProgram(reader);
         }
 

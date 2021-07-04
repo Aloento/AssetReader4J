@@ -9,8 +9,7 @@ public class VectorParameter {
     public byte m_Type;
     public byte m_Dim;
 
-    public VectorParameter(ObjectReader reader)
-    {
+    public VectorParameter(ObjectReader reader) {
         m_NameIndex = reader.ReadInt32();
         m_Index = reader.ReadInt32();
         m_ArraySize = reader.ReadInt32();

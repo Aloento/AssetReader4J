@@ -8,8 +8,7 @@ public class SerializedStencilOp {
     public SerializedShaderFloatValue zFail;
     public SerializedShaderFloatValue comp;
 
-    public SerializedStencilOp(ObjectReader reader)
-    {
+    public SerializedStencilOp(ObjectReader reader) {
         pass = new SerializedShaderFloatValue(reader);
         fail = new SerializedShaderFloatValue(reader);
         zFail = new SerializedShaderFloatValue(reader);
