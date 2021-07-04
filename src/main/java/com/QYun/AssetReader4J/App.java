@@ -15,6 +15,13 @@ public class App {
         try {
             manager.loadFiles(files);
 
+            for (var serializedFile : manager.assetsFileList) {
+                var objects = serializedFile.ObjectsDic.elements();
+                while (objects.hasMoreElements()) {
+                    var obj = objects.nextElement();
+                    System.out.format("%-20s%-10s%s\n", obj.type, obj.byteSize, obj.m_PathID);
+                }
+            }
         } catch (Throwable e) {
             e.printStackTrace();
         }
