@@ -18,7 +18,7 @@ public class AssetBundle extends NamedObject {
         var m_PreloadTableSize = reader.ReadInt32();
         m_PreloadTable = Lists.mutable.withInitialCapacity(m_PreloadTableSize);
         for (int i = 0; i < m_PreloadTableSize; i++) {
-            m_PreloadTable.add(i, new PPtr<>(reader));
+            m_PreloadTable.add(i, new PPtr<>(reader, UObject.class));
         }
 
         var m_ContainerSize = reader.ReadInt32();

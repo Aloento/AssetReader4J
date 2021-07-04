@@ -18,6 +18,6 @@ public class FloatCurve {
         attribute = reader.ReadAlignedString();
         path = reader.ReadAlignedString();
         classID = Enums.classIDType(reader.readInt());
-        script = new PPtr<>(reader);
+        script = new PPtr<>(reader, MonoScript.class);
     }
 }

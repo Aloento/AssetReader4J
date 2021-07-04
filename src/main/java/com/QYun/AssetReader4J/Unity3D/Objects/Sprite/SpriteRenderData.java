@@ -32,9 +32,9 @@ public class SpriteRenderData {
     public SpriteRenderData(ObjectReader reader) {
         var version = reader.version();
 
-        texture = new PPtr<>(reader);
+        texture = new PPtr<>(reader, Texture2D.class);
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
-            alphaTexture = new PPtr<>(reader);
+            alphaTexture = new PPtr<>(reader, Texture2D.class);
         }
 
         if (version[0] >= 2019) { //2019 and up

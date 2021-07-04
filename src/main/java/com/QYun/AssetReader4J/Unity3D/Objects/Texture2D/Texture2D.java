@@ -72,14 +72,11 @@ public class Texture2D extends Texture {
             m_StreamData = new StreamingInfo(reader);
         }
 
-        ResourceReader resourceReader = null;
-        if (m_StreamData != null) {
-            if (m_StreamData.path != null) {
-                if (!m_StreamData.path.isBlank() && !m_StreamData.path.isEmpty())
-                    resourceReader = new ResourceReader(m_StreamData.path, assetsFile, m_StreamData.offset, m_StreamData.size);
-            } else {
-                resourceReader = new ResourceReader(reader, reader.getPos(), image_data_size);
-            }
+        ResourceReader resourceReader;
+        if (!m_StreamData.path.isBlank()) {
+            resourceReader = new ResourceReader(m_StreamData.path, assetsFile, m_StreamData.offset, m_StreamData.size);
+        } else {
+            resourceReader = new ResourceReader(reader, reader.getPos(), image_data_size);
         }
         image_data = Objects.requireNonNull(resourceReader);
     }

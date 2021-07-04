@@ -41,14 +41,14 @@ public class Shader extends NamedObject {
 
             var m_DependenciesCount = reader.ReadInt32();
             for (int i = 0; i < m_DependenciesCount; i++) {
-                new PPtr<Shader>(reader);
+                new PPtr<>(reader, Shader.class);
             }
 
             if (version[0] >= 2018) {
                 var m_NonModifiableTexturesCount = reader.ReadInt32();
                 for (int i = 0; i < m_NonModifiableTexturesCount; i++) {
                     var first = reader.ReadAlignedString();
-                    new PPtr<Texture>(reader);
+                    new PPtr<>(reader, Texture.class);
                 }
             }
 

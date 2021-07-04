@@ -11,8 +11,8 @@ public class Animator extends Behaviour {
 
     public Animator(ObjectReader reader) {
         super(reader);
-        m_Avatar = new PPtr<Avatar>(reader);
-        m_Controller = new PPtr<>(reader);
+        m_Avatar = new PPtr<>(reader, Avatar.class);
+        m_Controller = new PPtr<>(reader, RuntimeAnimatorController.class);
         var m_CullingMode = reader.ReadInt32();
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up

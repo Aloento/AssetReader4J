@@ -21,7 +21,7 @@ public class SpriteAtlas extends NamedObject {
         var m_PackedSpritesSize = reader.ReadInt32();
         m_PackedSprites = Lists.mutable.withInitialCapacity(m_PackedSpritesSize);
         for (int i = 0; i < m_PackedSpritesSize; i++) {
-            m_PackedSprites.add(i, new PPtr<>(reader));
+            m_PackedSprites.add(i, new PPtr<>(reader, Sprite.class));
         }
 
         var m_PackedSpriteNamesToIndex = reader.ReadStringArray();

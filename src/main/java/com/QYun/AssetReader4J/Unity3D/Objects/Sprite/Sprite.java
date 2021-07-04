@@ -54,7 +54,7 @@ public class Sprite extends NamedObject {
             var second = reader.readLong();
             m_RenderDataKey = Maps.mutable.empty();
             m_AtlasTags = reader.readStrings(reader.readInt());
-            m_SpriteAtlas = new PPtr<>(reader);
+            m_SpriteAtlas = new PPtr<>(reader, SpriteAtlas.class);
         }
 
         m_RD = new SpriteRenderData(reader);

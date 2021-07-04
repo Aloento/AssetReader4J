@@ -73,7 +73,7 @@ public abstract class Renderer extends Component {
         var m_MaterialsSize = reader.readInt();
         m_Materials = Lists.mutable.withInitialCapacity(m_MaterialsSize);
         for (int i = 0; i < m_MaterialsSize; i++) {
-            m_Materials.add(i, new PPtr<>(reader));
+            m_Materials.add(i, new PPtr<>(reader, Material.class));
         }
 
         if (version[0] < 3) { //3.0 down
@@ -85,12 +85,12 @@ public abstract class Renderer extends Component {
                 m_SubsetIndices = reader.readInts(reader.readInt());
             }
 
-            var m_StaticBatchRoot = new PPtr<Transform>(reader);
+            var m_StaticBatchRoot = new PPtr<>(reader, Transform.class);
         }
 
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 4)) { //5.4 and up
-            var m_ProbeAnchor = new PPtr<Transform>(reader);
-            var m_LightProbeVolumeOverride = new PPtr<GameObject>(reader);
+            var m_ProbeAnchor = new PPtr<>(reader, Transform.class);
+            var m_LightProbeVolumeOverride = new PPtr<>(reader, GameObject.class);
         } else if (version[0] > 3 || (version[0] == 3 && version[1] >= 5)) { //3.5 - 5.3
             var m_UseLightProbes = reader.readBoolean();
             reader.AlignStream();
@@ -99,7 +99,7 @@ public abstract class Renderer extends Component {
                 var m_ReflectionProbeUsage = reader.readInt();
             }
 
-            var m_LightProbeAnchor = new PPtr<Transform>(reader); //5.0 and up m_ProbeAnchor
+            var m_LightProbeAnchor = new PPtr<>(reader, Transform.class); //5.0 and up m_ProbeAnchor
         }
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up

@@ -35,7 +35,7 @@ public class VideoClip extends NamedObject {
             var m_VideoShadersSize = reader.ReadInt32();
             MutableList<PPtr<Shader>> m_VideoShaders = Lists.mutable.withInitialCapacity(m_VideoShadersSize);
             for (int i = 0; i < m_VideoShadersSize; i++) {
-                m_VideoShaders.add(i, new PPtr<>(reader));
+                m_VideoShaders.add(i, new PPtr<>(reader, Shader.class));
             }
         }
         m_ExternalResources = new StreamedResource(reader);

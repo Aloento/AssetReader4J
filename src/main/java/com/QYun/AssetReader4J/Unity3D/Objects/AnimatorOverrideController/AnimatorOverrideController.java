@@ -10,7 +10,7 @@ public class AnimatorOverrideController extends RuntimeAnimatorController {
 
     public AnimatorOverrideController(ObjectReader reader) {
         super(reader);
-        m_Controller = new PPtr<>(reader);
+        m_Controller = new PPtr<>(reader, RuntimeAnimatorController.class);
 
         int numOverrides = reader.ReadInt32();
         m_Clips = new AnimationClipOverride[numOverrides];

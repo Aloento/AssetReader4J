@@ -24,8 +24,8 @@ public class Transform extends Component {
         int m_ChildrenCount = reader.ReadInt32();
         m_Children = Lists.mutable.withInitialCapacity(m_ChildrenCount);
         for (int i = 0; i < m_ChildrenCount; i++) {
-            m_Children.add(i, new PPtr<>(reader));
+            m_Children.add(i, new PPtr<>(reader, Transform.class));
         }
-        m_Father = new PPtr<>(reader);
+        m_Father = new PPtr<>(reader, Transform.class);
     }
 }

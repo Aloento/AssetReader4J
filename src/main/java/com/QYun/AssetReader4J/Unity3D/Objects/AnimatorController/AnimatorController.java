@@ -28,7 +28,7 @@ public class AnimatorController extends RuntimeAnimatorController {
         int numClips = reader.readInt();
         m_AnimationClips = Lists.mutable.withInitialCapacity(numClips);
         for (int i = 0; i < numClips; i++) {
-            m_AnimationClips.add(i, new PPtr<>(reader));
+            m_AnimationClips.add(i, new PPtr<>(reader, AnimationClip.class));
         }
     }
 }

@@ -9,8 +9,8 @@ public abstract class EditorExtension extends UObject {
     protected EditorExtension(ObjectReader reader) {
         super(reader);
         if (platform == BuildTarget.NoTarget) {
-            var m_PrefabParentObject = new PPtr<EditorExtension>(reader);
-            var m_PrefabInternal = new PPtr<UObject>(reader);
+            var m_PrefabParentObject = new PPtr<>(reader, EditorExtension.class);
+            var m_PrefabInternal = new PPtr<>(reader, UObject.class);
         }
     }
 }

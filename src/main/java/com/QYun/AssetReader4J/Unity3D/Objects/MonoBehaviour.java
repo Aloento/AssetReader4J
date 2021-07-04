@@ -9,7 +9,7 @@ public class MonoBehaviour extends Behaviour {
 
     public MonoBehaviour(ObjectReader reader) {
         super(reader);
-        m_Script = new PPtr<>(reader);
+        m_Script = new PPtr<>(reader, MonoScript.class);
         m_Name = reader.ReadAlignedString();
     }
 }

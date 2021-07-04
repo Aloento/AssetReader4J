@@ -12,9 +12,9 @@ public class Font extends NamedObject {
         super(reader);
         if ((version[0] == 5 && version[1] >= 5) || version[0] > 5) {//5.5 and up
             var m_LineSpacing = reader.ReadSingle();
-            var m_DefaultMaterial = new PPtr<Material>(reader);
+            var m_DefaultMaterial = new PPtr<>(reader, Material.class);
             var m_FontSize = reader.ReadSingle();
-            var m_Texture = new PPtr<Texture>(reader);
+            var m_Texture = new PPtr<>(reader, Texture.class);
             int m_AsciiStartOffset = reader.ReadInt32();
             var m_Tracking = reader.ReadSingle();
             var m_CharacterSpacing = reader.ReadInt32();
@@ -56,7 +56,7 @@ public class Font extends NamedObject {
             }
 
             int m_ConvertCase = reader.ReadInt32();
-            var m_DefaultMaterial = new PPtr<Material>(reader);
+            var m_DefaultMaterial = new PPtr<>(reader, Material.class);
 
             int m_CharacterRects_size = reader.ReadInt32();
             for (int i = 0; i < m_CharacterRects_size; i++) {
@@ -79,7 +79,7 @@ public class Font extends NamedObject {
                 }
             }
 
-            var m_Texture = new PPtr<Texture>(reader);
+            var m_Texture = new PPtr<>(reader, Texture.class);
 
             int m_KerningValues_size = reader.ReadInt32();
             for (int i = 0; i < m_KerningValues_size; i++) {

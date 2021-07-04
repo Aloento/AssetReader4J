@@ -19,14 +19,14 @@ public class SkinnedMeshRenderer extends Renderer {
         reader.AlignStream();
 
         if (version[0] == 2 && version[1] < 6) { //2.6 down
-            var m_DisableAnimationWhenOffscreen = new PPtr<Animation>(reader);
+            var m_DisableAnimationWhenOffscreen = new PPtr<>(reader, Animation.class);
         }
 
-        m_Mesh = new PPtr<>(reader);
+        m_Mesh = new PPtr<>(reader, Mesh.class);
 
         m_Bones = Lists.mutable.withInitialCapacity(reader.ReadInt32());
         for (int b = 0; b < m_Bones.size(); b++) {
-            m_Bones.add(b, new PPtr<>(reader));
+            m_Bones.add(b, new PPtr<>(reader, Transform.class));
         }
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up

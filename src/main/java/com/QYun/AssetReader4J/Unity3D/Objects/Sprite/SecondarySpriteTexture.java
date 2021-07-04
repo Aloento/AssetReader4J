@@ -9,7 +9,7 @@ public class SecondarySpriteTexture {
     public String name;
 
     public SecondarySpriteTexture(ObjectReader reader) {
-        texture = new PPtr<>(reader);
+        texture = new PPtr<>(reader, Texture2D.class);
         name = reader.ReadStringToNull();
     }
 }
