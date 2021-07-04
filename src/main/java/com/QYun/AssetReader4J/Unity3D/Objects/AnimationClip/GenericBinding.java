@@ -26,6 +26,6 @@ public class GenericBinding {
         }
         customType = reader.readByte();
         isPPtrCurve = reader.readByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

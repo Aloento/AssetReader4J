@@ -10,7 +10,7 @@ public class Handle {
 
     public Handle(ObjectReader reader) {
         m_X = new xform(reader);
-        m_ParentHumanIndex = reader.ReadUInt32();
-        m_ID = reader.ReadUInt32();
+        m_ParentHumanIndex = reader.readInt();
+        m_ID = reader.readInt();
     }
 }

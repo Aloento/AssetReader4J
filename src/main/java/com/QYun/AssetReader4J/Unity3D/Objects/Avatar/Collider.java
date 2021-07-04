@@ -16,13 +16,13 @@ public class Collider {
 
     public Collider(ObjectReader reader) {
         m_X = new xform(reader);
-        m_Type = reader.ReadUInt32();
-        m_XMotionType = reader.ReadUInt32();
-        m_YMotionType = reader.ReadUInt32();
-        m_ZMotionType = reader.ReadUInt32();
-        m_MinLimitX = reader.ReadSingle();
-        m_MaxLimitX = reader.ReadSingle();
-        m_MaxLimitY = reader.ReadSingle();
-        m_MaxLimitZ = reader.ReadSingle();
+        m_Type = reader.readInt();
+        m_XMotionType = reader.readInt();
+        m_YMotionType = reader.readInt();
+        m_ZMotionType = reader.readInt();
+        m_MinLimitX = reader.readFloat();
+        m_MaxLimitX = reader.readFloat();
+        m_MaxLimitY = reader.readFloat();
+        m_MaxLimitZ = reader.readFloat();
     }
 }

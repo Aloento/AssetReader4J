@@ -8,13 +8,13 @@ public class BuildSettings extends UObject {
 
     public BuildSettings(ObjectReader reader) {
         super(reader);
-        var levels = reader.ReadStringArray();
+        var levels = reader.readStringArray();
 
-        var hasRenderTexture = reader.ReadBoolean();
-        var hasPROVersion = reader.ReadBoolean();
-        var hasPublishingRights = reader.ReadBoolean();
-        var hasShadows = reader.ReadBoolean();
+        var hasRenderTexture = reader.readBoolean();
+        var hasPROVersion = reader.readBoolean();
+        var hasPublishingRights = reader.readBoolean();
+        var hasShadows = reader.readBoolean();
 
-        m_Version = reader.ReadAlignedString();
+        m_Version = reader.readAlignedString();
     }
 }

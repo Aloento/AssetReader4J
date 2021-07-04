@@ -12,18 +12,18 @@ public class MeshBlendShape {
         var version = reader.version();
 
         if (version[0] == 4 && version[1] < 3) { //4.3 down
-            var name = reader.ReadAlignedString();
+            var name = reader.readAlignedString();
         }
-        firstVertex = reader.ReadUInt32();
-        vertexCount = reader.ReadUInt32();
+        firstVertex = reader.readInt();
+        vertexCount = reader.readInt();
         if (version[0] == 4 && version[1] < 3) { //4.3 down
-            var aabbMinDelta = reader.ReadVector3();
-            var aabbMaxDelta = reader.ReadVector3();
+            var aabbMinDelta = reader.readVector3();
+            var aabbMaxDelta = reader.readVector3();
         }
-        hasNormals = reader.ReadBoolean();
-        hasTangents = reader.ReadBoolean();
+        hasNormals = reader.readBoolean();
+        hasTangents = reader.readBoolean();
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
-            reader.AlignStream();
+            reader.alignStream();
         }
     }
 }

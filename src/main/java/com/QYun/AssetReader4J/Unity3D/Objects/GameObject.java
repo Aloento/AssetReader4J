@@ -30,6 +30,6 @@ public class GameObject extends EditorExtension {
         }
 
         var m_Layer = reader.readInt();
-        m_Name = reader.ReadAlignedString();
+        m_Name = reader.readAlignedString();
     }
 }

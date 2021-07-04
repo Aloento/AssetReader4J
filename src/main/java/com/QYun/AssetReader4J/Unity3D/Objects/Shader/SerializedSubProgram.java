@@ -23,24 +23,24 @@ public class SerializedSubProgram {
     public SerializedSubProgram(ObjectReader reader) {
         var version = reader.version();
 
-        m_BlobIndex = reader.ReadUInt32();
+        m_BlobIndex = reader.readInt();
         m_Channels = new ParserBindChannels(reader);
 
         if (version[0] >= 2019) { //2019 and up
-            var m_GlobalKeywordIndices = reader.ReadUInt16Array();
-            reader.AlignStream();
-            var m_LocalKeywordIndices = reader.ReadUInt16Array();
-            reader.AlignStream();
+            var m_GlobalKeywordIndices = reader.readShortArray();
+            reader.alignStream();
+            var m_LocalKeywordIndices = reader.readShortArray();
+            reader.alignStream();
         } else {
-            m_KeywordIndices = reader.ReadUInt16Array();
+            m_KeywordIndices = reader.readShortArray();
             if (version[0] >= 2017) { //2017 and up
-                reader.AlignStream();
+                reader.alignStream();
             }
         }
 
         m_ShaderHardwareTier = reader.readByte();
         m_GpuProgramType = Enums.shaderGpuProgramType(reader.readByte()); //m_GpuProgramType = (ShaderGpuProgramType)reader.ReadSByte();
-        reader.AlignStream();
+        reader.alignStream();
 
         if ((version[0] == 2020 && version[1] > 3) ||
                 (version[0] == 2020 && version[1] == 3 && version[2] > 0) ||
@@ -50,50 +50,50 @@ public class SerializedSubProgram {
         {
             m_Parameters = new SerializedProgramParameters(reader);
         } else {
-            int numVectorParams = reader.ReadInt32();
+            int numVectorParams = reader.readInt();
             m_VectorParams = new VectorParameter[numVectorParams];
             for (int i = 0; i < numVectorParams; i++) {
                 m_VectorParams[i] = new VectorParameter(reader);
             }
 
-            int numMatrixParams = reader.ReadInt32();
+            int numMatrixParams = reader.readInt();
             m_MatrixParams = new MatrixParameter[numMatrixParams];
             for (int i = 0; i < numMatrixParams; i++) {
                 m_MatrixParams[i] = new MatrixParameter(reader);
             }
 
-            int numTextureParams = reader.ReadInt32();
+            int numTextureParams = reader.readInt();
             m_TextureParams = new TextureParameter[numTextureParams];
             for (int i = 0; i < numTextureParams; i++) {
                 m_TextureParams[i] = new TextureParameter(reader);
             }
 
-            int numBufferParams = reader.ReadInt32();
+            int numBufferParams = reader.readInt();
             m_BufferParams = new BufferBinding[numBufferParams];
             for (int i = 0; i < numBufferParams; i++) {
                 m_BufferParams[i] = new BufferBinding(reader);
             }
 
-            int numConstantBuffers = reader.ReadInt32();
+            int numConstantBuffers = reader.readInt();
             m_ConstantBuffers = new ConstantBuffer[numConstantBuffers];
             for (int i = 0; i < numConstantBuffers; i++) {
                 m_ConstantBuffers[i] = new ConstantBuffer(reader);
             }
 
-            int numConstantBufferBindings = reader.ReadInt32();
+            int numConstantBufferBindings = reader.readInt();
             m_ConstantBufferBindings = new BufferBinding[numConstantBufferBindings];
             for (int i = 0; i < numConstantBufferBindings; i++) {
                 m_ConstantBufferBindings[i] = new BufferBinding(reader);
             }
 
-            int numUAVParams = reader.ReadInt32();
+            int numUAVParams = reader.readInt();
             m_UAVParams = new UAVParameter[numUAVParams];
             for (int i = 0; i < numUAVParams; i++) {
                 m_UAVParams[i] = new UAVParameter(reader);
             }
 
             if (version[0] >= 2017) { //2017 and up
-                int numSamplers = reader.ReadInt32();
+                int numSamplers = reader.readInt();
                 m_Samplers = new SamplerParameter[numSamplers];
                 for (int i = 0; i < numSamplers; i++) {
                     m_Samplers[i] = new SamplerParameter(reader);
@@ -103,9 +103,9 @@ public class SerializedSubProgram {
 
         if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) { //2017.2 and up
             if (version[0] >= 2021) { //2021.1 and up
-                var m_ShaderRequirements = reader.ReadInt64();
+                var m_ShaderRequirements = reader.readLong();
             } else {
-                var m_ShaderRequirements = reader.ReadInt32();
+                var m_ShaderRequirements = reader.readInt();
             }
         }
     }

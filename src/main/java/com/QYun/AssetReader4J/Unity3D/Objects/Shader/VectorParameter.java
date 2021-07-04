@@ -10,11 +10,11 @@ public class VectorParameter {
     public byte m_Dim;
 
     public VectorParameter(ObjectReader reader) {
-        m_NameIndex = reader.ReadInt32();
-        m_Index = reader.ReadInt32();
-        m_ArraySize = reader.ReadInt32();
+        m_NameIndex = reader.readInt();
+        m_Index = reader.readInt();
+        m_ArraySize = reader.readInt();
         m_Type = reader.readByte(); //m_Type = reader.ReadSByte();
         m_Dim = reader.readByte();  //m_Dim = reader.ReadSByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

@@ -12,11 +12,11 @@ public class ResourceManager extends UObject {
 
     public ResourceManager(ObjectReader reader) {
         super(reader);
-        var m_ContainerSize = reader.ReadInt32();
+        var m_ContainerSize = reader.readInt();
         m_Container = Lists.mutable.withInitialCapacity(m_ContainerSize);
         for (int i = 0; i < m_ContainerSize; i++) {
             MutableMap<String, PPtr<UObject>> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), new PPtr<>(reader, UObject.class));
+            tmp.put(reader.readAlignedString(), new PPtr<>(reader, UObject.class));
             m_Container.add(i, tmp);
         }
     }

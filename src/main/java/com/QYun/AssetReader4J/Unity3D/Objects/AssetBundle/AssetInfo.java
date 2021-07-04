@@ -10,8 +10,8 @@ public class AssetInfo {
     public PPtr<UObject> asset;
 
     public AssetInfo(ObjectReader reader) {
-        preloadIndex = reader.ReadInt32();
-        preloadSize = reader.ReadInt32();
+        preloadIndex = reader.readInt();
+        preloadSize = reader.readInt();
         asset = new PPtr<>(reader, UObject.class);
     }
 }

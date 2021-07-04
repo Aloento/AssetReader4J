@@ -8,13 +8,13 @@ public class SerializedSubShader {
     public int m_LOD;
 
     public SerializedSubShader(ObjectReader reader) {
-        int numPasses = reader.ReadInt32();
+        int numPasses = reader.readInt();
         m_Passes = new SerializedPass[numPasses];
         for (int i = 0; i < numPasses; i++) {
             m_Passes[i] = new SerializedPass(reader);
         }
 
         m_Tags = new SerializedTagMap(reader);
-        m_LOD = reader.ReadInt32();
+        m_LOD = reader.readInt();
     }
 }

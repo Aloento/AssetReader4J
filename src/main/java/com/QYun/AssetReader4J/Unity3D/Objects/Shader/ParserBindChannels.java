@@ -7,13 +7,13 @@ public class ParserBindChannels {
     public int m_SourceMap;
 
     public ParserBindChannels(ObjectReader reader) {
-        int numChannels = reader.ReadInt32();
+        int numChannels = reader.readInt();
         m_Channels = new ShaderBindChannel[numChannels];
         for (int i = 0; i < numChannels; i++) {
             m_Channels[i] = new ShaderBindChannel(reader);
         }
-        reader.AlignStream();
+        reader.alignStream();
 
-        m_SourceMap = reader.ReadUInt32();
+        m_SourceMap = reader.readInt();
     }
 }

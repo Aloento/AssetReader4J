@@ -11,13 +11,13 @@ public class TextureParameter {
     public TextureParameter(ObjectReader reader) {
         var version = reader.version();
 
-        m_NameIndex = reader.ReadInt32();
-        m_Index = reader.ReadInt32();
-        m_SamplerIndex = reader.ReadInt32();
+        m_NameIndex = reader.readInt();
+        m_Index = reader.readInt();
+        m_SamplerIndex = reader.readInt();
         if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 3)) { //2017.3 and up
-            var m_MultiSampled = reader.ReadBoolean();
+            var m_MultiSampled = reader.readBoolean();
         }
         m_Dim = reader.readByte(); //m_Dim = reader.ReadSByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

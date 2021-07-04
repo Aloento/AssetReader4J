@@ -21,36 +21,36 @@ public class TransitionConstant {
     public TransitionConstant(ObjectReader reader) {
         var version = reader.version();
 
-        int numConditions = reader.ReadInt32();
+        int numConditions = reader.readInt();
         m_ConditionConstantArray = new ConditionConstant[numConditions];
         for (int i = 0; i < numConditions; i++) {
             m_ConditionConstantArray[i] = new ConditionConstant(reader);
         }
 
-        m_DestinationState = reader.ReadUInt32();
+        m_DestinationState = reader.readInt();
         if (version[0] >= 5) { //5.0 and up
-            m_FullPathID = reader.ReadUInt32();
+            m_FullPathID = reader.readInt();
         }
 
-        m_ID = reader.ReadUInt32();
-        m_UserID = reader.ReadUInt32();
-        m_TransitionDuration = reader.ReadSingle();
-        m_TransitionOffset = reader.ReadSingle();
+        m_ID = reader.readInt();
+        m_UserID = reader.readInt();
+        m_TransitionDuration = reader.readFloat();
+        m_TransitionOffset = reader.readFloat();
         if (version[0] >= 5) { //5.0 and up
-            m_ExitTime = reader.ReadSingle();
-            m_HasExitTime = reader.ReadBoolean();
-            m_HasFixedDuration = reader.ReadBoolean();
-            reader.AlignStream();
-            m_InterruptionSource = reader.ReadInt32();
-            m_OrderedInterruption = reader.ReadBoolean();
+            m_ExitTime = reader.readFloat();
+            m_HasExitTime = reader.readBoolean();
+            m_HasFixedDuration = reader.readBoolean();
+            reader.alignStream();
+            m_InterruptionSource = reader.readInt();
+            m_OrderedInterruption = reader.readBoolean();
         } else {
-            m_Atomic = reader.ReadBoolean();
+            m_Atomic = reader.readBoolean();
         }
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
-            m_CanTransitionToSelf = reader.ReadBoolean();
+            m_CanTransitionToSelf = reader.readBoolean();
         }
 
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

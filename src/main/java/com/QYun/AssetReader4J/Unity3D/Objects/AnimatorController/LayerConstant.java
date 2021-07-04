@@ -29,6 +29,6 @@ public class LayerConstant {
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 2)) { //4.2 and up
             m_SyncedLayerAffectsTiming = reader.readBoolean();
         }
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

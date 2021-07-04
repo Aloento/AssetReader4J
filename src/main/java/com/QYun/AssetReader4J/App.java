@@ -4,7 +4,6 @@ import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
 
 import java.io.File;
-import java.io.IOException;
 
 public class App {
     private static final MutableList<File> files = Lists.mutable.empty();
@@ -15,7 +14,8 @@ public class App {
         files.add(new File("src/main/resources/char_1012_skadi2.ab"));
         try {
             manager.loadFiles(files);
-        } catch (IOException e) {
+
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         System.out.println("Exited");

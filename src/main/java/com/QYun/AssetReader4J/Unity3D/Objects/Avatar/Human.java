@@ -35,40 +35,40 @@ public class Human {
         m_RightHand = new Hand(reader);
 
         if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) { //2018.2 down
-            int numHandles = reader.ReadInt32();
+            int numHandles = reader.readInt();
             m_Handles = new Handle[numHandles];
             for (int i = 0; i < numHandles; i++) {
                 m_Handles[i] = new Handle(reader);
             }
 
-            int numColliders = reader.ReadInt32();
+            int numColliders = reader.readInt();
             m_ColliderArray = new Collider[numColliders];
             for (int i = 0; i < numColliders; i++) {
                 m_ColliderArray[i] = new Collider(reader);
             }
         }
 
-        m_HumanBoneIndex = reader.ReadInt32Array();
+        m_HumanBoneIndex = reader.readIntArray();
 
-        m_HumanBoneMass = reader.ReadSingleArray();
+        m_HumanBoneMass = reader.readFloatArray();
 
         if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) { //2018.2 down
-            m_ColliderIndex = reader.ReadInt32Array();
+            m_ColliderIndex = reader.readIntArray();
         }
 
-        m_Scale = reader.ReadSingle();
-        m_ArmTwist = reader.ReadSingle();
-        m_ForeArmTwist = reader.ReadSingle();
-        m_UpperLegTwist = reader.ReadSingle();
-        m_LegTwist = reader.ReadSingle();
-        m_ArmStretch = reader.ReadSingle();
-        m_LegStretch = reader.ReadSingle();
-        m_FeetSpacing = reader.ReadSingle();
-        m_HasLeftHand = reader.ReadBoolean();
-        m_HasRightHand = reader.ReadBoolean();
+        m_Scale = reader.readFloat();
+        m_ArmTwist = reader.readFloat();
+        m_ForeArmTwist = reader.readFloat();
+        m_UpperLegTwist = reader.readFloat();
+        m_LegTwist = reader.readFloat();
+        m_ArmStretch = reader.readFloat();
+        m_LegStretch = reader.readFloat();
+        m_FeetSpacing = reader.readFloat();
+        m_HasLeftHand = reader.readBoolean();
+        m_HasRightHand = reader.readBoolean();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 2)) { //5.2 and up
-            m_HasTDoF = reader.ReadBoolean();
+            m_HasTDoF = reader.readBoolean();
         }
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

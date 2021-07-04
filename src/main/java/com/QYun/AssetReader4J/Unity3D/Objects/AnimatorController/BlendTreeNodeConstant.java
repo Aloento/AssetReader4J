@@ -53,7 +53,7 @@ public class BlendTreeNodeConstant {
                 || (version[0] == 4 && version[1] == 1 && version[2] >= 3)) { //4.1.3 and up
             m_CycleOffset = reader.readFloat();
             m_Mirror = reader.readBoolean();
-            reader.AlignStream();
+            reader.alignStream();
         }
     }
 }

@@ -21,7 +21,7 @@ public class AnimatorController extends RuntimeAnimatorController {
         MutableList<MutableMap<Integer, String>> m_TOS = Lists.mutable.withInitialCapacity(tosSize);
         for (int i = 0; i < tosSize; i++) {
             MutableMap<Integer, String> tmp = Maps.mutable.empty();
-            tmp.put(reader.readInt(), reader.ReadAlignedString());
+            tmp.put(reader.readInt(), reader.readAlignedString());
             m_TOS.add(i, tmp);
         }
 

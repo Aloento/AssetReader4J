@@ -18,8 +18,8 @@ public class HumanPose {
     public HumanPose(ObjectReader reader) {
         var version = reader.version();
         m_RootX = new xform(reader);
-        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
-        m_LookAtWeight = reader.ReadVector4();
+        m_LookAtPosition = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
+        m_LookAtWeight = reader.readVector4();
 
         int numGoals = reader.readInt();
         m_GoalArray = new HumanGoal[numGoals];
@@ -36,7 +36,7 @@ public class HumanPose {
             int numTDof = reader.readInt();
             m_TDoFArray = new Vector3f[numTDof];
             for (int i = 0; i < numTDof; i++) {
-                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
+                m_TDoFArray[i] = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
             }
         }
     }

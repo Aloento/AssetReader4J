@@ -50,7 +50,7 @@ public class Texture2D extends Texture {
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 2)) { //2018.2 and up
             var m_StreamingMipmaps = reader.readBoolean();
         }
-        reader.AlignStream();
+        reader.alignStream();
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 2)) { //2018.2 and up
             var m_StreamingMipmapsPriority = reader.readInt();
         }
@@ -65,7 +65,7 @@ public class Texture2D extends Texture {
         }
         if (version[0] > 2020 || (version[0] == 2020 && version[1] >= 2)) { //2020.2 and up
             var m_PlatformBlob = reader.readShorts(reader.readInt());
-            reader.AlignStream();
+            reader.alignStream();
         }
         var image_data_size = reader.readInt();
         if (image_data_size == 0 && ((version[0] == 5 && version[1] >= 3) || version[0] > 5)) { //5.3.0 and up

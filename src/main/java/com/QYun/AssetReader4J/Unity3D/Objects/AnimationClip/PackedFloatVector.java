@@ -16,10 +16,10 @@ public class PackedFloatVector {
 
         int numData = reader.readInt();
         m_Data = reader.readBytes(numData);
-        reader.AlignStream();
+        reader.alignStream();
 
         m_BitSize = reader.readByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 
     // public float[] unpackFloats(int itemCountInChunk, int chunkStride, int start = 0, int numChunks = -1){

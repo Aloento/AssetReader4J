@@ -14,15 +14,15 @@ public class Axes {
 
     public Axes(ObjectReader reader) {
         var version = reader.version();
-        m_PreQ = reader.ReadVector4();
-        m_PostQ = reader.ReadVector4();
+        m_PreQ = reader.readVector4();
+        m_PostQ = reader.readVector4();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 4)) { //5.4 and up
-            m_Sgn = reader.ReadVector3();
+            m_Sgn = reader.readVector3();
         } else {
-            m_Sgn = reader.ReadVector4();
+            m_Sgn = reader.readVector4();
         }
         m_Limit = new Limit(reader);
-        m_Length = reader.ReadSingle();
-        m_Type = reader.ReadUInt32();
+        m_Length = reader.readFloat();
+        m_Type = reader.readInt();
     }
 }

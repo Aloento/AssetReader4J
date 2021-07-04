@@ -11,9 +11,9 @@ public class BlendShapeVertex {
     public int index;
 
     public BlendShapeVertex(ObjectReader reader) {
-        vertex = reader.ReadVector3();
-        normal = reader.ReadVector3();
-        tangent = reader.ReadVector3();
-        index = reader.ReadUInt32();
+        vertex = reader.readVector3();
+        normal = reader.readVector3();
+        tangent = reader.readVector3();
+        index = reader.readInt();
     }
 }

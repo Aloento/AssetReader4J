@@ -19,7 +19,7 @@ public class HumanGoal {
         if (version[0] >= 5) //5.0 and up
         {
             //5.4 and up
-            m_HintT = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
+            m_HintT = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
             m_HintWeightT = reader.readFloat();
         }
     }

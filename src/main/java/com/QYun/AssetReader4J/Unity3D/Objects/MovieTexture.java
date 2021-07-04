@@ -9,9 +9,9 @@ public class MovieTexture extends Texture {
 
     public MovieTexture(ObjectReader reader) {
         super(reader);
-        var m_Loop = reader.ReadBoolean();
-        reader.AlignStream();
+        var m_Loop = reader.readBoolean();
+        reader.alignStream();
         m_AudioClip = new PPtr<>(reader, AudioClip.class);
-        m_MovieData = reader.ReadUInt8Array();
+        m_MovieData = reader.readByteArray();
     }
 }

@@ -11,93 +11,93 @@ public class Font extends NamedObject {
     public Font(ObjectReader reader) {
         super(reader);
         if ((version[0] == 5 && version[1] >= 5) || version[0] > 5) {//5.5 and up
-            var m_LineSpacing = reader.ReadSingle();
+            var m_LineSpacing = reader.readFloat();
             var m_DefaultMaterial = new PPtr<>(reader, Material.class);
-            var m_FontSize = reader.ReadSingle();
+            var m_FontSize = reader.readFloat();
             var m_Texture = new PPtr<>(reader, Texture.class);
-            int m_AsciiStartOffset = reader.ReadInt32();
-            var m_Tracking = reader.ReadSingle();
-            var m_CharacterSpacing = reader.ReadInt32();
-            var m_CharacterPadding = reader.ReadInt32();
-            var m_ConvertCase = reader.ReadInt32();
-            int m_CharacterRects_size = reader.ReadInt32();
+            int m_AsciiStartOffset = reader.readInt();
+            var m_Tracking = reader.readFloat();
+            var m_CharacterSpacing = reader.readInt();
+            var m_CharacterPadding = reader.readInt();
+            var m_ConvertCase = reader.readInt();
+            int m_CharacterRects_size = reader.readInt();
             for (int i = 0; i < m_CharacterRects_size; i++) {
                 reader.setPos(reader.getPos() + 44); //CharacterInfo data 41
             }
-            int m_KerningValues_size = reader.ReadInt32();
+            int m_KerningValues_size = reader.readInt();
             for (int i = 0; i < m_KerningValues_size; i++) {
                 reader.setPos(reader.getPos() + 8);
             }
-            var m_PixelScale = reader.ReadSingle();
-            int m_FontData_size = reader.ReadInt32();
+            var m_PixelScale = reader.readFloat();
+            int m_FontData_size = reader.readInt();
             if (m_FontData_size > 0) {
-                m_FontData = reader.ReadBytes(m_FontData_size);
+                m_FontData = reader.readBytes(m_FontData_size);
             }
         } else {
-            int m_AsciiStartOffset = reader.ReadInt32();
+            int m_AsciiStartOffset = reader.readInt();
 
             if (version[0] <= 3) {
-                int m_FontCountX = reader.ReadInt32();
-                int m_FontCountY = reader.ReadInt32();
+                int m_FontCountX = reader.readInt();
+                int m_FontCountY = reader.readInt();
             }
 
-            float m_Kerning = reader.ReadSingle();
-            float m_LineSpacing = reader.ReadSingle();
+            float m_Kerning = reader.readFloat();
+            float m_LineSpacing = reader.readFloat();
 
             if (version[0] <= 3) {
-                int m_PerCharacterKerning_size = reader.ReadInt32();
+                int m_PerCharacterKerning_size = reader.readInt();
                 for (int i = 0; i < m_PerCharacterKerning_size; i++) {
-                    int first = reader.ReadInt32();
-                    float second = reader.ReadSingle();
+                    int first = reader.readInt();
+                    float second = reader.readFloat();
                 }
             } else {
-                int m_CharacterSpacing = reader.ReadInt32();
-                int m_CharacterPadding = reader.ReadInt32();
+                int m_CharacterSpacing = reader.readInt();
+                int m_CharacterPadding = reader.readInt();
             }
 
-            int m_ConvertCase = reader.ReadInt32();
+            int m_ConvertCase = reader.readInt();
             var m_DefaultMaterial = new PPtr<>(reader, Material.class);
 
-            int m_CharacterRects_size = reader.ReadInt32();
+            int m_CharacterRects_size = reader.readInt();
             for (int i = 0; i < m_CharacterRects_size; i++) {
-                int index = reader.ReadInt32();
+                int index = reader.readInt();
                 //Rectf uv
-                float uvx = reader.ReadSingle();
-                float uvy = reader.ReadSingle();
-                float uvwidth = reader.ReadSingle();
-                float uvheight = reader.ReadSingle();
+                float uvx = reader.readFloat();
+                float uvy = reader.readFloat();
+                float uvwidth = reader.readFloat();
+                float uvheight = reader.readFloat();
                 //Rectf vert
-                float vertx = reader.ReadSingle();
-                float verty = reader.ReadSingle();
-                float vertwidth = reader.ReadSingle();
-                float vertheight = reader.ReadSingle();
-                float width = reader.ReadSingle();
+                float vertx = reader.readFloat();
+                float verty = reader.readFloat();
+                float vertwidth = reader.readFloat();
+                float vertheight = reader.readFloat();
+                float width = reader.readFloat();
 
                 if (version[0] >= 4) {
-                    var flipped = reader.ReadBoolean();
-                    reader.AlignStream();
+                    var flipped = reader.readBoolean();
+                    reader.alignStream();
                 }
             }
 
             var m_Texture = new PPtr<>(reader, Texture.class);
 
-            int m_KerningValues_size = reader.ReadInt32();
+            int m_KerningValues_size = reader.readInt();
             for (int i = 0; i < m_KerningValues_size; i++) {
-                int pairfirst = reader.ReadInt16();
-                int pairsecond = reader.ReadInt16();
-                float second = reader.ReadSingle();
+                int pairfirst = reader.readShort();
+                int pairsecond = reader.readShort();
+                float second = reader.readFloat();
             }
 
             if (version[0] <= 3) {
-                var m_GridFont = reader.ReadBoolean();
-                reader.AlignStream();
+                var m_GridFont = reader.readBoolean();
+                reader.alignStream();
             } else {
-                float m_PixelScale = reader.ReadSingle();
+                float m_PixelScale = reader.readFloat();
             }
 
-            int m_FontData_size = reader.ReadInt32();
+            int m_FontData_size = reader.readInt();
             if (m_FontData_size > 0) {
-                m_FontData = reader.ReadBytes(m_FontData_size);
+                m_FontData = reader.readBytes(m_FontData_size);
             }
         }
     }

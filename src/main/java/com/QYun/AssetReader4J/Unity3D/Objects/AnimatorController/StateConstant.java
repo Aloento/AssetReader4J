@@ -24,61 +24,61 @@ public class StateConstant {
     public StateConstant(ObjectReader reader) {
         var version = reader.version();
 
-        int numTransistions = reader.ReadInt32();
+        int numTransistions = reader.readInt();
         m_TransitionConstantArray = new TransitionConstant[numTransistions];
         for (int i = 0; i < numTransistions; i++) {
             m_TransitionConstantArray[i] = new TransitionConstant(reader);
         }
 
-        m_BlendTreeConstantIndexArray = reader.ReadInt32Array();
+        m_BlendTreeConstantIndexArray = reader.readIntArray();
 
         if (version[0] < 5 || (version[0] == 5 && version[1] < 2)) { //5.2 down
-            int numInfos = reader.ReadInt32();
+            int numInfos = reader.readInt();
             m_LeafInfoArray = new LeafInfoConstant[numInfos];
             for (int i = 0; i < numInfos; i++) {
                 m_LeafInfoArray[i] = new LeafInfoConstant(reader);
             }
         }
 
-        int numBlends = reader.ReadInt32();
+        int numBlends = reader.readInt();
         m_BlendTreeConstantArray = new BlendTreeConstant[numBlends];
         for (int i = 0; i < numBlends; i++) {
             m_BlendTreeConstantArray[i] = new BlendTreeConstant(reader);
         }
 
-        m_NameID = reader.ReadUInt32();
+        m_NameID = reader.readInt();
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
-            m_PathID = reader.ReadUInt32();
+            m_PathID = reader.readInt();
         }
         if (version[0] >= 5) { //5.0 and up
-            m_FullPathID = reader.ReadUInt32();
+            m_FullPathID = reader.readInt();
         }
 
-        m_TagID = reader.ReadUInt32();
+        m_TagID = reader.readInt();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 1)) { //5.1 and up
-            m_SpeedParamID = reader.ReadUInt32();
-            m_MirrorParamID = reader.ReadUInt32();
-            m_CycleOffsetParamID = reader.ReadUInt32();
+            m_SpeedParamID = reader.readInt();
+            m_MirrorParamID = reader.readInt();
+            m_CycleOffsetParamID = reader.readInt();
         }
 
         if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) { //2017.2 and up
-            var m_TimeParamID = reader.ReadUInt32();
+            var m_TimeParamID = reader.readInt();
         }
 
-        m_Speed = reader.ReadSingle();
+        m_Speed = reader.readFloat();
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 1)) { //4.1 and up
-            m_CycleOffset = reader.ReadSingle();
+            m_CycleOffset = reader.readFloat();
         }
-        m_IKOnFeet = reader.ReadBoolean();
+        m_IKOnFeet = reader.readBoolean();
         if (version[0] >= 5) { //5.0 and up
-            m_WriteDefaultValues = reader.ReadBoolean();
+            m_WriteDefaultValues = reader.readBoolean();
         }
 
-        m_Loop = reader.ReadBoolean();
+        m_Loop = reader.readBoolean();
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 1)) { //4.1 and up
-            m_Mirror = reader.ReadBoolean();
+            m_Mirror = reader.readBoolean();
         }
 
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

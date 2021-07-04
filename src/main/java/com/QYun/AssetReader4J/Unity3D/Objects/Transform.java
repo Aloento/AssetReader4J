@@ -17,11 +17,11 @@ public class Transform extends Component {
 
     public Transform(ObjectReader reader) {
         super(reader);
-        m_LocalRotation = reader.ReadQuaternion();
-        m_LocalPosition = reader.ReadVector3();
-        m_LocalScale = reader.ReadVector3();
+        m_LocalRotation = reader.readQuaternion();
+        m_LocalPosition = reader.readVector3();
+        m_LocalScale = reader.readVector3();
 
-        int m_ChildrenCount = reader.ReadInt32();
+        int m_ChildrenCount = reader.readInt();
         m_Children = Lists.mutable.withInitialCapacity(m_ChildrenCount);
         for (int i = 0; i < m_ChildrenCount; i++) {
             m_Children.add(i, new PPtr<>(reader, Transform.class));

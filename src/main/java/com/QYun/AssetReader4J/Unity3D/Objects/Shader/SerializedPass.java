@@ -33,31 +33,31 @@ public class SerializedPass {
         var version = reader.version();
 
         if (version[0] > 2020 || (version[0] == 2020 && version[1] >= 2)) { //2020.2 and up
-            int numEditorDataHash = reader.ReadInt32();
+            int numEditorDataHash = reader.readInt();
             m_EditorDataHash = new Hash128[numEditorDataHash];
             for (int i = 0; i < numEditorDataHash; i++) {
                 m_EditorDataHash[i] = new Hash128(reader);
             }
-            reader.AlignStream();
-            m_Platforms = reader.ReadUInt8Array();
-            reader.AlignStream();
-            m_LocalKeywordMask = reader.ReadUInt16Array();
-            reader.AlignStream();
-            m_GlobalKeywordMask = reader.ReadUInt16Array();
-            reader.AlignStream();
+            reader.alignStream();
+            m_Platforms = reader.readByteArray();
+            reader.alignStream();
+            m_LocalKeywordMask = reader.readShortArray();
+            reader.alignStream();
+            m_GlobalKeywordMask = reader.readShortArray();
+            reader.alignStream();
         }
 
-        int numIndices = reader.ReadInt32();
+        int numIndices = reader.readInt();
         m_NameIndices = Lists.mutable.withInitialCapacity(numIndices);
         for (int i = 0; i < numIndices; i++) {
             MutableMap<String, Integer> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), reader.ReadInt32());
+            tmp.put(reader.readAlignedString(), reader.readInt());
             m_NameIndices.add(i, tmp);
         }
 
         m_Type = Enums.passType(reader.readInt());
         m_State = new SerializedShaderState(reader);
-        m_ProgramMask = reader.ReadUInt32();
+        m_ProgramMask = reader.readInt();
         progVertex = new SerializedProgram(reader);
         progFragment = new SerializedProgram(reader);
         progGeometry = new SerializedProgram(reader);
@@ -66,14 +66,14 @@ public class SerializedPass {
         if (version[0] > 2019 || (version[0] == 2019 && version[1] >= 3)) { //2019.3 and up
             progRayTracing = new SerializedProgram(reader);
         }
-        m_HasInstancingVariant = reader.ReadBoolean();
+        m_HasInstancingVariant = reader.readBoolean();
         if (version[0] >= 2018) { //2018 and up
-            var m_HasProceduralInstancingVariant = reader.ReadBoolean();
+            var m_HasProceduralInstancingVariant = reader.readBoolean();
         }
-        reader.AlignStream();
-        m_UseName = reader.ReadAlignedString();
-        m_Name = reader.ReadAlignedString();
-        m_TextureName = reader.ReadAlignedString();
+        reader.alignStream();
+        m_UseName = reader.readAlignedString();
+        m_Name = reader.readAlignedString();
+        m_TextureName = reader.readAlignedString();
         m_Tags = new SerializedTagMap(reader);
     }
 }

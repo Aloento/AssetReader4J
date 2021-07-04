@@ -9,9 +9,9 @@ public class MeshBlendShapeChannel {
     public int frameCount;
 
     public MeshBlendShapeChannel(ObjectReader reader) {
-        name = reader.ReadAlignedString();
-        nameHash = reader.ReadUInt32();
-        frameIndex = reader.ReadInt32();
-        frameCount = reader.ReadInt32();
+        name = reader.readAlignedString();
+        nameHash = reader.readInt();
+        frameIndex = reader.readInt();
+        frameCount = reader.readInt();
     }
 }

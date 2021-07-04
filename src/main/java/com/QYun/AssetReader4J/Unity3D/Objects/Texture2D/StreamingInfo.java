@@ -16,6 +16,6 @@ public class StreamingInfo {
             offset = reader.readInt();
         }
         size = reader.readInt();
-        path = reader.ReadAlignedString();
+        path = reader.readAlignedString();
     }
 }

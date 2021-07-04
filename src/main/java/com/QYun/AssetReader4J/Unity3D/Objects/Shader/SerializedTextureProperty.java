@@ -9,7 +9,7 @@ public class SerializedTextureProperty {
     public TextureDimension m_TexDim;
 
     public SerializedTextureProperty(ObjectReader reader) {
-        m_DefaultName = reader.ReadAlignedString();
-        m_TexDim = Enums.textureDimension(reader.ReadInt32());
+        m_DefaultName = reader.readAlignedString();
+        m_TexDim = Enums.textureDimension(reader.readInt());
     }
 }

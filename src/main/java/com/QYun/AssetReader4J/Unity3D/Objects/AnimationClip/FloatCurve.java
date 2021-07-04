@@ -15,8 +15,8 @@ public class FloatCurve {
 
     public FloatCurve(ObjectReader reader) {
         curve = new AnimationCurve<>(reader, reader::readFloat);
-        attribute = reader.ReadAlignedString();
-        path = reader.ReadAlignedString();
+        attribute = reader.readAlignedString();
+        path = reader.readAlignedString();
         classID = Enums.classIDType(reader.readInt());
         script = new PPtr<>(reader, MonoScript.class);
     }

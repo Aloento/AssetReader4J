@@ -11,7 +11,7 @@ public class CompressedAnimationCurve {
     public int m_PostInfinity;
 
     public CompressedAnimationCurve(ObjectReader reader) {
-        m_Path = reader.ReadAlignedString();
+        m_Path = reader.readAlignedString();
         m_Times = new PackedIntVector(reader);
         m_Values = new PackedQuatVector(reader);
         m_Slopes = new PackedFloatVector(reader);

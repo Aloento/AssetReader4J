@@ -8,8 +8,8 @@ public class UAVParameter {
     public int m_OriginalIndex;
 
     public UAVParameter(ObjectReader reader) {
-        m_NameIndex = reader.ReadInt32();
-        m_Index = reader.ReadInt32();
-        m_OriginalIndex = reader.ReadInt32();
+        m_NameIndex = reader.readInt();
+        m_Index = reader.readInt();
+        m_OriginalIndex = reader.readInt();
     }
 }

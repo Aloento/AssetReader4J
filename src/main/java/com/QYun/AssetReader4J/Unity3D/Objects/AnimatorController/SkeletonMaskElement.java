@@ -7,7 +7,7 @@ public class SkeletonMaskElement {
     public float m_Weight;
 
     public SkeletonMaskElement(ObjectReader reader) {
-        m_PathHash = reader.ReadUInt32();
-        m_Weight = reader.ReadSingle();
+        m_PathHash = reader.readInt();
+        m_Weight = reader.readFloat();
     }
 }

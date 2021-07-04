@@ -10,6 +10,6 @@ public class SecondarySpriteTexture {
 
     public SecondarySpriteTexture(ObjectReader reader) {
         texture = new PPtr<>(reader, Texture2D.class);
-        name = reader.ReadStringToNull();
+        name = reader.readStringToNull();
     }
 }

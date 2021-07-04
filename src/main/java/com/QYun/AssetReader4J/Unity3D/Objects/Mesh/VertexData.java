@@ -44,7 +44,7 @@ public class VertexData {
         }
 
         m_DataSize = reader.readBytes(reader.readInt());
-        reader.AlignStream();
+        reader.alignStream();
     }
 
     private void getStreams(int[] version) {

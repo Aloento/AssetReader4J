@@ -19,13 +19,13 @@ public class MonoScript extends NamedObject {
             var m_PropertiesHash = reader.readBytes(16);
         }
         if (version[0] < 3) { //3.0 down
-            var m_PathName = reader.ReadAlignedString();
+            var m_PathName = reader.readAlignedString();
         }
-        m_ClassName = reader.ReadAlignedString();
+        m_ClassName = reader.readAlignedString();
         if (version[0] >= 3) { //3.0 and up
-            m_Namespace = reader.ReadAlignedString();
+            m_Namespace = reader.readAlignedString();
         }
-        m_AssemblyName = reader.ReadAlignedString();
+        m_AssemblyName = reader.readAlignedString();
         if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) { //2018.2 down
             var m_IsEditorScript = reader.readBoolean();
         }

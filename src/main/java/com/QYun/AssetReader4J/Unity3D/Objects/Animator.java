@@ -13,40 +13,40 @@ public class Animator extends Behaviour {
         super(reader);
         m_Avatar = new PPtr<>(reader, Avatar.class);
         m_Controller = new PPtr<>(reader, RuntimeAnimatorController.class);
-        var m_CullingMode = reader.ReadInt32();
+        var m_CullingMode = reader.readInt();
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
-            var m_UpdateMode = reader.ReadInt32();
+            var m_UpdateMode = reader.readInt();
         }
 
-        var m_ApplyRootMotion = reader.ReadBoolean();
+        var m_ApplyRootMotion = reader.readBoolean();
         if (version[0] == 4 && version[1] >= 5) { //4.5 and up - 5.0 down
-            reader.AlignStream();
+            reader.alignStream();
         }
 
         if (version[0] >= 5) { //5.0 and up
-            var m_LinearVelocityBlending = reader.ReadBoolean();
-            reader.AlignStream();
+            var m_LinearVelocityBlending = reader.readBoolean();
+            reader.alignStream();
         }
 
         if (version[0] < 4 || (version[0] == 4 && version[1] < 5)) { //4.5 down
-            var m_AnimatePhysics = reader.ReadBoolean();
+            var m_AnimatePhysics = reader.readBoolean();
         }
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
-            m_HasTransformHierarchy = reader.ReadBoolean();
+            m_HasTransformHierarchy = reader.readBoolean();
         }
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
-            var m_AllowConstantClipSamplingOptimization = reader.ReadBoolean();
+            var m_AllowConstantClipSamplingOptimization = reader.readBoolean();
         }
         if (version[0] >= 5 && version[0] < 2018) { //5.0 and up - 2018 down
-            reader.AlignStream();
+            reader.alignStream();
         }
 
         if (version[0] >= 2018) { //2018 and up
-            var m_KeepAnimatorControllerStateOnDisable = reader.ReadBoolean();
-            reader.AlignStream();
+            var m_KeepAnimatorControllerStateOnDisable = reader.readBoolean();
+            reader.alignStream();
         }
     }
 }

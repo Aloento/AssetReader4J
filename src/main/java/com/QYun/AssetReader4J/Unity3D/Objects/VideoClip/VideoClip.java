@@ -15,33 +15,33 @@ public class VideoClip extends NamedObject {
 
     public VideoClip(ObjectReader reader) {
         super(reader);
-        m_OriginalPath = reader.ReadAlignedString();
-        var m_ProxyWidth = reader.ReadUInt32();
-        var m_ProxyHeight = reader.ReadUInt32();
-        var Width = reader.ReadUInt32();
-        var Height = reader.ReadUInt32();
+        m_OriginalPath = reader.readAlignedString();
+        var m_ProxyWidth = reader.readInt();
+        var m_ProxyHeight = reader.readInt();
+        var Width = reader.readInt();
+        var Height = reader.readInt();
         if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) { //2017.2 and up
-            var m_PixelAspecRatioNum = reader.ReadUInt32();
-            var m_PixelAspecRatioDen = reader.ReadUInt32();
+            var m_PixelAspecRatioNum = reader.readInt();
+            var m_PixelAspecRatioDen = reader.readInt();
         }
-        var m_FrameRate = reader.ReadDouble();
-        var m_FrameCount = reader.ReadUInt64();
-        var m_Format = reader.ReadInt32();
-        var m_AudioChannelCount = reader.ReadUInt16Array();
-        reader.AlignStream();
-        var m_AudioSampleRate = reader.ReadUInt32Array();
-        var m_AudioLanguage = reader.ReadStringArray();
+        var m_FrameRate = reader.readDouble();
+        var m_FrameCount = reader.readLong();
+        var m_Format = reader.readInt();
+        var m_AudioChannelCount = reader.readShortArray();
+        reader.alignStream();
+        var m_AudioSampleRate = reader.readIntArray();
+        var m_AudioLanguage = reader.readStringArray();
         if (version[0] >= 2020) { //2020.1 and up
-            var m_VideoShadersSize = reader.ReadInt32();
+            var m_VideoShadersSize = reader.readInt();
             MutableList<PPtr<Shader>> m_VideoShaders = Lists.mutable.withInitialCapacity(m_VideoShadersSize);
             for (int i = 0; i < m_VideoShadersSize; i++) {
                 m_VideoShaders.add(i, new PPtr<>(reader, Shader.class));
             }
         }
         m_ExternalResources = new StreamedResource(reader);
-        var m_HasSplitAlpha = reader.ReadBoolean();
+        var m_HasSplitAlpha = reader.readBoolean();
         if (version[0] >= 2020) { //2020.1 and up
-            var m_sRGB = reader.ReadBoolean();
+            var m_sRGB = reader.readBoolean();
         }
 
         ResourceReader resourceReader;

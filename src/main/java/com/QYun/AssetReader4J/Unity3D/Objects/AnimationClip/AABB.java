@@ -9,7 +9,7 @@ public class AABB {
     public Vector3f m_Extent;
 
     public AABB(ObjectReader reader) {
-        m_Center = reader.ReadVector3();
-        m_Extent = reader.ReadVector3();
+        m_Center = reader.readVector3();
+        m_Extent = reader.readVector3();
     }
 }

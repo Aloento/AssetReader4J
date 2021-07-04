@@ -8,6 +8,6 @@ public class TextAsset extends NamedObject {
 
     public TextAsset(ObjectReader reader) {
         super(reader);
-        m_Script = reader.ReadUInt8Array();
+        m_Script = reader.readByteArray();
     }
 }

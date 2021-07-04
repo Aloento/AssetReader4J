@@ -10,10 +10,10 @@ public class BufferBinding {
     public BufferBinding(ObjectReader reader) {
         var version = reader.version();
 
-        m_NameIndex = reader.ReadInt32();
-        m_Index = reader.ReadInt32();
+        m_NameIndex = reader.readInt();
+        m_Index = reader.readInt();
         if (version[0] >= 2020) { //2020.1 and up
-            m_ArraySize = reader.ReadInt32();
+            m_ArraySize = reader.readInt();
         }
     }
 }

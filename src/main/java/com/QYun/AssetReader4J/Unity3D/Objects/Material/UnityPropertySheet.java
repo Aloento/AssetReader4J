@@ -17,37 +17,37 @@ public class UnityPropertySheet {
     public UnityPropertySheet(ObjectReader reader) {
         var version = reader.version();
 
-        int m_TexEnvsSize = reader.ReadInt32();
+        int m_TexEnvsSize = reader.readInt();
         m_TexEnvs = Lists.mutable.withInitialCapacity(m_TexEnvsSize);
         for (int i = 0; i < m_TexEnvsSize; i++) {
             MutableMap<String, UnityTexEnv> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), new UnityTexEnv(reader));
+            tmp.put(reader.readAlignedString(), new UnityTexEnv(reader));
             m_TexEnvs.add(i, tmp);
         }
 
         if (version[0] >= 2021) { //2021.1 and up
-            int m_IntsSize = reader.ReadInt32();
+            int m_IntsSize = reader.readInt();
             m_Ints = Lists.mutable.withInitialCapacity(m_IntsSize);
             for (int i = 0; i < m_IntsSize; i++) {
                 MutableMap<String, Integer> tmp = Maps.mutable.empty();
-                tmp.put(reader.ReadAlignedString(), reader.ReadInt32());
+                tmp.put(reader.readAlignedString(), reader.readInt());
                 m_Ints.add(i, tmp);
             }
         }
 
-        int m_FloatsSize = reader.ReadInt32();
+        int m_FloatsSize = reader.readInt();
         m_Floats = Lists.mutable.withInitialCapacity(m_FloatsSize);
         for (int i = 0; i < m_FloatsSize; i++) {
             MutableMap<String, Float> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), reader.ReadSingle());
+            tmp.put(reader.readAlignedString(), reader.readFloat());
             m_Floats.add(i, tmp);
         }
 
-        int m_ColorsSize = reader.ReadInt32();
+        int m_ColorsSize = reader.readInt();
         m_Colors = Lists.mutable.withInitialCapacity(m_ColorsSize);
         for (int i = 0; i < m_ColorsSize; i++) {
             MutableMap<String, Color4f> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), reader.ReadColor4());
+            tmp.put(reader.readAlignedString(), reader.readColor4());
             m_Colors.add(i, tmp);
         }
     }

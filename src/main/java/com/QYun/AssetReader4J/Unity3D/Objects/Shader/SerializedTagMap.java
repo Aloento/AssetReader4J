@@ -10,11 +10,11 @@ public class SerializedTagMap {
     public MutableList<MutableMap<String, String>> tags;
 
     public SerializedTagMap(ObjectReader reader) {
-        int numTags = reader.ReadInt32();
+        int numTags = reader.readInt();
         tags = Lists.mutable.withInitialCapacity(numTags);
         for (int i = 0; i < numTags; i++) {
             MutableMap<String, String> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), reader.ReadAlignedString());
+            tmp.put(reader.readAlignedString(), reader.readAlignedString());
             tags.add(i, tmp);
         }
     }

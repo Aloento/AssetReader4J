@@ -14,12 +14,12 @@ public class SerializedProperty {
     public SerializedTextureProperty m_DefTexture;
 
     public SerializedProperty(ObjectReader reader) {
-        m_Name = reader.ReadAlignedString();
-        m_Description = reader.ReadAlignedString();
-        m_Attributes = reader.ReadStringArray();
-        m_Type = Enums.serializedPropertyType(reader.ReadInt32());
-        m_Flags = reader.ReadUInt32();
-        m_DefValue = reader.ReadSingleArray(4);
+        m_Name = reader.readAlignedString();
+        m_Description = reader.readAlignedString();
+        m_Attributes = reader.readStringArray();
+        m_Type = Enums.serializedPropertyType(reader.readInt());
+        m_Flags = reader.readInt();
+        m_DefValue = reader.readFloatArray(4);
         m_DefTexture = new SerializedTextureProperty(reader);
     }
 }

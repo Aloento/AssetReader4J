@@ -9,6 +9,6 @@ public class BlendDirectDataConstant {
     public BlendDirectDataConstant(ObjectReader reader) {
         m_ChildBlendEventIDArray = reader.readInts(reader.readInt());
         m_NormalizedBlendValues = reader.readBoolean();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }
