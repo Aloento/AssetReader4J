@@ -8,7 +8,7 @@ import com.QYun.AssetReader4J.Unity3D.UObject;
 
 public class PPtr<T extends UObject> {
     private final SerializedFile assetsFile;
-    private final int index = -2; //-2 - Prepare, -1 - Missing
+    private int index = -2; //-2 - Prepare, -1 - Missing
     public int m_FileID;
     public long m_PathID;
 
@@ -34,11 +34,11 @@ public class PPtr<T extends UObject> {
             if (index == -2) {
                 var m_External = assetsFile.m_Externals.get(m_FileID - 1);
                 var name = m_External.fileName;
-                var index = assetsFileIndexCache.get(name);
-                if (index == null) {
-                    index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
-                    assetsFileIndexCache.put(name, index);
-                }
+                var i = assetsFileIndexCache.get(name);
+                if (i == null) {
+                    i = index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
+                    assetsFileIndexCache.put(name, i);
+                } else index = i;
             }
 
             if (index >= 0)

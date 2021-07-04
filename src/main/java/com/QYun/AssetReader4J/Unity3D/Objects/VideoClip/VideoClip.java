@@ -45,7 +45,7 @@ public class VideoClip extends NamedObject {
         }
 
         ResourceReader resourceReader;
-        if (m_ExternalResources.m_Source.isBlank()) {
+        if (!m_ExternalResources.m_Source.isBlank()) {
             resourceReader = new ResourceReader(m_ExternalResources.m_Source, assetsFile, m_ExternalResources.m_Offset, m_ExternalResources.m_Size);
         } else {
             resourceReader = new ResourceReader(reader, reader.getPos(), m_ExternalResources.m_Size);

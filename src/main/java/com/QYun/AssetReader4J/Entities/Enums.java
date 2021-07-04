@@ -121,6 +121,22 @@ public class Enums {
         return ShaderCompilerPlatform.Null;
     }
 
+    public static AudioType audioType(int index) {
+        for (var type : AudioType.values()) {
+            if (type.index() == index)
+                return type;
+        }
+        return AudioType.UNKNOWN;
+    }
+
+    public static AudioCompressionFormat audioCompressionFormat(int index) {
+        for (var type : AudioCompressionFormat.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return AudioCompressionFormat.Null;
+    }
+
     public enum FileType {
         AssetsFile,
         BundleFile,
@@ -730,7 +746,14 @@ public class Enums {
         AUDIOQUEUE(24),
         ;
 
+        private final int index;
+
         AudioType(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
         }
     }
 
@@ -745,6 +768,7 @@ public class Enums {
         AAC,
         GCADPCM,
         ATRAC9,
+        Null,
     }
 
     public enum TextureDimension {
