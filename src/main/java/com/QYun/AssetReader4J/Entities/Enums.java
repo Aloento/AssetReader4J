@@ -698,4 +698,118 @@ public class Enums {
         GCADPCM,
         ATRAC9
     }
+
+    public enum TextureDimension
+    {
+        kTexDimUnknown(-1),
+        kTexDimNone(0),
+        kTexDimAny(1),
+        kTexDim2D(2),
+        kTexDim3D(3),
+        kTexDimCUBE(4),
+        kTexDim2DArray(5),
+        kTexDimCubeArray(6),
+        kTexDimForce32Bit(2147483647),
+        ;
+        private final int index;
+
+        TextureDimension(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
+        }
+    }
+
+    public enum SerializedPropertyType
+    {
+        kColor,
+        kVector,
+        kFloat,
+        kRange,
+        kTexture
+    }
+
+    public enum FogMode
+    {
+        kFogUnknown,
+        kFogDisabled,
+        kFogLinear,
+        kFogExp,
+        kFogExp2
+    }
+
+    public enum ShaderGpuProgramType
+    {
+        kShaderGpuProgramUnknown,
+        kShaderGpuProgramGLLegacy,
+        kShaderGpuProgramGLES31AEP,
+        kShaderGpuProgramGLES31,
+        kShaderGpuProgramGLES3,
+        kShaderGpuProgramGLES,
+        kShaderGpuProgramGLCore32,
+        kShaderGpuProgramGLCore41,
+        kShaderGpuProgramGLCore43,
+        kShaderGpuProgramDX9VertexSM20,
+        kShaderGpuProgramDX9VertexSM30,
+        kShaderGpuProgramDX9PixelSM20,
+        kShaderGpuProgramDX9PixelSM30,
+        kShaderGpuProgramDX10Level9Vertex,
+        kShaderGpuProgramDX10Level9Pixel,
+        kShaderGpuProgramDX11VertexSM40,
+        kShaderGpuProgramDX11VertexSM50,
+        kShaderGpuProgramDX11PixelSM40,
+        kShaderGpuProgramDX11PixelSM50,
+        kShaderGpuProgramDX11GeometrySM40,
+        kShaderGpuProgramDX11GeometrySM50,
+        kShaderGpuProgramDX11HullSM50,
+        kShaderGpuProgramDX11DomainSM50,
+        kShaderGpuProgramMetalVS,
+        kShaderGpuProgramMetalFS,
+        kShaderGpuProgramSPIRV,
+        kShaderGpuProgramConsoleVS,
+        kShaderGpuProgramConsoleFS,
+        kShaderGpuProgramConsoleHS,
+        kShaderGpuProgramConsoleDS,
+        kShaderGpuProgramConsoleGS,
+        kShaderGpuProgramRayTracing
+    }
+
+    public enum PassType
+    {
+        kPassTypeNormal,
+        kPassTypeUse,
+        kPassTypeGrab
+    }
+
+    public enum ShaderCompilerPlatform
+    {
+        kShaderCompPlatformNone,
+        kShaderCompPlatformGL,
+        kShaderCompPlatformD3D9,
+        kShaderCompPlatformXbox360,
+        kShaderCompPlatformPS3,
+        kShaderCompPlatformD3D11,
+        kShaderCompPlatformGLES20,
+        kShaderCompPlatformNaCl,
+        kShaderCompPlatformFlash,
+        kShaderCompPlatformD3D11_9x,
+        kShaderCompPlatformGLES3Plus,
+        kShaderCompPlatformPSP2,
+        kShaderCompPlatformPS4,
+        kShaderCompPlatformXboxOne,
+        kShaderCompPlatformPSM,
+        kShaderCompPlatformMetal,
+        kShaderCompPlatformOpenGLCore,
+        kShaderCompPlatformN3DS,
+        kShaderCompPlatformWiiU,
+        kShaderCompPlatformVulkan,
+        kShaderCompPlatformSwitch,
+        kShaderCompPlatformXboxOneD3D12,
+        kShaderCompPlatformGameCoreXboxOne,
+        kShaderCompPlatformGameCoreScarlett,
+        kShaderCompPlatformPS5,
+        kShaderCompPlatformPS5NGGC
+    }
 }
