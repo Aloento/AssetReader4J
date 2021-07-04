@@ -9,8 +9,7 @@ public class SerializedShaderVectorValue {
     public SerializedShaderFloatValue w;
     public String name;
 
-    public SerializedShaderVectorValue(ObjectReader reader)
-    {
+    public SerializedShaderVectorValue(ObjectReader reader) {
         x = new SerializedShaderFloatValue(reader);
         y = new SerializedShaderFloatValue(reader);
         z = new SerializedShaderFloatValue(reader);

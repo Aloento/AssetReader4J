@@ -10,6 +10,6 @@ public class PPtrKeyframe {
 
     public PPtrKeyframe(ObjectReader reader) {
         time = reader.readFloat();
-        value = new PPtr<UObject>(reader);
+        value = new PPtr<>(reader, UObject.class);
     }
 }

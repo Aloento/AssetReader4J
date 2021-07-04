@@ -9,8 +9,7 @@ public class MatrixParameter {
     public byte m_Type;
     public byte m_RowCount;
 
-    public MatrixParameter(ObjectReader reader)
-    {
+    public MatrixParameter(ObjectReader reader) {
         m_NameIndex = reader.ReadInt32();
         m_Index = reader.ReadInt32();
         m_ArraySize = reader.ReadInt32();

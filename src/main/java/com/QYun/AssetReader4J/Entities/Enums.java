@@ -73,6 +73,70 @@ public class Enums {
         return AnimationType.Null;
     }
 
+    public static PassType passType(int index) {
+        for (var type : PassType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return PassType.Null;
+    }
+
+    public static SerializedPropertyType serializedPropertyType(int index) {
+        for (var type : SerializedPropertyType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return SerializedPropertyType.Null;
+    }
+
+    public static FogMode fogMode(int index) {
+        for (var type : FogMode.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return FogMode.Null;
+    }
+
+    public static ShaderGpuProgramType shaderGpuProgramType(int index) {
+        for (var type : ShaderGpuProgramType.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return ShaderGpuProgramType.Null;
+    }
+
+    public static TextureDimension textureDimension(int index) {
+        for (var type : TextureDimension.values()) {
+            if (type.index() == index)
+                return type;
+        }
+        return TextureDimension.Null;
+    }
+
+    public static ShaderCompilerPlatform shaderCompilerPlatform(int index) {
+        for (var type : ShaderCompilerPlatform.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return ShaderCompilerPlatform.Null;
+    }
+
+    public static AudioType audioType(int index) {
+        for (var type : AudioType.values()) {
+            if (type.index() == index)
+                return type;
+        }
+        return AudioType.UNKNOWN;
+    }
+
+    public static AudioCompressionFormat audioCompressionFormat(int index) {
+        for (var type : AudioCompressionFormat.values()) {
+            if (type.ordinal() == index)
+                return type;
+        }
+        return AudioCompressionFormat.Null;
+    }
+
     public enum FileType {
         AssetsFile,
         BundleFile,
@@ -682,7 +746,14 @@ public class Enums {
         AUDIOQUEUE(24),
         ;
 
+        private final int index;
+
         AudioType(int i) {
+            this.index = i;
+        }
+
+        public int index() {
+            return index;
         }
     }
 
@@ -696,11 +767,11 @@ public class Enums {
         XMA,
         AAC,
         GCADPCM,
-        ATRAC9
+        ATRAC9,
+        Null,
     }
 
-    public enum TextureDimension
-    {
+    public enum TextureDimension {
         kTexDimUnknown(-1),
         kTexDimNone(0),
         kTexDimAny(1),
@@ -710,6 +781,7 @@ public class Enums {
         kTexDim2DArray(5),
         kTexDimCubeArray(6),
         kTexDimForce32Bit(2147483647),
+        Null(Integer.MAX_VALUE),
         ;
         private final int index;
 
@@ -722,26 +794,25 @@ public class Enums {
         }
     }
 
-    public enum SerializedPropertyType
-    {
+    public enum SerializedPropertyType {
         kColor,
         kVector,
         kFloat,
         kRange,
-        kTexture
+        kTexture,
+        Null,
     }
 
-    public enum FogMode
-    {
+    public enum FogMode {
         kFogUnknown,
         kFogDisabled,
         kFogLinear,
         kFogExp,
-        kFogExp2
+        kFogExp2,
+        Null,
     }
 
-    public enum ShaderGpuProgramType
-    {
+    public enum ShaderGpuProgramType {
         kShaderGpuProgramUnknown,
         kShaderGpuProgramGLLegacy,
         kShaderGpuProgramGLES31AEP,
@@ -773,18 +844,18 @@ public class Enums {
         kShaderGpuProgramConsoleHS,
         kShaderGpuProgramConsoleDS,
         kShaderGpuProgramConsoleGS,
-        kShaderGpuProgramRayTracing
+        kShaderGpuProgramRayTracing,
+        Null,
     }
 
-    public enum PassType
-    {
+    public enum PassType {
         kPassTypeNormal,
         kPassTypeUse,
-        kPassTypeGrab
+        kPassTypeGrab,
+        Null,
     }
 
-    public enum ShaderCompilerPlatform
-    {
+    public enum ShaderCompilerPlatform {
         kShaderCompPlatformNone,
         kShaderCompPlatformGL,
         kShaderCompPlatformD3D9,
@@ -810,6 +881,7 @@ public class Enums {
         kShaderCompPlatformGameCoreXboxOne,
         kShaderCompPlatformGameCoreScarlett,
         kShaderCompPlatformPS5,
-        kShaderCompPlatformPS5NGGC
+        kShaderCompPlatformPS5NGGC,
+        Null,
     }
 }

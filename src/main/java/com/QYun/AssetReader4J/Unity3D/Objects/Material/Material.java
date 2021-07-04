@@ -11,7 +11,7 @@ public class Material extends NamedObject {
 
     public Material(ObjectReader reader) {
         super(reader);
-        m_Shader = new PPtr<>(reader);
+        m_Shader = new PPtr<>(reader, Shader.class);
 
         if (version[0] == 4 && version[1] >= 1) { //4.x
             var m_ShaderKeywords = reader.ReadStringArray();

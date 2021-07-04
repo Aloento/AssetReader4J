@@ -21,7 +21,7 @@ public class AnimationClipBindingConstant {
         int numMappings = reader.readInt();
         pptrCurveMapping = Lists.mutable.withInitialCapacity(numMappings);
         for (int i = 0; i < numMappings; i++) {
-            pptrCurveMapping.add(i, new PPtr<>(reader));
+            pptrCurveMapping.add(i, new PPtr<>(reader, UObject.class));
         }
     }
 

@@ -10,15 +10,15 @@ public class MonoScript extends NamedObject {
 
     public MonoScript(ObjectReader reader) {
         super(reader);
-        if (version[0] > 3 || (version[0] == 3 && version[1] >= 4)) {//3.4 and up
+        if (version[0] > 3 || (version[0] == 3 && version[1] >= 4)) { //3.4 and up
             var m_ExecutionOrder = reader.readInt();
         }
-        if (version[0] < 5) {//5.0 down
+        if (version[0] < 5) { //5.0 down
             var m_PropertiesHash = reader.readInt();
         } else {
             var m_PropertiesHash = reader.readBytes(16);
         }
-        if (version[0] < 3) {//3.0 down
+        if (version[0] < 3) { //3.0 down
             var m_PathName = reader.ReadAlignedString();
         }
         m_ClassName = reader.ReadAlignedString();
@@ -26,7 +26,7 @@ public class MonoScript extends NamedObject {
             m_Namespace = reader.ReadAlignedString();
         }
         m_AssemblyName = reader.ReadAlignedString();
-        if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) {//2018.2 down
+        if (version[0] < 2018 || (version[0] == 2018 && version[1] < 2)) { //2018.2 down
             var m_IsEditorScript = reader.readBoolean();
         }
     }

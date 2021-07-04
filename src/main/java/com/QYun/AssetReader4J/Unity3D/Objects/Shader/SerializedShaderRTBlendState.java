@@ -11,8 +11,7 @@ public class SerializedShaderRTBlendState {
     public SerializedShaderFloatValue blendOpAlpha;
     public SerializedShaderFloatValue colMask;
 
-    public SerializedShaderRTBlendState(ObjectReader reader)
-    {
+    public SerializedShaderRTBlendState(ObjectReader reader) {
         srcBlend = new SerializedShaderFloatValue(reader);
         destBlend = new SerializedShaderFloatValue(reader);
         srcBlendAlpha = new SerializedShaderFloatValue(reader);

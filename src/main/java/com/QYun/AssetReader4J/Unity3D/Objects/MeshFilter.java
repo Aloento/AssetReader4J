@@ -9,6 +9,6 @@ public class MeshFilter extends Component {
 
     public MeshFilter(ObjectReader reader) {
         super(reader);
-        m_Mesh = new PPtr<>(reader);
+        m_Mesh = new PPtr<>(reader, Mesh.class);
     }
 }

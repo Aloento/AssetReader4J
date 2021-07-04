@@ -19,7 +19,7 @@ public class AnimationEvent {
         time = reader.readFloat();
         functionName = reader.ReadAlignedString();
         data = reader.ReadAlignedString();
-        objectReferenceParameter = new PPtr<UObject>(reader);
+        objectReferenceParameter = new PPtr<>(reader, UObject.class);
         floatParameter = reader.readFloat();
         if (version[0] >= 3) { //3 and up
             intParameter = reader.readInt();

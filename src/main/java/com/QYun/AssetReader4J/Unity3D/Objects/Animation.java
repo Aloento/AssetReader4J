@@ -12,11 +12,11 @@ public class Animation extends Behaviour {
     public Animation(ObjectReader reader) {
         super(reader);
 
-        var m_Animation = new PPtr<AnimationClip>(reader);
+        var m_Animation = new PPtr<>(reader, AnimationClip.class);
         int numAnimations = reader.readInt();
         m_Animations = Lists.mutable.withInitialCapacity(numAnimations);
         for (int i = 0; i < numAnimations; i++) {
-            m_Animations.add(i, new PPtr<>(reader));
+            m_Animations.add(i, new PPtr<>(reader, AnimationClip.class));
         }
     }
 }

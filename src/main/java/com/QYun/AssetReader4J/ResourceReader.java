@@ -11,13 +11,13 @@ import java.io.IOException;
 
 public class ResourceReader {
     private final long offset;
-    private final int size;
+    private final long size;
     private Boolean needSearch;
     private String path;
     private SerializedFile assetsFile;
     private UnityStream reader;
 
-    public ResourceReader(String path, SerializedFile assetsFile, long offset, int size) {
+    public ResourceReader(String path, SerializedFile assetsFile, long offset, long size) {
         needSearch = true;
         this.path = path;
         this.assetsFile = assetsFile;
@@ -25,7 +25,7 @@ public class ResourceReader {
         this.size = size;
     }
 
-    public ResourceReader(UnityStream reader, long offset, int size) {
+    public ResourceReader(UnityStream reader, long offset, long size) {
         this.reader = reader;
         this.offset = offset;
         this.size = size;
@@ -39,7 +39,7 @@ public class ResourceReader {
             if (reader != null) {
                 needSearch = false;
                 reader.setPos(Math.toIntExact(offset));
-                return reader.readBytes(size);
+                return reader.readBytes(Math.toIntExact(size));
             }
 
             var assetsFileDirectory = assetsFile.file.getParentFile();
@@ -57,14 +57,13 @@ public class ResourceReader {
                 needSearch = false;
                 assetsFile.assetsManager.resourceFileReaders.put(resourceFileName, reader);
                 reader.setPos(Math.toIntExact(offset));
-                return reader.readBytes(size);
+                return reader.readBytes(Math.toIntExact(size));
             }
 
             throw new FileNotFoundException("Can't find the resource file " + resourceFileName);
         }
 
         reader.setPos(Math.toIntExact(offset));
-        return reader.readBytes(size);
+        return reader.readBytes(Math.toIntExact(size));
     }
-
 }

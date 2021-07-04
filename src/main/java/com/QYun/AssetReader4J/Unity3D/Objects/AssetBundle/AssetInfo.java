@@ -12,6 +12,6 @@ public class AssetInfo {
     public AssetInfo(ObjectReader reader) {
         preloadIndex = reader.ReadInt32();
         preloadSize = reader.ReadInt32();
-        asset = new PPtr<>(reader);
+        asset = new PPtr<>(reader, UObject.class);
     }
 }

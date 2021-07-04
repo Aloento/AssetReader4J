@@ -18,7 +18,7 @@ public class GenericBinding {
         var version = reader.version();
         path = reader.readInt();
         attribute = reader.readInt();
-        script = new PPtr<>(reader);
+        script = new PPtr<>(reader, UObject.class);
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) { //5.6 and up
             typeID = Enums.classIDType(reader.readInt());
         } else {

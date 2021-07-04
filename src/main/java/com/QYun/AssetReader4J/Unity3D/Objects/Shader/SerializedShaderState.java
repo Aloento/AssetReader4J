@@ -1,5 +1,6 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Shader;
 
+import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.FogMode;
 import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 
@@ -31,27 +32,23 @@ public class SerializedShaderState {
     public int m_LOD;
     public boolean lighting;
 
-    public SerializedShaderState(ObjectReader reader)
-    {
+    public SerializedShaderState(ObjectReader reader) {
         var version = reader.version();
 
         m_Name = reader.ReadAlignedString();
         rtBlend = new SerializedShaderRTBlendState[8];
-        for (int i = 0; i < 8; i++)
-        {
+        for (int i = 0; i < 8; i++) {
             rtBlend[i] = new SerializedShaderRTBlendState(reader);
         }
         rtSeparateBlend = reader.ReadBoolean();
         reader.AlignStream();
-        if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) //2017.2 and up
-        {
+        if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) { //2017.2 and up
             zClip = new SerializedShaderFloatValue(reader);
         }
         zTest = new SerializedShaderFloatValue(reader);
         zWrite = new SerializedShaderFloatValue(reader);
         culling = new SerializedShaderFloatValue(reader);
-        if (version[0] >= 2020) //2020.1 and up
-        {
+        if (version[0] >= 2020) { //2020.1 and up
             conservative = new SerializedShaderFloatValue(reader);
         }
         offsetFactor = new SerializedShaderFloatValue(reader);
@@ -67,7 +64,7 @@ public class SerializedShaderState {
         fogEnd = new SerializedShaderFloatValue(reader);
         fogDensity = new SerializedShaderFloatValue(reader);
         fogColor = new SerializedShaderVectorValue(reader);
-        fogMode = (FogMode)reader.ReadInt32();
+        fogMode = Enums.fogMode(reader.ReadInt32());
         gpuProgramID = reader.ReadInt32();
         m_Tags = new SerializedTagMap(reader);
         m_LOD = reader.ReadInt32();

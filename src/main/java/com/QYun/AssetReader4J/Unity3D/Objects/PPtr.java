@@ -8,14 +8,16 @@ import com.QYun.AssetReader4J.Unity3D.UObject;
 
 public class PPtr<T extends UObject> {
     private final SerializedFile assetsFile;
-    private final int index = -2; //-2 - Prepare, -1 - Missing
+    private int index = -2; //-2 - Prepare, -1 - Missing
+    private final Class<T> tClass;
     public int m_FileID;
     public long m_PathID;
 
-    public PPtr(ObjectReader reader) {
+    public PPtr(ObjectReader reader, Class<T> tClass) {
         m_FileID = reader.readInt();
         m_PathID = reader.m_Version.ordinal() < Enums.SerializedFileFormatVersion.kUnknown_14.ordinal() ? reader.readInt() : reader.readLong();
         assetsFile = reader.assetsFile;
+        this.tClass = tClass;
     }
 
     public boolean isNull() {
@@ -34,11 +36,11 @@ public class PPtr<T extends UObject> {
             if (index == -2) {
                 var m_External = assetsFile.m_Externals.get(m_FileID - 1);
                 var name = m_External.fileName;
-                var index = assetsFileIndexCache.get(name);
-                if (index == null) {
-                    index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
-                    assetsFileIndexCache.put(name, index);
-                }
+                var i = assetsFileIndexCache.get(name);
+                if (i == null) {
+                    i = index = assetsFileList.detectIndex(SerializedFile -> SerializedFile.file.getName().equalsIgnoreCase(name));
+                    assetsFileIndexCache.put(name, i);
+                } else index = i;
             }
 
             if (index >= 0)
@@ -54,26 +56,22 @@ public class PPtr<T extends UObject> {
         if (sourceFile != null) {
             UObject obj = sourceFile.ObjectsDic.get(m_PathID);
             if (sourceFile.ObjectsDic.get(m_PathID) != null) {
-                try {
-                    result = (T) obj;
-                } catch (ClassCastException ignored) {
-                }
+                if (tClass.isInstance(obj))
+                    result = tClass.cast(obj);
             }
         }
         return result;
     }
 
-    public <T2 extends UObject> T2 tryGet(Class<T2> type) {
+    public <T2 extends UObject> T2 tryGet(Class<T2> t2Class) {
         var sourceFile = tryGetAssetsFile();
         T2 result = null;
 
         if (sourceFile != null) {
             UObject obj = sourceFile.ObjectsDic.get(m_PathID);
             if (sourceFile.ObjectsDic.get(m_PathID) != null) {
-                try {
-                    result = type.cast(obj);
-                } catch (ClassCastException ignored) {
-                }
+                if (tClass.isInstance(obj))
+                    result = t2Class.cast(obj);
             }
         }
 

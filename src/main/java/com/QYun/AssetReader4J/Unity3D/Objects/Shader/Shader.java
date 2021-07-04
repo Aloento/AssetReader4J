@@ -1,10 +1,13 @@
 package com.QYun.AssetReader4J.Unity3D.Objects.Shader;
 
+import com.QYun.AssetReader4J.Entities.Enums;
 import com.QYun.AssetReader4J.Entities.Enums.ShaderCompilerPlatform;
 import com.QYun.AssetReader4J.Unity3D.Contracts.NamedObject;
 import com.QYun.AssetReader4J.Unity3D.Contracts.Texture;
 import com.QYun.AssetReader4J.Unity3D.ObjectReader;
 import com.QYun.AssetReader4J.Unity3D.Objects.PPtr;
+
+import java.util.Arrays;
 
 public class Shader extends NamedObject {
     public Byte[] m_Script;
@@ -18,20 +21,17 @@ public class Shader extends NamedObject {
     public Integer[] compressedLengths;
     public Integer[] decompressedLengths;
     public Byte[] compressedBlob;
+
     public Shader(ObjectReader reader) {
         super(reader);
-        if (version[0] == 5 && version[1] >= 5 || version[0] > 5) //5.5 and up
-        {
+        if (version[0] == 5 && version[1] >= 5 || version[0] > 5) { //5.5 and up
             m_ParsedForm = new SerializedShader(reader);
-            platforms = reader.ReadUInt32Array().Select(x => (ShaderCompilerPlatform)x).ToArray();
-            if (version[0] > 2019 || (version[0] == 2019 && version[1] >= 3)) //2019.3 and up
-            {
-                offsets = reader.ReadUInt32ArrayArray().Select(x => x[0]).ToArray();
-                compressedLengths = reader.ReadUInt32ArrayArray().Select(x => x[0]).ToArray();
-                decompressedLengths = reader.ReadUInt32ArrayArray().Select(x => x[0]).ToArray();
-            }
-            else
-            {
+            platforms = Arrays.stream(reader.ReadUInt32Array()).map(Enums::shaderCompilerPlatform).toArray(ShaderCompilerPlatform[]::new);
+            if (version[0] > 2019 || (version[0] == 2019 && version[1] >= 3)) { //2019.3 and up
+                offsets = Arrays.stream(reader.ReadUInt32ArrayArray()).map(integers -> integers[0]).toArray(Integer[]::new);
+                compressedLengths = Arrays.stream(reader.ReadUInt32ArrayArray()).map(integers -> integers[0]).toArray(Integer[]::new);
+                decompressedLengths = Arrays.stream(reader.ReadUInt32ArrayArray()).map(integers -> integers[0]).toArray(Integer[]::new);
+            } else {
                 offsets = reader.ReadUInt32Array();
                 compressedLengths = reader.ReadUInt32Array();
                 decompressedLengths = reader.ReadUInt32Array();
@@ -40,31 +40,25 @@ public class Shader extends NamedObject {
             reader.AlignStream();
 
             var m_DependenciesCount = reader.ReadInt32();
-            for (int i = 0; i < m_DependenciesCount; i++)
-            {
-                new PPtr<Shader>(reader);
+            for (int i = 0; i < m_DependenciesCount; i++) {
+                new PPtr<>(reader, Shader.class);
             }
 
-            if (version[0] >= 2018)
-            {
+            if (version[0] >= 2018) {
                 var m_NonModifiableTexturesCount = reader.ReadInt32();
-                for (int i = 0; i < m_NonModifiableTexturesCount; i++)
-                {
+                for (int i = 0; i < m_NonModifiableTexturesCount; i++) {
                     var first = reader.ReadAlignedString();
-                    new PPtr<Texture>(reader);
+                    new PPtr<>(reader, Texture.class);
                 }
             }
 
             var m_ShaderIsBaked = reader.ReadBoolean();
             reader.AlignStream();
-        }
-        else
-        {
+        } else {
             m_Script = reader.ReadUInt8Array();
             reader.AlignStream();
             var m_PathName = reader.ReadAlignedString();
-            if (version[0] == 5 && version[1] >= 3) //5.3 - 5.4
-            {
+            if (version[0] == 5 && version[1] >= 3) { //5.3 - 5.4
                 decompressedSize = reader.ReadUInt32();
                 m_SubProgramBlob = reader.ReadUInt8Array();
             }

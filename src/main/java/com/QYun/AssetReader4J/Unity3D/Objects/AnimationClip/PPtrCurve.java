@@ -21,6 +21,6 @@ public class PPtrCurve {
         attribute = reader.ReadAlignedString();
         path = reader.ReadAlignedString();
         classID = reader.readInt();
-        script = new PPtr<MonoScript>(reader);
+        script = new PPtr<>(reader, MonoScript.class);
     }
 }
