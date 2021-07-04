@@ -12,9 +12,9 @@ public class SpriteVertex {
     public SpriteVertex(ObjectReader reader) {
         var version = reader.version();
 
-        pos = reader.ReadVector3();
+        pos = reader.readVector3();
         if (version[0] < 4 || (version[0] == 4 && version[1] <= 3)) { //4.3 and down
-            uv = reader.ReadVector2();
+            uv = reader.readVector2();
         }
     }
 }

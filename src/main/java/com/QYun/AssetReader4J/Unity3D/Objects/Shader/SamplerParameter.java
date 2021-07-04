@@ -7,7 +7,7 @@ public class SamplerParameter {
     public int bindPoint;
 
     public SamplerParameter(ObjectReader reader) {
-        sampler = reader.ReadUInt32();
-        bindPoint = reader.ReadInt32();
+        sampler = reader.readInt();
+        bindPoint = reader.readInt();
     }
 }

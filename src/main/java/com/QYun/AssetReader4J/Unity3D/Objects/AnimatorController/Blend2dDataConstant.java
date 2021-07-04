@@ -12,9 +12,9 @@ public class Blend2dDataConstant {
     public MotionNeighborList[] m_ChildNeighborListArray;
 
     public Blend2dDataConstant(ObjectReader reader) {
-        m_ChildPositionArray = reader.readVector2s(reader.readInt());
+        m_ChildPositionArray = reader.readVector2Array();
         m_ChildMagnitudeArray = reader.readFloats(reader.readInt());
-        m_ChildPairVectorArray = reader.readVector2s(reader.readInt());
+        m_ChildPairVectorArray = reader.readVector2Array();
         m_ChildPairAvgMagInvArray = reader.readFloats(reader.readInt());
 
         int numNeighbours = reader.readInt();

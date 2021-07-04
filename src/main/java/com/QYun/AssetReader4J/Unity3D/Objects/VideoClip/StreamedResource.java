@@ -8,8 +8,8 @@ public class StreamedResource {
     public long m_Size; //ulong
 
     public StreamedResource(UnityStream reader) {
-        m_Source = reader.ReadAlignedString();
-        m_Offset = reader.ReadInt64();
-        m_Size = reader.ReadInt64();
+        m_Source = reader.readAlignedString();
+        m_Offset = reader.readLong();
+        m_Size = reader.readLong();
     }
 }

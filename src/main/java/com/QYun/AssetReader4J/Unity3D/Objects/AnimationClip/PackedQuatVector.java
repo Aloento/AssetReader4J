@@ -12,6 +12,6 @@ public class PackedQuatVector {
         int numData = reader.readInt();
         m_Data = reader.readBytes(numData);
 
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

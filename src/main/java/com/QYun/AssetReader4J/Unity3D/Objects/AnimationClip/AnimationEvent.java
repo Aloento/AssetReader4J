@@ -17,8 +17,8 @@ public class AnimationEvent {
         var version = reader.version();
 
         time = reader.readFloat();
-        functionName = reader.ReadAlignedString();
-        data = reader.ReadAlignedString();
+        functionName = reader.readAlignedString();
+        data = reader.readAlignedString();
         objectReferenceParameter = new PPtr<>(reader, UObject.class);
         floatParameter = reader.readFloat();
         if (version[0] >= 3) { //3 and up

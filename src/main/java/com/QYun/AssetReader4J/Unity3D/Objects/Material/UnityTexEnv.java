@@ -13,7 +13,7 @@ public class UnityTexEnv {
 
     public UnityTexEnv(ObjectReader reader) {
         m_Texture = new PPtr<>(reader, Texture.class);
-        m_Scale = reader.ReadVector2();
-        m_Offset = reader.ReadVector2();
+        m_Scale = reader.readVector2();
+        m_Offset = reader.readVector2();
     }
 }

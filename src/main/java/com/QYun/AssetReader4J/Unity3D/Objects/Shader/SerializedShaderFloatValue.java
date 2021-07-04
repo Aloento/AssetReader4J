@@ -7,7 +7,7 @@ public class SerializedShaderFloatValue {
     public String name;
 
     public SerializedShaderFloatValue(ObjectReader reader) {
-        val = reader.ReadSingle();
-        name = reader.ReadAlignedString();
+        val = reader.readFloat();
+        name = reader.readAlignedString();
     }
 }

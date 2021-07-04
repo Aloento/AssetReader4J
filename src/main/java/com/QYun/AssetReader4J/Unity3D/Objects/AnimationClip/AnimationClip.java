@@ -41,7 +41,7 @@ public class AnimationClip extends NamedObject {
         {
             m_UseHighQualityCurve = reader.readBoolean();
         }
-        reader.AlignStream();
+        reader.alignStream();
         int numRCurves = reader.readInt();
         m_RotationCurves = new QuaternionCurve[numRCurves];
         for (int i = 0; i < numRCurves; i++) {
@@ -103,7 +103,7 @@ public class AnimationClip extends NamedObject {
         if (version[0] > 2018 || (version[0] == 2018 && version[1] >= 3)) { //2018.3 and up
             var m_HasGenericRootTransform = reader.readBoolean();
             var m_HasMotionFloatCurves = reader.readBoolean();
-            reader.AlignStream();
+            reader.alignStream();
         }
         int numEvents = reader.readInt();
         m_Events = new AnimationEvent[numEvents];
@@ -111,7 +111,7 @@ public class AnimationClip extends NamedObject {
             m_Events[i] = new AnimationEvent(reader);
         }
         if (version[0] >= 2017) { //2017 and up
-            reader.AlignStream();
+            reader.alignStream();
         }
     }
 }

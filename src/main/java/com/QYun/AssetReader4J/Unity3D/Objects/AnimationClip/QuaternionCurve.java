@@ -9,7 +9,7 @@ public class QuaternionCurve {
     public String path;
 
     public QuaternionCurve(ObjectReader reader) {
-        curve = new AnimationCurve<>(reader, reader::ReadQuaternion);
-        path = reader.ReadAlignedString();
+        curve = new AnimationCurve<>(reader, reader::readQuaternion);
+        path = reader.readAlignedString();
     }
 }

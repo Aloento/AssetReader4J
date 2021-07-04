@@ -8,6 +8,6 @@ public abstract class Behaviour extends Component {
     protected Behaviour(ObjectReader reader) {
         super(reader);
         m_Enabled = reader.readByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

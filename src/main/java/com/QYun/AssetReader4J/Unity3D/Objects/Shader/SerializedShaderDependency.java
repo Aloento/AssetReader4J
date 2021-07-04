@@ -7,7 +7,7 @@ public class SerializedShaderDependency {
     public String to;
 
     public SerializedShaderDependency(ObjectReader reader) {
-        from = reader.ReadAlignedString();
-        to = reader.ReadAlignedString();
+        from = reader.readAlignedString();
+        to = reader.readAlignedString();
     }
 }

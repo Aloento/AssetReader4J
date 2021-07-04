@@ -7,7 +7,7 @@ public class SerializedCustomEditorForRenderPipeline {
     public String renderPipelineType;
 
     public SerializedCustomEditorForRenderPipeline(ObjectReader reader) {
-        customEditorName = reader.ReadAlignedString();
-        renderPipelineType = reader.ReadAlignedString();
+        customEditorName = reader.readAlignedString();
+        renderPipelineType = reader.readAlignedString();
     }
 }

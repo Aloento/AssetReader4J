@@ -6,6 +6,6 @@ public class Hand {
     public Integer[] m_HandBoneIndex;
 
     public Hand(ObjectReader reader) {
-        m_HandBoneIndex = reader.ReadInt32Array();
+        m_HandBoneIndex = reader.readIntArray();
     }
 }

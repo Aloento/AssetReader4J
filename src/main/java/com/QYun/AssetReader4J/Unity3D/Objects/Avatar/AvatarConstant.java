@@ -25,25 +25,25 @@ public class AvatarConstant {
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
             m_DefaultPose = new SkeletonPose(reader);
 
-            m_SkeletonNameIDArray = reader.ReadUInt32Array();
+            m_SkeletonNameIDArray = reader.readIntArray();
         }
 
         m_Human = new Human(reader);
 
-        m_HumanSkeletonIndexArray = reader.ReadInt32Array();
+        m_HumanSkeletonIndexArray = reader.readIntArray();
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
-            m_HumanSkeletonReverseIndexArray = reader.ReadInt32Array();
+            m_HumanSkeletonReverseIndexArray = reader.readIntArray();
         }
 
-        m_RootMotionBoneIndex = reader.ReadInt32();
+        m_RootMotionBoneIndex = reader.readInt();
         m_RootMotionBoneX = new xform(reader);
 
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 3)) { //4.3 and up
             m_RootMotionSkeleton = new Skeleton(reader);
             m_RootMotionSkeletonPose = new SkeletonPose(reader);
 
-            m_RootMotionSkeletonIndexArray = reader.ReadInt32Array();
+            m_RootMotionSkeletonIndexArray = reader.readIntArray();
         }
     }
 }

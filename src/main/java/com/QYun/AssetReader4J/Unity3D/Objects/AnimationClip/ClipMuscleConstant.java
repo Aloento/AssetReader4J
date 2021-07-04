@@ -49,7 +49,7 @@ public class ClipMuscleConstant {
             m_MotionStopX = new xform(reader);
         }
         //5.4 and up
-        m_AverageSpeed = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.ReadVector3() : reader.read4ToVector3();
+        m_AverageSpeed = version[0] > 5 || (version[0] == 5 && version[1] >= 4) ? reader.readVector3() : reader.read4ToVector3();
         m_Clip = new Clip(reader);
         m_StartTime = reader.readFloat();
         m_StopTime = reader.readFloat();
@@ -86,6 +86,6 @@ public class ClipMuscleConstant {
         m_KeepOriginalPositionY = reader.readBoolean();
         m_KeepOriginalPositionXZ = reader.readBoolean();
         m_HeightFromFeet = reader.readBoolean();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

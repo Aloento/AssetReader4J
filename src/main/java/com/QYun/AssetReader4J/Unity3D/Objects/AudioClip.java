@@ -34,43 +34,43 @@ public class AudioClip extends NamedObject {
     public AudioClip(ObjectReader reader) {
         super(reader);
         if (version[0] < 5) {
-            m_Format = reader.ReadInt32();
-            m_Type = Enums.audioType(reader.ReadInt32());
-            m_3D = reader.ReadBoolean();
-            m_UseHardware = reader.ReadBoolean();
-            reader.AlignStream();
+            m_Format = reader.readInt();
+            m_Type = Enums.audioType(reader.readInt());
+            m_3D = reader.readBoolean();
+            m_UseHardware = reader.readBoolean();
+            reader.alignStream();
 
             if (version[0] >= 4 || (version[0] == 3 && version[1] >= 2)) //3.2.0 to 5
             {
-                int m_Stream = reader.ReadInt32();
-                m_Size = reader.ReadInt32();
+                int m_Stream = reader.readInt();
+                m_Size = reader.readInt();
                 var tsize = m_Size % 4 != 0 ? m_Size + 4 - m_Size % 4 : m_Size;
                 if (reader.byteSize + reader.byteStart - reader.getPos() != tsize) {
-                    m_Offset = reader.ReadUInt32();
+                    m_Offset = reader.readInt();
                     m_Source = assetsFile.file.getPath() + ".resS";
                 }
             } else {
-                m_Size = reader.ReadInt32();
+                m_Size = reader.readInt();
             }
         } else {
-            m_LoadType = reader.ReadInt32();
-            m_Channels = reader.ReadInt32();
-            m_Frequency = reader.ReadInt32();
-            m_BitsPerSample = reader.ReadInt32();
-            m_Length = reader.ReadSingle();
-            m_IsTrackerFormat = reader.ReadBoolean();
-            reader.AlignStream();
-            m_SubsoundIndex = reader.ReadInt32();
-            m_PreloadAudioData = reader.ReadBoolean();
-            m_LoadInBackground = reader.ReadBoolean();
-            m_Legacy3D = reader.ReadBoolean();
-            reader.AlignStream();
+            m_LoadType = reader.readInt();
+            m_Channels = reader.readInt();
+            m_Frequency = reader.readInt();
+            m_BitsPerSample = reader.readInt();
+            m_Length = reader.readFloat();
+            m_IsTrackerFormat = reader.readBoolean();
+            reader.alignStream();
+            m_SubsoundIndex = reader.readInt();
+            m_PreloadAudioData = reader.readBoolean();
+            m_LoadInBackground = reader.readBoolean();
+            m_Legacy3D = reader.readBoolean();
+            reader.alignStream();
 
             //StreamedResource m_Resource
-            m_Source = reader.ReadAlignedString();
-            m_Offset = reader.ReadInt64();
-            m_Size = reader.ReadInt64();
-            m_CompressionFormat = Enums.audioCompressionFormat(reader.ReadInt32());
+            m_Source = reader.readAlignedString();
+            m_Offset = reader.readLong();
+            m_Size = reader.readLong();
+            m_CompressionFormat = Enums.audioCompressionFormat(reader.readInt());
         }
 
         ResourceReader resourceReader;

@@ -11,7 +11,7 @@ public abstract class Texture extends NamedObject {
             if (version[0] > 2020 || (version[0] == 2020 && version[1] >= 2)) {
                 var m_IsAlphaChannelOptional = reader.readBoolean();
             }
-            reader.AlignStream();
+            reader.alignStream();
         }
     }
 }

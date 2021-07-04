@@ -9,7 +9,7 @@ public class SerializedProgram {
     public SerializedProgram(ObjectReader reader) {
         var version = reader.version();
 
-        int numSubPrograms = reader.ReadInt32();
+        int numSubPrograms = reader.readInt();
         m_SubPrograms = new SerializedSubProgram[numSubPrograms];
         for (int i = 0; i < numSubPrograms; i++) {
             m_SubPrograms[i] = new SerializedSubProgram(reader);

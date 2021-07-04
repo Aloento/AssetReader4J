@@ -9,11 +9,11 @@ public class Limit {
     public Limit(ObjectReader reader) {
         var version = reader.version();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 4)) { //5.4 and up
-            m_Min = reader.ReadVector3();
-            m_Max = reader.ReadVector3();
+            m_Min = reader.readVector3();
+            m_Max = reader.readVector3();
         } else {
-            m_Min = reader.ReadVector4();
-            m_Max = reader.ReadVector4();
+            m_Min = reader.readVector4();
+            m_Max = reader.readVector4();
         }
     }
 }

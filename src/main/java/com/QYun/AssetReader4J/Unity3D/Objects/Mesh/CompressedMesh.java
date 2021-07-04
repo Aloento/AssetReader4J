@@ -42,7 +42,7 @@ public class CompressedMesh {
             if (version[0] < 5) {
                 m_Colors = new PackedIntVector(reader);
             } else {
-                m_UVInfo = reader.ReadUInt32();
+                m_UVInfo = reader.readInt();
             }
         }
     }

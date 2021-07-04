@@ -14,14 +14,14 @@ public class Avatar extends NamedObject {
 
     public Avatar(ObjectReader reader) {
         super(reader);
-        m_AvatarSize = reader.ReadUInt32();
+        m_AvatarSize = reader.readInt();
         m_Avatar = new AvatarConstant(reader);
 
-        int numTOS = reader.ReadInt32();
+        int numTOS = reader.readInt();
         m_TOS = Lists.mutable.withInitialCapacity(numTOS);
         for (int i = 0; i < numTOS; i++) {
             MutableMap<Integer, String> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadUInt32(), reader.ReadAlignedString());
+            tmp.put(reader.readInt(), reader.readAlignedString());
             m_TOS.add(i, tmp);
         }
 

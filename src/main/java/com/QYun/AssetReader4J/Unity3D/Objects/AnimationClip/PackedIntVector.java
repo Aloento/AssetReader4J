@@ -12,10 +12,10 @@ public class PackedIntVector {
 
         int numData = reader.readInt();
         m_Data = reader.readBytes(numData);
-        reader.AlignStream();
+        reader.alignStream();
 
         m_BitSize = reader.readByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 
     public int[] unpackInts() {

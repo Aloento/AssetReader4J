@@ -7,6 +7,6 @@ public class NamedObject extends EditorExtension {
 
     protected NamedObject(ObjectReader reader) {
         super(reader);
-        m_Name = reader.ReadAlignedString();
+        m_Name = reader.readAlignedString();
     }
 }

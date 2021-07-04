@@ -9,7 +9,7 @@ public class Vector3Curve {
     public String path;
 
     public Vector3Curve(ObjectReader reader) {
-        curve = new AnimationCurve<>(reader, reader::ReadVector3);
-        path = reader.ReadAlignedString();
+        curve = new AnimationCurve<>(reader, reader::readVector3);
+        path = reader.readAlignedString();
     }
 }

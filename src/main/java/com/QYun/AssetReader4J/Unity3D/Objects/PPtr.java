@@ -8,10 +8,10 @@ import com.QYun.AssetReader4J.Unity3D.UObject;
 
 public class PPtr<T extends UObject> {
     private final SerializedFile assetsFile;
-    private int index = -2; //-2 - Prepare, -1 - Missing
     private final Class<T> tClass;
     public int m_FileID;
     public long m_PathID;
+    private int index = -2; //-2 - Prepare, -1 - Missing
 
     public PPtr(ObjectReader reader, Class<T> tClass) {
         m_FileID = reader.readInt();

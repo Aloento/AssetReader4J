@@ -10,11 +10,11 @@ public class MatrixParameter {
     public byte m_RowCount;
 
     public MatrixParameter(ObjectReader reader) {
-        m_NameIndex = reader.ReadInt32();
-        m_Index = reader.ReadInt32();
-        m_ArraySize = reader.ReadInt32();
+        m_NameIndex = reader.readInt();
+        m_Index = reader.readInt();
+        m_ArraySize = reader.readInt();
         m_Type = reader.readByte();     //m_Type = reader.ReadSByte();
         m_RowCount = reader.readByte(); //m_RowCount = reader.ReadSByte();
-        reader.AlignStream();
+        reader.alignStream();
     }
 }

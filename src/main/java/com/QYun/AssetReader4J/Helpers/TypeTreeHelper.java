@@ -48,7 +48,7 @@ public class TypeTreeHelper {
             case "bool" -> value = reader.readBoolean();
             case "string" -> {
                 append = false;
-                var str = reader.ReadAlignedString();
+                var str = reader.readAlignedString();
                 sb.append(String.format("%s%s %s = \"%s\"\r\n", "\t".repeat(level), varTypeStr, varNameStr, str));
                 i += 3;
             }
@@ -116,7 +116,7 @@ public class TypeTreeHelper {
             case "double" -> value = reader.readDouble();
             case "bool" -> value = reader.readBoolean();
             case "string" -> {
-                value = reader.ReadAlignedString();
+                value = reader.readAlignedString();
                 i += 3;
             }
 

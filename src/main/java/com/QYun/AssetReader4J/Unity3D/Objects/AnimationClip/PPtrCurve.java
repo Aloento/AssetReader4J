@@ -18,8 +18,8 @@ public class PPtrCurve {
             curve[i] = new PPtrKeyframe(reader);
         }
 
-        attribute = reader.ReadAlignedString();
-        path = reader.ReadAlignedString();
+        attribute = reader.readAlignedString();
+        path = reader.readAlignedString();
         classID = reader.readInt();
         script = new PPtr<>(reader, MonoScript.class);
     }

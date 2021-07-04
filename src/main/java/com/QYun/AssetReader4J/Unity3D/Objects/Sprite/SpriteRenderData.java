@@ -53,7 +53,7 @@ public class SpriteRenderData {
             }
 
             m_IndexBuffer = reader.readBytes(reader.readInt());
-            reader.AlignStream();
+            reader.alignStream();
 
             m_VertexData = new VertexData(reader);
         } else {
@@ -64,11 +64,11 @@ public class SpriteRenderData {
             }
 
             indices = reader.readShorts(reader.readInt());
-            reader.AlignStream();
+            reader.alignStream();
         }
 
         if (version[0] >= 2018) { //2018 and up
-            m_Bindpose = reader.readMatrices(reader.readInt());
+            m_Bindpose = reader.readMatrixArray();
 
             if (version[0] == 2018 && version[1] < 2) { //2018.2 down
                 var m_SourceSkinSize = reader.readInt();
@@ -79,14 +79,14 @@ public class SpriteRenderData {
         }
 
         textureRect = new Rectf(reader);
-        textureRectOffset = reader.ReadVector2();
+        textureRectOffset = reader.readVector2();
         if (version[0] > 5 || (version[0] == 5 && version[1] >= 6)) { //5.6 and up
-            atlasRectOffset = reader.ReadVector2();
+            atlasRectOffset = reader.readVector2();
         }
 
         settingsRaw = new SpriteSettings(reader);
         if (version[0] > 4 || (version[0] == 4 && version[1] >= 5)) { //4.5 and up
-            uvTransform = reader.ReadVector4();
+            uvTransform = reader.readVector4();
         }
 
         if (version[0] >= 2017) { //2017 and up

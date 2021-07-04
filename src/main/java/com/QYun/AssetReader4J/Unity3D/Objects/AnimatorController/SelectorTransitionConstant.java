@@ -7,9 +7,9 @@ public class SelectorTransitionConstant {
     public ConditionConstant[] m_ConditionConstantArray;
 
     public SelectorTransitionConstant(ObjectReader reader) {
-        m_Destination = reader.ReadUInt32();
+        m_Destination = reader.readInt();
 
-        int numConditions = reader.ReadInt32();
+        int numConditions = reader.readInt();
         m_ConditionConstantArray = new ConditionConstant[numConditions];
         for (int i = 0; i < numConditions; i++) {
             m_ConditionConstantArray[i] = new ConditionConstant(reader);

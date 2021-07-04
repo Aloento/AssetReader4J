@@ -15,17 +15,17 @@ public class AssetBundle extends NamedObject {
 
     public AssetBundle(ObjectReader reader) {
         super(reader);
-        var m_PreloadTableSize = reader.ReadInt32();
+        var m_PreloadTableSize = reader.readInt();
         m_PreloadTable = Lists.mutable.withInitialCapacity(m_PreloadTableSize);
         for (int i = 0; i < m_PreloadTableSize; i++) {
             m_PreloadTable.add(i, new PPtr<>(reader, UObject.class));
         }
 
-        var m_ContainerSize = reader.ReadInt32();
+        var m_ContainerSize = reader.readInt();
         m_Container = Lists.mutable.withInitialCapacity(m_ContainerSize);
         for (int i = 0; i < m_ContainerSize; i++) {
             MutableMap<String, AssetInfo> tmp = Maps.mutable.empty();
-            tmp.put(reader.ReadAlignedString(), new AssetInfo(reader));
+            tmp.put(reader.readAlignedString(), new AssetInfo(reader));
             m_Container.add(i, tmp);
         }
     }

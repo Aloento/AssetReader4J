@@ -18,19 +18,19 @@ public class SpriteAtlas extends NamedObject {
 
     public SpriteAtlas(ObjectReader reader) {
         super(reader);
-        var m_PackedSpritesSize = reader.ReadInt32();
+        var m_PackedSpritesSize = reader.readInt();
         m_PackedSprites = Lists.mutable.withInitialCapacity(m_PackedSpritesSize);
         for (int i = 0; i < m_PackedSpritesSize; i++) {
             m_PackedSprites.add(i, new PPtr<>(reader, Sprite.class));
         }
 
-        var m_PackedSpriteNamesToIndex = reader.ReadStringArray();
+        var m_PackedSpriteNamesToIndex = reader.readStringArray();
 
-        var m_RenderDataMapSize = reader.ReadInt32();
+        var m_RenderDataMapSize = reader.readInt();
         m_RenderDataMap = Maps.mutable.withInitialCapacity(m_RenderDataMapSize);
         for (int i = 0; i < m_RenderDataMapSize; i++) {
-            var first = UUID.nameUUIDFromBytes(ArrayUtils.toPrimitive(reader.ReadBytes(16)));
-            var second = reader.ReadInt64();
+            var first = UUID.nameUUIDFromBytes(ArrayUtils.toPrimitive(reader.readBytes(16)));
+            var second = reader.readLong();
             var value = new SpriteAtlasData(reader);
 
             MutableMap<UUID, Long> tmp = Maps.mutable.empty();

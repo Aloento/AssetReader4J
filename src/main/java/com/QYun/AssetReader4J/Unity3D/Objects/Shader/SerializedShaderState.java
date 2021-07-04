@@ -35,13 +35,13 @@ public class SerializedShaderState {
     public SerializedShaderState(ObjectReader reader) {
         var version = reader.version();
 
-        m_Name = reader.ReadAlignedString();
+        m_Name = reader.readAlignedString();
         rtBlend = new SerializedShaderRTBlendState[8];
         for (int i = 0; i < 8; i++) {
             rtBlend[i] = new SerializedShaderRTBlendState(reader);
         }
-        rtSeparateBlend = reader.ReadBoolean();
-        reader.AlignStream();
+        rtSeparateBlend = reader.readBoolean();
+        reader.alignStream();
         if (version[0] > 2017 || (version[0] == 2017 && version[1] >= 2)) { //2017.2 and up
             zClip = new SerializedShaderFloatValue(reader);
         }
@@ -64,11 +64,11 @@ public class SerializedShaderState {
         fogEnd = new SerializedShaderFloatValue(reader);
         fogDensity = new SerializedShaderFloatValue(reader);
         fogColor = new SerializedShaderVectorValue(reader);
-        fogMode = Enums.fogMode(reader.ReadInt32());
-        gpuProgramID = reader.ReadInt32();
+        fogMode = Enums.fogMode(reader.readInt());
+        gpuProgramID = reader.readInt();
         m_Tags = new SerializedTagMap(reader);
-        m_LOD = reader.ReadInt32();
-        lighting = reader.ReadBoolean();
-        reader.AlignStream();
+        m_LOD = reader.readInt();
+        lighting = reader.readBoolean();
+        reader.alignStream();
     }
 }

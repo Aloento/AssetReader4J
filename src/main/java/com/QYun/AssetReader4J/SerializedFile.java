@@ -70,7 +70,7 @@ public class SerializedFile {
             reader.setByteOrder(ByteOrder.LITTLE_ENDIAN);
 
         if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_7.ordinal()) {
-            unityVersion = reader.ReadStringToNull();
+            unityVersion = reader.readStringToNull();
             setVersion(unityVersion);
         }
 
@@ -102,7 +102,7 @@ public class SerializedFile {
             } else if (header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_14.ordinal()) {
                 objectInfo.m_PathID = reader.readInt();
             } else {
-                reader.AlignStream();
+                reader.alignStream();
                 objectInfo.m_PathID = reader.readLong();
             }
 
@@ -156,7 +156,7 @@ public class SerializedFile {
                 if (header.m_Version.ordinal() < SerializedFileFormatVersion.kUnknown_14.ordinal()) {
                     m_ScriptType.localIdentifierInFile = reader.readInt();
                 } else {
-                    reader.AlignStream();
+                    reader.alignStream();
                     m_ScriptType.localIdentifierInFile = reader.readLong();
                 }
                 m_ScriptTypes.add(m_ScriptType);
@@ -168,13 +168,13 @@ public class SerializedFile {
         for (int i = 0; i < externalsCount; i++) {
             FileIdentifier m_External = new FileIdentifier();
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_6.ordinal()) {
-                String tempEmpty = reader.ReadStringToNull();
+                String tempEmpty = reader.readStringToNull();
             }
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()) {
                 m_External.guid = UUID.nameUUIDFromBytes(ArrayUtils.toPrimitive(reader.readBytes(16)));
                 m_External.type = reader.readInt();
             }
-            m_External.pathName = reader.ReadStringToNull();
+            m_External.pathName = reader.readStringToNull();
             m_External.fileName = new File(m_External.pathName).getName();
             m_Externals.add(m_External);
         }
@@ -188,7 +188,7 @@ public class SerializedFile {
         }
 
         if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kUnknown_5.ordinal()) {
-            userInformation = reader.ReadStringToNull();
+            userInformation = reader.readStringToNull();
         }
 
     }
@@ -253,9 +253,9 @@ public class SerializedFile {
 
             if (header.m_Version.ordinal() >= SerializedFileFormatVersion.kStoresTypeDependencies.ordinal()) {
                 if (isRefType) {
-                    type.m_KlassName = reader.ReadStringToNull();
-                    type.m_NameSpace = reader.ReadStringToNull();
-                    type.m_AsmName = reader.ReadStringToNull();
+                    type.m_KlassName = reader.readStringToNull();
+                    type.m_NameSpace = reader.readStringToNull();
+                    type.m_AsmName = reader.readStringToNull();
                 } else {
                     type.m_TypeDependencies = reader.readInts(reader.readInt());
                 }
@@ -273,8 +273,8 @@ public class SerializedFile {
         var typeTreeNode = new TypeTreeNode();
         m_Type.m_Nodes.add(typeTreeNode);
         typeTreeNode.m_Level = level;
-        typeTreeNode.m_Type = reader.ReadStringToNull();
-        typeTreeNode.m_Name = reader.ReadStringToNull();
+        typeTreeNode.m_Type = reader.readStringToNull();
+        typeTreeNode.m_Name = reader.readStringToNull();
         typeTreeNode.m_ByteSize = reader.readInt();
         if (header.m_Version.ordinal() == SerializedFileFormatVersion.kUnknown_2.ordinal()) {
             var variableCount = reader.readInt();
@@ -326,7 +326,7 @@ public class SerializedFile {
         var isOffset = (value & 0x80000000) == 0;
         if (isOffset) {
             reader.setPos(value);
-            return reader.ReadStringToNull();
+            return reader.readStringToNull();
         }
 
         int offset = value & 0x7FFFFFFF;

@@ -14,6 +14,6 @@ public class SerializedShaderVectorValue {
         y = new SerializedShaderFloatValue(reader);
         z = new SerializedShaderFloatValue(reader);
         w = new SerializedShaderFloatValue(reader);
-        name = reader.ReadAlignedString();
+        name = reader.readAlignedString();
     }
 }
